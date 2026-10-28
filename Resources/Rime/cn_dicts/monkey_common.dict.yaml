@@ -1,0 +1,127 @@
+# Monkey daily-conversation vocabulary supplement.
+# Copyright (c) 2026 Monkey contributors. Distributed under the project MIT license.
+# Weights are editorial priors, not measured usage counts. This small supplement
+# addresses conversational phrases underrepresented in the general corpus.
+# It changes frequency, not fixed candidate positions; Rime/user learning sorts.
+---
+name: monkey_common
+version: "0.2.0"
+sort: by_weight
+...
+你好	ni hao	1800000
+您好	nin hao	1200000
+谢谢	xie xie	1500000
+不客气	bu ke qi	1000000
+没关系	mei guan xi	1000000
+对不起	dui bu qi	1200000
+抱歉	bao qian	1000000
+好的	hao de	1500000
+好呀	hao ya	900000
+可以	ke yi	1400000
+收到	shou dao	1400000
+明白	ming bai	1100000
+了解	liao jie	1000000
+知道了	zhi dao le	1200000
+没问题	mei wen ti	1300000
+辛苦了	xin ku le	1200000
+麻烦你	ma fan ni	1000000
+请问	qing wen	1200000
+请稍等	qing shao deng	1100000
+稍等	shao deng	1000000
+马上	ma shang	1000000
+现在	xian zai	1200000
+今天	jin tian	1200000
+明天	ming tian	1200000
+昨天	zuo tian	1000000
+后天	hou tian	900000
+早上好	zao shang hao	1000000
+晚上好	wan shang hao	900000
+晚安	wan an	1200000
+再见	zai jian	1300000
+拜拜	bai bai	1000000
+回头见	hui tou jian	900000
+明天见	ming tian jian	1100000
+一会儿	yi hui er	1000000
+等一下	deng yi xia	1100000
+等会儿	deng hui er	900000
+我到了	wo dao le	900000
+我来了	wo lai le	900000
+我知道	wo zhi dao	1000000
+我觉得	wo jue de	1000000
+我想	wo xiang	900000
+我要	wo yao	900000
+我们	wo men	1300000
+你们	ni men	1000000
+他们	ta men	1000000
+大家	da jia	1000000
+你好吗	ni hao ma	900000
+在吗	zai ma	1100000
+有空吗	you kong ma	900000
+方便吗	fang bian ma	900000
+什么时候	shen me shi hou	1100000
+在哪里	zai na li	1000000
+为什么	wei shen me	1200000
+怎么样	zen me yang	1000000
+怎么了	zen me le	1100000
+怎么办	zen me ban	1000000
+多少钱	duo shao qian	1000000
+不要紧	bu yao jin	900000
+不用了	bu yong le	1000000
+可以的	ke yi de	1000000
+没事	mei shi	1100000
+没事的	mei shi de	1000000
+是的	shi de	1100000
+不是	bu shi	1200000
+没有	mei you	1300000
+有的	you de	900000
+一起	yi qi	1000000
+一下	yi xia	1000000
+这个	zhe ge	1300000
+那个	na ge	1200000
+这样	zhe yang	1100000
+那样	na yang	900000
+发给我	fa gei wo	1000000
+看一下	kan yi xia	1000000
+确认一下	que ren yi xia	1000000
+稍后回复	shao hou hui fu	900000
+我看一下	wo kan yi xia	900000
+稍后	shao hou	900000
+现在可以	xian zai ke yi	900000
+下班	xia ban	1000000
+上班	shang ban	1000000
+开会	kai hui	1100000
+会议	hui yi	1000000
+项目	xiang mu	1000000
+文件	wen jian	1000000
+链接	lian jie	1000000
+地址	di zhi	1000000
+邮箱	you xiang	1000000
+电话	dian hua	1000000
+时间	shi jian	1100000
+问题	wen ti	1100000
+需要	xu yao	1100000
+更新	geng xin	1000000
+版本	ban ben	900000
+下载	xia zai	1000000
+安装	an zhuang	900000
+输入法	shu ru fa	900000
+翻译	fan yi	1000000
+中文	zhong wen	1000000
+英文	ying wen	1000000
+测试	ce shi	1000000
+完成	wan cheng	1000000
+已经	yi jing	1100000
+还没	hai mei	900000
+正在	zheng zai	1000000
+准备	zhun bei	1000000
+安排	an pai	1000000
+今天下午	jin tian xia wu	900000
+明天上午	ming tian shang wu	900000
+周末	zhou mo	1000000
+周一	zhou yi	900000
+周二	zhou er	900000
+周三	zhou san	900000
+周四	zhou si	900000
+周五	zhou wu	900000
+周六	zhou liu	900000
+周日	zhou ri	900000

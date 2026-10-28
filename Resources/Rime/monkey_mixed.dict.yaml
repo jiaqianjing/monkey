@@ -1,0 +1,9 @@
+# Chinese/English mixed dictionary; source and derivation are in licenses/.
+---
+name: monkey_mixed
+version: "0.2.0"
+sort: by_weight
+use_preset_vocabulary: false
+import_tables:
+  - cn_dicts/monkey_mixed_terms
+...

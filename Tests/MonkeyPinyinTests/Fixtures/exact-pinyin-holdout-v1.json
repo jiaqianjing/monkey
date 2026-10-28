@@ -1,0 +1,1508 @@
+{
+  "version": 1,
+  "title": "Fixed seeded unseen high-frequency pinyin regression",
+  "baselineCommit": "76db9e6553b626a80c5af0735bfcdbe53d0d6b9c",
+  "evaluationContract": "150 seeded high-frequency words outside main fixed corpus; both configurations tested with same expectations and clean profiles. Compare changes rather than treating corpus frequency as user intent.",
+  "cases": [
+    {
+      "id": "holdout-001",
+      "category": "unseen-exact",
+      "input": "shoucangbenye",
+      "expected": [
+        "收藏本页"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-002",
+      "category": "unseen-exact",
+      "input": "shuxing",
+      "expected": [
+        "属性"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-003",
+      "category": "unseen-exact",
+      "input": "meiri",
+      "expected": [
+        "每日"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-004",
+      "category": "unseen-exact",
+      "input": "zongshi",
+      "expected": [
+        "总是"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-005",
+      "category": "unseen-exact",
+      "input": "dingdan",
+      "expected": [
+        "订单"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-006",
+      "category": "unseen-exact",
+      "input": "gongmin",
+      "expected": [
+        "公民"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-007",
+      "category": "unseen-exact",
+      "input": "zhiliang",
+      "expected": [
+        "质量"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-008",
+      "category": "unseen-exact",
+      "input": "shangshi",
+      "expected": [
+        "上市"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-009",
+      "category": "unseen-exact",
+      "input": "jizhi",
+      "expected": [
+        "机制"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-010",
+      "category": "unseen-exact",
+      "input": "pingtai",
+      "expected": [
+        "平台"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-011",
+      "category": "unseen-exact",
+      "input": "yingyu",
+      "expected": [
+        "英语"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-012",
+      "category": "unseen-exact",
+      "input": "biangeng",
+      "expected": [
+        "变更"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-013",
+      "category": "unseen-exact",
+      "input": "ruguo",
+      "expected": [
+        "如果"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-014",
+      "category": "unseen-exact",
+      "input": "liyong",
+      "expected": [
+        "利用"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-015",
+      "category": "unseen-exact",
+      "input": "gangcai",
+      "expected": [
+        "刚才"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-016",
+      "category": "unseen-exact",
+      "input": "zhanlan",
+      "expected": [
+        "展览"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-017",
+      "category": "unseen-exact",
+      "input": "guocheng",
+      "expected": [
+        "过程"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-018",
+      "category": "unseen-exact",
+      "input": "chongxin",
+      "expected": [
+        "重新"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-019",
+      "category": "unseen-exact",
+      "input": "youquan",
+      "expected": [
+        "有权"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-020",
+      "category": "unseen-exact",
+      "input": "moren",
+      "expected": [
+        "默认"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-021",
+      "category": "unseen-exact",
+      "input": "yebu",
+      "expected": [
+        "也不"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-022",
+      "category": "unseen-exact",
+      "input": "ganxie",
+      "expected": [
+        "感谢"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-023",
+      "category": "unseen-exact",
+      "input": "shehuizhuyi",
+      "expected": [
+        "社会主义"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-024",
+      "category": "unseen-exact",
+      "input": "xunsu",
+      "expected": [
+        "迅速"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-025",
+      "category": "unseen-exact",
+      "input": "shouxu",
+      "expected": [
+        "手续"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-026",
+      "category": "unseen-exact",
+      "input": "tongchang",
+      "expected": [
+        "通常"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-027",
+      "category": "unseen-exact",
+      "input": "guancha",
+      "expected": [
+        "观察"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-028",
+      "category": "unseen-exact",
+      "input": "cailiao",
+      "expected": [
+        "材料"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-029",
+      "category": "unseen-exact",
+      "input": "meinian",
+      "expected": [
+        "每年"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-030",
+      "category": "unseen-exact",
+      "input": "shifen",
+      "expected": [
+        "十分"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-031",
+      "category": "unseen-exact",
+      "input": "diyici",
+      "expected": [
+        "第一次"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-032",
+      "category": "unseen-exact",
+      "input": "ninsuo",
+      "expected": [
+        "您所"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-033",
+      "category": "unseen-exact",
+      "input": "chexing",
+      "expected": [
+        "车型"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-034",
+      "category": "unseen-exact",
+      "input": "bizhe",
+      "expected": [
+        "笔者"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-035",
+      "category": "unseen-exact",
+      "input": "laidao",
+      "expected": [
+        "来到"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-036",
+      "category": "unseen-exact",
+      "input": "shangwu",
+      "expected": [
+        "商务"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-037",
+      "category": "unseen-exact",
+      "input": "jiancha",
+      "expected": [
+        "检查"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-038",
+      "category": "unseen-exact",
+      "input": "bimian",
+      "expected": [
+        "避免"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-039",
+      "category": "unseen-exact",
+      "input": "niandu",
+      "expected": [
+        "年度"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-040",
+      "category": "unseen-exact",
+      "input": "fafang",
+      "expected": [
+        "发放"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-041",
+      "category": "unseen-exact",
+      "input": "zhaodao",
+      "expected": [
+        "找到"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-042",
+      "category": "unseen-exact",
+      "input": "hexin",
+      "expected": [
+        "核心"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-043",
+      "category": "unseen-exact",
+      "input": "diyige",
+      "expected": [
+        "第一个"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-044",
+      "category": "unseen-exact",
+      "input": "chengbao",
+      "expected": [
+        "承包"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-045",
+      "category": "unseen-exact",
+      "input": "yuanzhang",
+      "expected": [
+        "院长"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-046",
+      "category": "unseen-exact",
+      "input": "chengli",
+      "expected": [
+        "成立"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-047",
+      "category": "unseen-exact",
+      "input": "youyou",
+      "expected": [
+        "又有"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-048",
+      "category": "unseen-exact",
+      "input": "zheme",
+      "expected": [
+        "这么"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-049",
+      "category": "unseen-exact",
+      "input": "shuliang",
+      "expected": [
+        "数量"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-050",
+      "category": "unseen-exact",
+      "input": "yizhen",
+      "expected": [
+        "一阵"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-051",
+      "category": "unseen-exact",
+      "input": "zhunque",
+      "expected": [
+        "准确"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-052",
+      "category": "unseen-exact",
+      "input": "qiye",
+      "expected": [
+        "企业"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-053",
+      "category": "unseen-exact",
+      "input": "xianran",
+      "expected": [
+        "显然"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-054",
+      "category": "unseen-exact",
+      "input": "chongfu",
+      "expected": [
+        "重复"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-055",
+      "category": "unseen-exact",
+      "input": "zhijin",
+      "expected": [
+        "至今"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-056",
+      "category": "unseen-exact",
+      "input": "yiji",
+      "expected": [
+        "一级"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-057",
+      "category": "unseen-exact",
+      "input": "bingqie",
+      "expected": [
+        "并且"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-058",
+      "category": "unseen-exact",
+      "input": "huide",
+      "expected": [
+        "会的"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-059",
+      "category": "unseen-exact",
+      "input": "huanjie",
+      "expected": [
+        "环节"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-060",
+      "category": "unseen-exact",
+      "input": "sange",
+      "expected": [
+        "三个"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-061",
+      "category": "unseen-exact",
+      "input": "fenbie",
+      "expected": [
+        "分别"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-062",
+      "category": "unseen-exact",
+      "input": "erzai",
+      "expected": [
+        "而在"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-063",
+      "category": "unseen-exact",
+      "input": "weixin",
+      "expected": [
+        "微信"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-064",
+      "category": "unseen-exact",
+      "input": "yundong",
+      "expected": [
+        "运动"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-065",
+      "category": "unseen-exact",
+      "input": "zulin",
+      "expected": [
+        "租赁"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-066",
+      "category": "unseen-exact",
+      "input": "yiduan",
+      "expected": [
+        "一段"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-067",
+      "category": "unseen-exact",
+      "input": "canyu",
+      "expected": [
+        "参与"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-068",
+      "category": "unseen-exact",
+      "input": "zhuceshijian",
+      "expected": [
+        "注册时间"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-069",
+      "category": "unseen-exact",
+      "input": "shouye",
+      "expected": [
+        "首页"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-070",
+      "category": "unseen-exact",
+      "input": "diyi",
+      "expected": [
+        "第一"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-071",
+      "category": "unseen-exact",
+      "input": "yinyong",
+      "expected": [
+        "引用"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-072",
+      "category": "unseen-exact",
+      "input": "weixiu",
+      "expected": [
+        "维修"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-073",
+      "category": "unseen-exact",
+      "input": "jiance",
+      "expected": [
+        "监测"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-074",
+      "category": "unseen-exact",
+      "input": "xinpian",
+      "expected": [
+        "芯片"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-075",
+      "category": "unseen-exact",
+      "input": "bisai",
+      "expected": [
+        "比赛"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-076",
+      "category": "unseen-exact",
+      "input": "conger",
+      "expected": [
+        "从而"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-077",
+      "category": "unseen-exact",
+      "input": "jinnian",
+      "expected": [
+        "今年"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-078",
+      "category": "unseen-exact",
+      "input": "jiaoshou",
+      "expected": [
+        "教授"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-079",
+      "category": "unseen-exact",
+      "input": "dongfang",
+      "expected": [
+        "东方"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-080",
+      "category": "unseen-exact",
+      "input": "kaoshi",
+      "expected": [
+        "考试"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-081",
+      "category": "unseen-exact",
+      "input": "houlai",
+      "expected": [
+        "后来"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-082",
+      "category": "unseen-exact",
+      "input": "jiyu",
+      "expected": [
+        "给予"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-083",
+      "category": "unseen-exact",
+      "input": "jiudian",
+      "expected": [
+        "酒店"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-084",
+      "category": "unseen-exact",
+      "input": "guojia",
+      "expected": [
+        "国家"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-085",
+      "category": "unseen-exact",
+      "input": "jiezhi",
+      "expected": [
+        "戒指"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-086",
+      "category": "unseen-exact",
+      "input": "bubi",
+      "expected": [
+        "不必"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-087",
+      "category": "unseen-exact",
+      "input": "zanshi",
+      "expected": [
+        "暂时"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-088",
+      "category": "unseen-exact",
+      "input": "renqi",
+      "expected": [
+        "人气"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-089",
+      "category": "unseen-exact",
+      "input": "renti",
+      "expected": [
+        "人体"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-090",
+      "category": "unseen-exact",
+      "input": "shenghuo",
+      "expected": [
+        "生活"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-091",
+      "category": "unseen-exact",
+      "input": "kunnan",
+      "expected": [
+        "困难"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-092",
+      "category": "unseen-exact",
+      "input": "qita",
+      "expected": [
+        "其他"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-093",
+      "category": "unseen-exact",
+      "input": "difang",
+      "expected": [
+        "地方"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-094",
+      "category": "unseen-exact",
+      "input": "yongyu",
+      "expected": [
+        "用于"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-095",
+      "category": "unseen-exact",
+      "input": "quansheng",
+      "expected": [
+        "全省"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-096",
+      "category": "unseen-exact",
+      "input": "fenbu",
+      "expected": [
+        "分布"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-097",
+      "category": "unseen-exact",
+      "input": "tongku",
+      "expected": [
+        "痛苦"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-098",
+      "category": "unseen-exact",
+      "input": "shejishi",
+      "expected": [
+        "设计师"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-099",
+      "category": "unseen-exact",
+      "input": "zhongyao",
+      "expected": [
+        "重要"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-100",
+      "category": "unseen-exact",
+      "input": "chuangkou",
+      "expected": [
+        "窗口"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-101",
+      "category": "unseen-exact",
+      "input": "youle",
+      "expected": [
+        "有了"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-102",
+      "category": "unseen-exact",
+      "input": "tebieshi",
+      "expected": [
+        "特别是"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-103",
+      "category": "unseen-exact",
+      "input": "dedaole",
+      "expected": [
+        "得到了"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-104",
+      "category": "unseen-exact",
+      "input": "mubiao",
+      "expected": [
+        "目标"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-105",
+      "category": "unseen-exact",
+      "input": "guochengzhong",
+      "expected": [
+        "过程中"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-106",
+      "category": "unseen-exact",
+      "input": "yiding",
+      "expected": [
+        "一定"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-107",
+      "category": "unseen-exact",
+      "input": "xianzhi",
+      "expected": [
+        "限制"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-108",
+      "category": "unseen-exact",
+      "input": "lvshi",
+      "expected": [
+        "律师"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-109",
+      "category": "unseen-exact",
+      "input": "wufa",
+      "expected": [
+        "无法"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-110",
+      "category": "unseen-exact",
+      "input": "zaoxing",
+      "expected": [
+        "造型"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-111",
+      "category": "unseen-exact",
+      "input": "fujian",
+      "expected": [
+        "福建"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-112",
+      "category": "unseen-exact",
+      "input": "jiaoda",
+      "expected": [
+        "较大"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-113",
+      "category": "unseen-exact",
+      "input": "jianli",
+      "expected": [
+        "简历"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-114",
+      "category": "unseen-exact",
+      "input": "shenhe",
+      "expected": [
+        "审核"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-115",
+      "category": "unseen-exact",
+      "input": "daliang",
+      "expected": [
+        "大量"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-116",
+      "category": "unseen-exact",
+      "input": "renzhen",
+      "expected": [
+        "认真"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-117",
+      "category": "unseen-exact",
+      "input": "fangshi",
+      "expected": [
+        "方式"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-118",
+      "category": "unseen-exact",
+      "input": "jingguo",
+      "expected": [
+        "经过"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-119",
+      "category": "unseen-exact",
+      "input": "yiju",
+      "expected": [
+        "一句"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-120",
+      "category": "unseen-exact",
+      "input": "genju",
+      "expected": [
+        "根据"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-121",
+      "category": "unseen-exact",
+      "input": "jike",
+      "expected": [
+        "即可"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-122",
+      "category": "unseen-exact",
+      "input": "youxiu",
+      "expected": [
+        "优秀"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-123",
+      "category": "unseen-exact",
+      "input": "chengwei",
+      "expected": [
+        "成为"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-124",
+      "category": "unseen-exact",
+      "input": "ciji",
+      "expected": [
+        "刺激"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-125",
+      "category": "unseen-exact",
+      "input": "zhengzai",
+      "expected": [
+        "正在"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-126",
+      "category": "unseen-exact",
+      "input": "dianli",
+      "expected": [
+        "电力"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-127",
+      "category": "unseen-exact",
+      "input": "zhonglei",
+      "expected": [
+        "种类"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-128",
+      "category": "unseen-exact",
+      "input": "bufen",
+      "expected": [
+        "部分"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-129",
+      "category": "unseen-exact",
+      "input": "tade",
+      "expected": [
+        "它的"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-130",
+      "category": "unseen-exact",
+      "input": "baochi",
+      "expected": [
+        "保持"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-131",
+      "category": "unseen-exact",
+      "input": "guji",
+      "expected": [
+        "估计"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-132",
+      "category": "unseen-exact",
+      "input": "guding",
+      "expected": [
+        "固定"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-133",
+      "category": "unseen-exact",
+      "input": "daozhi",
+      "expected": [
+        "导致"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-134",
+      "category": "unseen-exact",
+      "input": "ziyuan",
+      "expected": [
+        "资源"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-135",
+      "category": "unseen-exact",
+      "input": "jinyibu",
+      "expected": [
+        "进一步"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-136",
+      "category": "unseen-exact",
+      "input": "xingu",
+      "expected": [
+        "新股"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-137",
+      "category": "unseen-exact",
+      "input": "shizhengfu",
+      "expected": [
+        "市政府"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-138",
+      "category": "unseen-exact",
+      "input": "yishang",
+      "expected": [
+        "以上"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-139",
+      "category": "unseen-exact",
+      "input": "zhanshi",
+      "expected": [
+        "展示"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-140",
+      "category": "unseen-exact",
+      "input": "gouwu",
+      "expected": [
+        "购物"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-141",
+      "category": "unseen-exact",
+      "input": "sichuan",
+      "expected": [
+        "四川"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-142",
+      "category": "unseen-exact",
+      "input": "heli",
+      "expected": [
+        "合理"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-143",
+      "category": "unseen-exact",
+      "input": "zhengshi",
+      "expected": [
+        "正式"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-144",
+      "category": "unseen-exact",
+      "input": "deren",
+      "expected": [
+        "的人"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-145",
+      "category": "unseen-exact",
+      "input": "sheding",
+      "expected": [
+        "设定"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-146",
+      "category": "unseen-exact",
+      "input": "ganqing",
+      "expected": [
+        "感情"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-147",
+      "category": "unseen-exact",
+      "input": "dizhi",
+      "expected": [
+        "地址"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-148",
+      "category": "unseen-exact",
+      "input": "zhuzhai",
+      "expected": [
+        "住宅"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-149",
+      "category": "unseen-exact",
+      "input": "wuran",
+      "expected": [
+        "污染"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "holdout-150",
+      "category": "unseen-exact",
+      "input": "jujue",
+      "expected": [
+        "拒绝"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    }
+  ]
+}

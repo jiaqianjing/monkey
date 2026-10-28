@@ -37,7 +37,7 @@ public struct MonkeySettingsView: View {
                 Spacer()
                 Label(client.accountEmail == nil ? "普通输入离线可用" : "ChatGPT 已连接", systemImage: client.accountEmail == nil ? "keyboard" : "checkmark.circle.fill")
                     .font(.caption).foregroundStyle(.secondary)
-                Text("0.1.0 · 开源 macOS 输入法").font(.caption2).foregroundStyle(.tertiary)
+                Text("0.2.0 · 开源 macOS 输入法").font(.caption2).foregroundStyle(.tertiary)
             }
             .padding(22).frame(width: 240).background(.ultraThinMaterial)
             Divider()
@@ -49,6 +49,7 @@ public struct MonkeySettingsView: View {
                     }
                     switch selection {
                     case .start: StartPane()
+                    case .typing: TypingPane()
                     case .account: AccountPane(client: client)
                     case .translation: TranslationPane(client: client)
                     case .privacy: PrivacyPane()
@@ -65,19 +66,19 @@ public struct MonkeySettingsView: View {
 }
 
 private enum SettingsSection: String, CaseIterable, Identifiable {
-    case start, account, translation, privacy
+    case start, typing, account, translation, privacy
     var id: Self { self }
     var title: String {
-        switch self { case .start: return "开始使用"; case .account: return "ChatGPT 账号"; case .translation: return "翻译试写"; case .privacy: return "隐私与快捷键" }
+        switch self { case .start: return "开始使用"; case .typing: return "中文输入"; case .account: return "ChatGPT 账号"; case .translation: return "翻译试写"; case .privacy: return "隐私与快捷键" }
     }
     var icon: String {
-        switch self { case .start: return "keyboard"; case .account: return "person.crop.circle"; case .translation: return "character.bubble"; case .privacy: return "hand.raised" }
+        switch self { case .start: return "keyboard"; case .typing: return "character.cursor.ibeam"; case .account: return "person.crop.circle"; case .translation: return "character.bubble"; case .privacy: return "hand.raised" }
     }
     var heading: String {
-        switch self { case .start: return "用中文，写出你的想法。"; case .account: return "带上你的 ChatGPT。"; case .translation: return "先在这里试写一句。"; case .privacy: return "你的文字，由你决定。" }
+        switch self { case .start: return "用中文，写出你的想法。"; case .typing: return "让中文输入更顺手。"; case .account: return "带上你的 ChatGPT。"; case .translation: return "先在这里试写一句。"; case .privacy: return "你的文字，由你决定。" }
     }
     var subtitle: String {
-        switch self { case .start: return "本地拼音输入，加上随时开启的中译英。"; case .account: return "通过官方登录授权，使用账号可用的订阅额度。"; case .translation: return "查看翻译质量与连接状态，再回到任何应用里写作。"; case .privacy: return "普通输入留在本机；翻译只发送当前草稿。" }
+        switch self { case .start: return "本地拼音输入，加上随时开启的中译英。"; case .typing: return "按你的习惯选择候选布局与英文混输方式。"; case .account: return "通过官方登录授权，使用账号可用的订阅额度。"; case .translation: return "查看翻译质量与连接状态，再回到任何应用里写作。"; case .privacy: return "普通输入留在本机；翻译只发送当前草稿。" }
     }
 }
 
@@ -106,14 +107,77 @@ private struct StartPane: View {
             }
         }
         SettingsCard("2　像往常一样打中文") {
-            Text("从菜单栏切换到 Monkey。用全拼或简拼输入，空格选择候选词，数字直接选词，方向键移动候选，翻页键查看更多。按 ⇧ Space 切换中英文；翻译模式下输入的英文原样加入草稿。词频和用户词库保存在本机。")
+            Text("从菜单栏切换到 Monkey。用全拼或简拼输入，空格或数字选词，PgUp / PgDn 或 - / = 翻页，Return 原样输入当前拼音或英文。按 ⇧ Space 切换中英文；翻译模式下输入的英文原样加入草稿。")
                 .font(.callout).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
+            Text("在「中文输入」中选择候选布局和英文空格习惯。常用候选根据本机选词学习，数字、网址、邮箱与版本号中的 ASCII 符号保留原样。")
+                .font(.caption).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
         }
         SettingsCard("3　开启中 → 英") {
             Text("在「ChatGPT 账号」中登录。回到输入框，按 ⌃⇧T 切换翻译模式。中文选词后进入本句草稿，英文在候选窗里预览；确认后才写入当前应用。")
                 .font(.callout).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
             Text("首版面向 Apple silicon · macOS 13 或更新版本").font(.caption).foregroundStyle(.tertiary)
         }
+    }
+}
+
+@MainActor
+private struct TypingPane: View {
+    @AppStorage("typing.automaticEnglish", store: TypingPreferences.defaults) private var automaticEnglish = true
+    @AppStorage("typing.horizontalCandidates", store: TypingPreferences.defaults) private var horizontalCandidates = true
+    @AppStorage("typing.englishSpaceInsertsSpace", store: TypingPreferences.defaults) private var englishSpaceInsertsSpace = true
+    @State private var folderMessage: String?
+
+    var body: some View {
+        SettingsCard("候选与英文混输") {
+            Toggle(isOn: $automaticEnglish) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("自动识别常见英文产品词").font(.callout.weight(.medium))
+                    Text("例如 macOS、GitHub。其他拼音或英文仍可按 Return 原样输入。")
+                        .font(.caption).foregroundStyle(.secondary)
+                }
+            }
+            .toggleStyle(.switch)
+            Divider()
+            Toggle(isOn: $horizontalCandidates) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("横排候选").font(.callout.weight(.medium))
+                    Text("开启时横向排列候选；关闭后改为纵向排列。")
+                        .font(.caption).foregroundStyle(.secondary)
+                }
+            }
+            .toggleStyle(.switch)
+            Divider()
+            Toggle(isOn: $englishSpaceInsertsSpace) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("英文片段按 Space 保留空格").font(.callout.weight(.medium))
+                    Text("开启时，空格确认英文片段并保留一个空格。Return 确认原文不加空格；关闭后，空格只确认候选。")
+                        .font(.caption).foregroundStyle(.secondary)
+                }
+            }
+            .toggleStyle(.switch)
+            Text("数字、网址、邮箱和版本号中的 ASCII 符号会保留原样；普通中文输入仍使用中文标点。")
+                .font(.caption).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
+        }
+        SettingsCard("本机词库与学习") {
+            Text("常用候选的排序会根据你在本机的选词逐渐学习。在候选窗口右键某个词，可删除该词的学习记录；基础词库中的词条仍可能出现。")
+                .font(.callout).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
+            Button("打开本机词库文件夹", systemImage: "folder") { openUserDictionary() }
+            if let folderMessage {
+                Text(folderMessage).font(.caption).foregroundStyle(.secondary)
+            }
+            Text("此操作只打开文件夹，不会清空或重置你的词库。")
+                .font(.caption).foregroundStyle(.tertiary)
+        }
+    }
+
+    private func openUserDictionary() {
+        let folder = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
+            .appendingPathComponent("Monkey/Rime", isDirectory: true)
+        guard FileManager.default.fileExists(atPath: folder.path) else {
+            folderMessage = "词库文件夹会在首次使用 Monkey 拼音后建立。"
+            return
+        }
+        folderMessage = NSWorkspace.shared.open(folder) ? nil : "暂时无法打开词库文件夹，请稍后重试。"
     }
 }
 
@@ -253,10 +317,12 @@ private struct PrivacyPane: View {
             shortcut("切换中文 / 中译英", "⌃⇧T")
             shortcut("切换中文 / 英文输入", "⇧ Space")
             shortcut("拼音选词", "空格 / 数字")
+            shortcut("原样输入当前拼音 / 英文", "Return")
+            shortcut("候选翻页", "PgUp / PgDn / - / =")
             shortcut("确认英文并写入输入框", "⌃ Return")
             shortcut("直接输入中文草稿", "⇧ Return")
             shortcut("清除当前拼音 / 取消预览、保留中文", "Esc")
-            Text("快捷键由 Monkey 消费，不会同时触发聊天应用发送消息。英文尚未完成时，不会提交过期译文。")
+            Text("正在处理拼音或草稿时，确认键由 Monkey 消费；没有组合内容时，Return 仍由当前应用处理。英文尚未完成时，不会提交过期译文。")
                 .font(.caption).foregroundStyle(.secondary)
         }
         SettingsCard("开源与反馈") {

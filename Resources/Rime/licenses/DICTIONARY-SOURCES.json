@@ -16,5 +16,45 @@
     "source": "https://github.com/iDvel/rime-ice/blob/da1fbe602e38f26db846fa10120ee64c2b0324c0/cn_dicts/ext.dict.yaml",
     "sha256": "8e49a0294c0139e63c815cc33a2d438cc144eb7889297d30cec899a368697c06",
     "bytes": 11922913
+  },
+  {
+    "file": "cn_dicts/upstream/en.dict.yaml",
+    "source": "https://github.com/iDvel/rime-ice/blob/da1fbe602e38f26db846fa10120ee64c2b0324c0/en_dicts/en.dict.yaml",
+    "sha256": "d08db21af6c686bfafa4d62926e33ea685319927a374acd99dde84a351b5aa35",
+    "bytes": 369842
+  },
+  {
+    "file": "cn_dicts/upstream/en_ext.dict.yaml",
+    "source": "https://github.com/iDvel/rime-ice/blob/da1fbe602e38f26db846fa10120ee64c2b0324c0/en_dicts/en_ext.dict.yaml",
+    "sha256": "675bd699cbdcd05409cd9c9fbc8de3f925b3d08a5175806d45d3789ea27c36eb",
+    "bytes": 52437
+  },
+  {
+    "file": "cn_dicts/upstream/cn_en.txt",
+    "source": "https://github.com/iDvel/rime-ice/blob/da1fbe602e38f26db846fa10120ee64c2b0324c0/en_dicts/cn_en.txt",
+    "sha256": "e52ffc88598eb3d4db476a10064df3e8bbb6c23bc4c3969723f3dfab45ad4089",
+    "bytes": 16050
+  },
+  {
+    "file": "cn_dicts/monkey_english_terms.dict.yaml",
+    "generated_from": [
+      "cn_dicts/upstream/cn_en.txt",
+      "cn_dicts/upstream/en_ext.dict.yaml",
+      "cn_dicts/upstream/en.dict.yaml"
+    ],
+    "sha256": "0290645874d1f2e0a1b842edb60e7ff73bef611e73084464edddc83c47a2552e",
+    "entries": 23719,
+    "license": "GPL-3.0"
+  },
+  {
+    "file": "cn_dicts/monkey_mixed_terms.dict.yaml",
+    "generated_from": [
+      "cn_dicts/upstream/cn_en.txt",
+      "cn_dicts/upstream/en_ext.dict.yaml",
+      "cn_dicts/upstream/en.dict.yaml"
+    ],
+    "sha256": "a1cf7c9d7482cc1636d6335e509bec2377165cae120f6797db50bd4647b56e62",
+    "entries": 513,
+    "license": "GPL-3.0"
   }
 ]

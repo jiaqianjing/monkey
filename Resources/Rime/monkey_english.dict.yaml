@@ -1,0 +1,9 @@
+# English dictionary manifest; see licenses/README.md for provenance.
+---
+name: monkey_english
+version: "0.2.0"
+sort: by_weight
+use_preset_vocabulary: false
+import_tables:
+  - cn_dicts/monkey_english_terms
+...

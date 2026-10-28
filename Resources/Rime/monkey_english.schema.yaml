@@ -1,0 +1,19 @@
+# Helper schema builds the independent English prism. It is not an input source.
+schema:
+  schema_id: monkey_english
+  name: Monkey English dictionary
+  version: "0.2.0"
+engine:
+  processors: [speller, selector, express_editor]
+  segmentors: [abc_segmentor, fallback_segmentor]
+  translators: [table_translator]
+speller:
+  alphabet: abcdefghijklmnopqrstuvwxyz
+  algebra:
+    - xlit/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/
+translator:
+  dictionary: monkey_english
+  prism: monkey_english
+  enable_user_dict: false
+  enable_sentence: false
+  enable_completion: true

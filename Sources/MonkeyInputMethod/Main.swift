@@ -11,6 +11,7 @@ struct MonkeyMain {
     @MainActor static func main() {
         let arguments = CommandLine.arguments
         if let code = InputSourceManager.runCommand(arguments) { exit(code) }
+        if PreviewCommand.runIfRequested(arguments) { return }
         if Bundle.main.bundleIdentifier == InputSourceManager.bundleID,
            !arguments.contains("--demo"),
            NSRunningApplication.runningApplications(withBundleIdentifier: InputSourceManager.bundleID)

@@ -7,7 +7,7 @@ import os
 @objc(MonkeyInputController)
 @MainActor
 final class MonkeyInputController: IMKInputController {
-    private var session: PinyinSession?
+    private var session: CompositionSession?
     private let panel = CandidatePanel()
     private var draft = TranslationDraft()
     private var translationMode = false
@@ -17,6 +17,7 @@ final class MonkeyInputController: IMKInputController {
     private var requestTask: Task<Void, Never>?
     private var message: String?
     private var markedText = ""
+    private var markedCaret = 0
     private var activation = UUID()
     private var recoverableDraft = ""
     private let logger = Logger(subsystem: "org.monkey.inputmethod.Monkey", category: "InputSession")
@@ -26,9 +27,9 @@ final class MonkeyInputController: IMKInputController {
         if let client = client() { bind(client) }
         active = true
         activation = UUID()
-        if session == nil { session = AppRuntime.makeSession() }
+        if session == nil { session = AppRuntime.makeSession().map { CompositionSession(session: $0) } }
         logger.notice("Input session activated; engine ready: \(self.session != nil, privacy: .public)")
-        ChatGPTClient.shared.reloadAccount()
+        if translationMode { ChatGPTClient.shared.reloadAccount() }
         message = AppRuntime.engineError
         refresh()
     }
@@ -43,6 +44,7 @@ final class MonkeyInputController: IMKInputController {
         panel.orderOut(nil)
         inputClient = nil
         markedText = ""
+        markedCaret = 0
         active = false
     }
 
@@ -78,6 +80,9 @@ final class MonkeyInputController: IMKInputController {
             refresh()
             return false
         }
+        session.automaticEnglish = TypingPreferences.automaticEnglish
+        session.englishSpaceInsertsSpace = TypingPreferences.englishSpaceInsertsSpace
+        message = nil
         let before = session.snapshot()
         let returnKey = event.keyCode == 36 || event.keyCode == 76
         if translationMode && returnKey && flags.contains(.shift) {
@@ -216,6 +221,7 @@ final class MonkeyInputController: IMKInputController {
             session?.clear()
             draft.reset()
             markedText = ""
+            markedCaret = 0
             activation = UUID()
             panel.orderOut(nil)
         }
@@ -257,6 +263,18 @@ final class MonkeyInputController: IMKInputController {
             invalidateAsyncWork()
             draft.invalidate()
         }
+        refresh()
+    }
+
+    private func forgetCandidate(_ index: Int) {
+        guard active, let session else { return }
+        // Rime reports event acceptance; read-only table candidates may ignore it.
+        message = session.forgetCandidate(index) ? "已尝试清除个人学习记录，内置词库保留" : "该词没有可删除的个人学习记录，内置词库保留"
+        refresh()
+    }
+
+    private func changePage(backward: Bool) {
+        guard active, session?.changePage(backward: backward) == true else { return }
         refresh()
     }
 
@@ -331,29 +349,37 @@ final class MonkeyInputController: IMKInputController {
     private func insert(_ text: String) {
         inputClient?.insertText(text, replacementRange: NSRange(location: NSNotFound, length: 0))
         markedText = ""
+        markedCaret = 0
     }
 
-    private func mark(_ text: String) {
-        guard text != markedText else { return }
-        inputClient?.setMarkedText(text, selectionRange: NSRange(location: text.utf16.count, length: 0), replacementRange: NSRange(location: NSNotFound, length: 0))
+    private func mark(_ text: String, caret: Int? = nil) {
+        let caret = max(0, min(caret ?? text.utf16.count, text.utf16.count))
+        guard text != markedText || caret != markedCaret else { return }
+        inputClient?.setMarkedText(text, selectionRange: NSRange(location: caret, length: 0), replacementRange: NSRange(location: NSNotFound, length: 0))
         markedText = text
+        markedCaret = caret
     }
 
     private func refresh() {
         guard active, let inputClient else { panel.orderOut(nil); return }
         let snapshot = session?.snapshot()
         let preedit = snapshot?.preedit ?? ""
-        mark((translationMode ? draft.source : "") + preedit)
+        mark((translationMode ? draft.source : "") + preedit,
+             caret: (translationMode ? draft.source.utf16.count : 0) + (snapshot?.caretUTF16 ?? 0))
         if !translationMode && preedit.isEmpty && message == nil {
             panel.orderOut(nil)
             return
         }
         var rect = NSRect.zero
         _ = inputClient.attributes(forCharacterIndex: 0, lineHeightRectangle: &rect)
-        panel.update(preedit: preedit, candidates: snapshot?.candidates ?? [], highlighted: snapshot?.highlightedIndex ?? 0,
+        panel.update(preedit: preedit, candidates: snapshot?.candidates ?? [], comments: snapshot?.comments ?? [],
+                     highlighted: snapshot?.highlightedIndex ?? 0, pageNumber: snapshot?.page ?? 0,
+                     isLastPage: snapshot?.isLastPage ?? true, literal: session?.isLiteral ?? false,
                      asciiMode: asciiMode,
                      translationMode: translationMode, draft: draft, message: message, cursor: rect,
                      onChoose: { [weak self] in self?.selectCandidate($0) },
+                     onForget: { [weak self] in self?.forgetCandidate($0) },
+                     onPage: { [weak self] in self?.changePage(backward: $0) },
                      onConfirm: { [weak self] in self?.confirmEnglish() },
                      onChinese: { [weak self] in self?.commitOriginal(); self?.refresh() })
     }

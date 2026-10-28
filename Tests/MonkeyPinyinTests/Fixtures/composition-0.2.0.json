@@ -1,0 +1,3748 @@
+{
+  "architecture" : "arm64",
+  "bridgeSourceSHA256" : "36e293c9a1bc99d498dc7308aed865d726e7a1bd6fd479fc2747e79313135ab4",
+  "buildConfiguration" : "release",
+  "byCategory" : {
+    "chinese-mixed" : {
+      "cases" : 3,
+      "engineRankingCases" : 0,
+      "engineRequirementsMet" : 0,
+      "engineTop1Hits" : 0,
+      "engineTop5Hits" : 0,
+      "frontendProbeCases" : 3,
+      "literalPreserveProbes" : 0,
+      "literalPreservedAfterRawReturn" : 0,
+      "literalPreservedWithoutFinalization" : 0
+    },
+    "english-mixed-literal" : {
+      "cases" : 6,
+      "engineRankingCases" : 0,
+      "engineRequirementsMet" : 0,
+      "engineTop1Hits" : 0,
+      "engineTop5Hits" : 0,
+      "frontendProbeCases" : 6,
+      "literalPreserveProbes" : 6,
+      "literalPreservedAfterRawReturn" : 6,
+      "literalPreservedWithoutFinalization" : 0
+    },
+    "numbers-and-versions" : {
+      "cases" : 6,
+      "engineRankingCases" : 0,
+      "engineRequirementsMet" : 0,
+      "engineTop1Hits" : 0,
+      "engineTop5Hits" : 0,
+      "frontendProbeCases" : 6,
+      "literalPreserveProbes" : 6,
+      "literalPreservedAfterRawReturn" : 6,
+      "literalPreservedWithoutFinalization" : 0
+    },
+    "urls-and-email" : {
+      "cases" : 6,
+      "engineRankingCases" : 0,
+      "engineRequirementsMet" : 0,
+      "engineTop1Hits" : 0,
+      "engineTop5Hits" : 0,
+      "frontendProbeCases" : 6,
+      "literalPreserveProbes" : 6,
+      "literalPreservedAfterRawReturn" : 6,
+      "literalPreservedWithoutFinalization" : 0
+    }
+  },
+  "capturedAtUTC" : "2026-10-28T17:35:13Z",
+  "cleanUserProfile" : true,
+  "comparisonBoundary" : "Production CompositionSession keystrokes with real Rime, automaticEnglish=true and englishSpaceInsertsSpace=true. No IMK, UI, native event delivery or WeChat/Sogou comparison. The three Chinese-mixed ranking cases remain reference-only and do not become engine ranking passes.",
+  "compositionSourceSHA256" : "34d3cecfbed7098fa4706f41f866902440b4d2f43128d19133a9482a3bccb410",
+  "corpusBaselineCommit" : "76db9e6553b626a80c5af0735bfcdbe53d0d6b9c",
+  "corpusSHA256" : "d8f7c8d6b8245a7ba9d399f8f281bfcb7ab8ac4e81afae41d6a1ffcb488165bf",
+  "corpusVersion" : 1,
+  "dataDirectory" : "/Users/ken/workspace/monkey/Resources/Rime",
+  "deployedSchemaSHA256" : "955a2497b3e5fe1a86fbf1ee2f9889926570b416dbe88f9c651f7876210bfacc",
+  "dictionaryTableSHA256" : "3631a536a8d0cd59cf11dc8d8bf5e06046c786b836abcd80676cf7253f9e432c",
+  "engineInitializationMilliseconds" : 98.315709,
+  "engineSourceSHA256" : "6593adc8ad8c021bce75a197a2f14e47e50a593ab5c7ed15318fed05910a39cf",
+  "gitCommit" : "76db9e6553b626a80c5af0735bfcdbe53d0d6b9c",
+  "harnessBinarySHA256" : "1c12d6581817bab9a65d4fe31a45695dfd92d5bcb114c69e56cbbe0e3d26abae",
+  "harnessSourceSHA256" : "6dd948183d6dadea7f7ad39d38932768169111e4adc13652b5d75261b8c775f4",
+  "label" : "production-composition-0.2.0-final-runner",
+  "libraryPath" : "/Users/ken/workspace/monkey/Vendor/Rime/lib/librime.1.dylib",
+  "librarySHA256" : "e6a3a10da06fc04cbf98200946eb7dc2fcac179c2726054f5dfaffced9d256e9",
+  "mode" : "composition",
+  "operatingSystem" : "Version 27.0.1 (Build 26A434)",
+  "processTiming" : {
+    "maximumMicroseconds" : 11506.125,
+    "meanMicroseconds" : 315.52251865671644,
+    "medianMicroseconds" : 7.708,
+    "p95Microseconds" : 1479.833,
+    "p99Microseconds" : 7546.167,
+    "samples" : 268
+  },
+  "reportVersion" : 1,
+  "results" : [
+    {
+      "candidateCharacterLengths" : [
+        6
+      ],
+      "candidateComments" : [
+        "原文"
+      ],
+      "candidates" : [
+        "123456"
+      ],
+      "category" : "numbers-and-versions",
+      "emittedOutputBeforeFinalization" : "",
+      "evaluationScope" : "production-composition-keystrokes; no IMK/UI",
+      "expectation" : "preserve",
+      "expected" : [
+        "123456"
+      ],
+      "expectedRank" : 1,
+      "id" : "numbers-and-versions-01",
+      "input" : "123456",
+      "keyResults" : [
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "1",
+          "keyCode" : 49,
+          "processMicroseconds" : 1479.833,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 1486.292
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "2",
+          "keyCode" : 50,
+          "processMicroseconds" : 122.084,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 125.584
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "3",
+          "keyCode" : 51,
+          "processMicroseconds" : 6.375,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 8.5
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "4",
+          "keyCode" : 52,
+          "processMicroseconds" : 1.5,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 3.042
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "5",
+          "keyCode" : 53,
+          "processMicroseconds" : 1.333,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 2.875
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "6",
+          "keyCode" : 54,
+          "processMicroseconds" : 1.333,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 2.792
+        }
+      ],
+      "layer" : "frontend",
+      "note" : "Literal-preservation target for the app. The benchmark reports only an isolated engine probe and its explicit raw-Return flush; it does not grade the complete frontend.",
+      "outputAfterRawReturn" : "123456",
+      "preedit" : "123456",
+      "preeditAfterRawReturn" : "",
+      "preserveAfterRawReturn" : true,
+      "preserveWithoutFinalization" : false,
+      "processTiming" : {
+        "maximumMicroseconds" : 1479.833,
+        "meanMicroseconds" : 268.743,
+        "medianMicroseconds" : 1.5,
+        "p95Microseconds" : 1479.833,
+        "p99Microseconds" : 1479.833,
+        "samples" : 6
+      },
+      "rankedOutputs" : [
+        "123456"
+      ],
+      "rawInput" : "123456",
+      "rawReturnCommit" : "123456",
+      "rawReturnHandled" : true,
+      "sessionCreationMicroseconds" : 50570.083,
+      "top1Hit" : true,
+      "top5Hit" : true,
+      "updateTiming" : {
+        "maximumMicroseconds" : 1486.292,
+        "meanMicroseconds" : 271.51416666666665,
+        "medianMicroseconds" : 3.042,
+        "p95Microseconds" : 1486.292,
+        "p99Microseconds" : 1486.292,
+        "samples" : 6
+      }
+    },
+    {
+      "candidateCharacterLengths" : [
+        7
+      ],
+      "candidateComments" : [
+        "原文"
+      ],
+      "candidates" : [
+        "3.14159"
+      ],
+      "category" : "numbers-and-versions",
+      "emittedOutputBeforeFinalization" : "",
+      "evaluationScope" : "production-composition-keystrokes; no IMK/UI",
+      "expectation" : "preserve",
+      "expected" : [
+        "3.14159"
+      ],
+      "expectedRank" : 1,
+      "id" : "numbers-and-versions-02",
+      "input" : "3.14159",
+      "keyResults" : [
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "3",
+          "keyCode" : 51,
+          "processMicroseconds" : 28.208,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 31.75
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : ".",
+          "keyCode" : 46,
+          "processMicroseconds" : 6.917,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 57.458
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "1",
+          "keyCode" : 49,
+          "processMicroseconds" : 4.333,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 12.625
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "4",
+          "keyCode" : 52,
+          "processMicroseconds" : 4.041,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 7.875
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "1",
+          "keyCode" : 49,
+          "processMicroseconds" : 3.291,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 6.75
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "5",
+          "keyCode" : 53,
+          "processMicroseconds" : 3.333,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 6.958
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "9",
+          "keyCode" : 57,
+          "processMicroseconds" : 3.375,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 6.959
+        }
+      ],
+      "layer" : "frontend",
+      "note" : "Literal-preservation target for the app. The benchmark reports only an isolated engine probe and its explicit raw-Return flush; it does not grade the complete frontend.",
+      "outputAfterRawReturn" : "3.14159",
+      "preedit" : "3.14159",
+      "preeditAfterRawReturn" : "",
+      "preserveAfterRawReturn" : true,
+      "preserveWithoutFinalization" : false,
+      "processTiming" : {
+        "maximumMicroseconds" : 28.208,
+        "meanMicroseconds" : 7.642571428571428,
+        "medianMicroseconds" : 4.041,
+        "p95Microseconds" : 28.208,
+        "p99Microseconds" : 28.208,
+        "samples" : 7
+      },
+      "rankedOutputs" : [
+        "3.14159"
+      ],
+      "rawInput" : "3.14159",
+      "rawReturnCommit" : "3.14159",
+      "rawReturnHandled" : true,
+      "sessionCreationMicroseconds" : 28145.25,
+      "top1Hit" : true,
+      "top5Hit" : true,
+      "updateTiming" : {
+        "maximumMicroseconds" : 57.458,
+        "meanMicroseconds" : 18.625,
+        "medianMicroseconds" : 7.875,
+        "p95Microseconds" : 57.458,
+        "p99Microseconds" : 57.458,
+        "samples" : 7
+      }
+    },
+    {
+      "candidateCharacterLengths" : [
+        10
+      ],
+      "candidateComments" : [
+        "原文"
+      ],
+      "candidates" : [
+        "2026-10-29"
+      ],
+      "category" : "numbers-and-versions",
+      "emittedOutputBeforeFinalization" : "",
+      "evaluationScope" : "production-composition-keystrokes; no IMK/UI",
+      "expectation" : "preserve",
+      "expected" : [
+        "2026-10-29"
+      ],
+      "expectedRank" : 1,
+      "id" : "numbers-and-versions-03",
+      "input" : "2026-10-29",
+      "keyResults" : [
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "2",
+          "keyCode" : 50,
+          "processMicroseconds" : 39.542,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 44
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "0",
+          "keyCode" : 48,
+          "processMicroseconds" : 4.583,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 8.041
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "2",
+          "keyCode" : 50,
+          "processMicroseconds" : 2.75,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 17.667
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "6",
+          "keyCode" : 54,
+          "processMicroseconds" : 11.292,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 15.459
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "-",
+          "keyCode" : 45,
+          "processMicroseconds" : 6.375,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 105.25
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "1",
+          "keyCode" : 49,
+          "processMicroseconds" : 11.458,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 16.208
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "0",
+          "keyCode" : 48,
+          "processMicroseconds" : 10.041,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 14.625
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "-",
+          "keyCode" : 45,
+          "processMicroseconds" : 7.958,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 18.375
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "2",
+          "keyCode" : 50,
+          "processMicroseconds" : 4.875,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 9.334
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "9",
+          "keyCode" : 57,
+          "processMicroseconds" : 4.333,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 11.583
+        }
+      ],
+      "layer" : "frontend",
+      "note" : "Literal-preservation target for the app. The benchmark reports only an isolated engine probe and its explicit raw-Return flush; it does not grade the complete frontend.",
+      "outputAfterRawReturn" : "2026-10-29",
+      "preedit" : "2026-10-29",
+      "preeditAfterRawReturn" : "",
+      "preserveAfterRawReturn" : true,
+      "preserveWithoutFinalization" : false,
+      "processTiming" : {
+        "maximumMicroseconds" : 39.542,
+        "meanMicroseconds" : 10.3207,
+        "medianMicroseconds" : 6.375,
+        "p95Microseconds" : 39.542,
+        "p99Microseconds" : 39.542,
+        "samples" : 10
+      },
+      "rankedOutputs" : [
+        "2026-10-29"
+      ],
+      "rawInput" : "2026-10-29",
+      "rawReturnCommit" : "2026-10-29",
+      "rawReturnHandled" : true,
+      "sessionCreationMicroseconds" : 27865.917,
+      "top1Hit" : true,
+      "top5Hit" : true,
+      "updateTiming" : {
+        "maximumMicroseconds" : 105.25,
+        "meanMicroseconds" : 26.0542,
+        "medianMicroseconds" : 15.459,
+        "p95Microseconds" : 105.25,
+        "p99Microseconds" : 105.25,
+        "samples" : 10
+      }
+    },
+    {
+      "candidateCharacterLengths" : [
+        5
+      ],
+      "candidateComments" : [
+        "原文"
+      ],
+      "candidates" : [
+        "10:30"
+      ],
+      "category" : "numbers-and-versions",
+      "emittedOutputBeforeFinalization" : "",
+      "evaluationScope" : "production-composition-keystrokes; no IMK/UI",
+      "expectation" : "preserve",
+      "expected" : [
+        "10:30"
+      ],
+      "expectedRank" : 1,
+      "id" : "numbers-and-versions-04",
+      "input" : "10:30",
+      "keyResults" : [
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "1",
+          "keyCode" : 49,
+          "processMicroseconds" : 41.459,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 46
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "0",
+          "keyCode" : 48,
+          "processMicroseconds" : 4.708,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 20.083
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : ":",
+          "keyCode" : 58,
+          "processMicroseconds" : 6.25,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 11.583
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "3",
+          "keyCode" : 51,
+          "processMicroseconds" : 3.792,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 7.709
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "0",
+          "keyCode" : 48,
+          "processMicroseconds" : 3.625,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 7.334
+        }
+      ],
+      "layer" : "frontend",
+      "note" : "Literal-preservation target for the app. The benchmark reports only an isolated engine probe and its explicit raw-Return flush; it does not grade the complete frontend.",
+      "outputAfterRawReturn" : "10:30",
+      "preedit" : "10:30",
+      "preeditAfterRawReturn" : "",
+      "preserveAfterRawReturn" : true,
+      "preserveWithoutFinalization" : false,
+      "processTiming" : {
+        "maximumMicroseconds" : 41.459,
+        "meanMicroseconds" : 11.966800000000001,
+        "medianMicroseconds" : 4.708,
+        "p95Microseconds" : 41.459,
+        "p99Microseconds" : 41.459,
+        "samples" : 5
+      },
+      "rankedOutputs" : [
+        "10:30"
+      ],
+      "rawInput" : "10:30",
+      "rawReturnCommit" : "10:30",
+      "rawReturnHandled" : true,
+      "sessionCreationMicroseconds" : 25484.666,
+      "top1Hit" : true,
+      "top5Hit" : true,
+      "updateTiming" : {
+        "maximumMicroseconds" : 46,
+        "meanMicroseconds" : 18.541800000000002,
+        "medianMicroseconds" : 11.583,
+        "p95Microseconds" : 46,
+        "p99Microseconds" : 46,
+        "samples" : 5
+      }
+    },
+    {
+      "candidateCharacterLengths" : [
+        6
+      ],
+      "candidateComments" : [
+        "原文"
+      ],
+      "candidates" : [
+        "v0.1.0"
+      ],
+      "category" : "numbers-and-versions",
+      "emittedOutputBeforeFinalization" : "",
+      "evaluationScope" : "production-composition-keystrokes; no IMK/UI",
+      "expectation" : "preserve",
+      "expected" : [
+        "v0.1.0"
+      ],
+      "expectedRank" : 1,
+      "id" : "numbers-and-versions-05",
+      "input" : "v0.1.0",
+      "keyResults" : [
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "v",
+          "keyCode" : 118,
+          "processMicroseconds" : 85.625,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 86.083
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "0",
+          "keyCode" : 48,
+          "processMicroseconds" : 7.541,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 8.833
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : ".",
+          "keyCode" : 46,
+          "processMicroseconds" : 3.458,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 10.292
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "1",
+          "keyCode" : 49,
+          "processMicroseconds" : 1.833,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 3.5
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : ".",
+          "keyCode" : 46,
+          "processMicroseconds" : 11.791,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 14.833
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "0",
+          "keyCode" : 48,
+          "processMicroseconds" : 1.667,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 3.542
+        }
+      ],
+      "layer" : "frontend",
+      "note" : "Literal-preservation target for the app. The benchmark reports only an isolated engine probe and its explicit raw-Return flush; it does not grade the complete frontend.",
+      "outputAfterRawReturn" : "v0.1.0",
+      "preedit" : "v0.1.0",
+      "preeditAfterRawReturn" : "",
+      "preserveAfterRawReturn" : true,
+      "preserveWithoutFinalization" : false,
+      "processTiming" : {
+        "maximumMicroseconds" : 85.625,
+        "meanMicroseconds" : 18.6525,
+        "medianMicroseconds" : 3.458,
+        "p95Microseconds" : 85.625,
+        "p99Microseconds" : 85.625,
+        "samples" : 6
+      },
+      "rankedOutputs" : [
+        "v0.1.0"
+      ],
+      "rawInput" : "v0.1.0",
+      "rawReturnCommit" : "v0.1.0",
+      "rawReturnHandled" : true,
+      "sessionCreationMicroseconds" : 25443.917,
+      "top1Hit" : true,
+      "top5Hit" : true,
+      "updateTiming" : {
+        "maximumMicroseconds" : 86.083,
+        "meanMicroseconds" : 21.1805,
+        "medianMicroseconds" : 8.833,
+        "p95Microseconds" : 86.083,
+        "p99Microseconds" : 86.083,
+        "samples" : 6
+      }
+    },
+    {
+      "candidateCharacterLengths" : [
+        11
+      ],
+      "candidateComments" : [
+        "原文"
+      ],
+      "candidates" : [
+        "192.168.1.1"
+      ],
+      "category" : "numbers-and-versions",
+      "emittedOutputBeforeFinalization" : "",
+      "evaluationScope" : "production-composition-keystrokes; no IMK/UI",
+      "expectation" : "preserve",
+      "expected" : [
+        "192.168.1.1"
+      ],
+      "expectedRank" : 1,
+      "id" : "numbers-and-versions-06",
+      "input" : "192.168.1.1",
+      "keyResults" : [
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "1",
+          "keyCode" : 49,
+          "processMicroseconds" : 95,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 100.75
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "9",
+          "keyCode" : 57,
+          "processMicroseconds" : 4.458,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 8.125
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "2",
+          "keyCode" : 50,
+          "processMicroseconds" : 2.833,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 6.041
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : ".",
+          "keyCode" : 46,
+          "processMicroseconds" : 5.667,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 13.75
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "1",
+          "keyCode" : 49,
+          "processMicroseconds" : 3.5,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 8.667
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "6",
+          "keyCode" : 54,
+          "processMicroseconds" : 3.459,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 7.125
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "8",
+          "keyCode" : 56,
+          "processMicroseconds" : 3.417,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 7
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : ".",
+          "keyCode" : 46,
+          "processMicroseconds" : 6.666,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 11.541
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "1",
+          "keyCode" : 49,
+          "processMicroseconds" : 3.917,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 8.958
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : ".",
+          "keyCode" : 46,
+          "processMicroseconds" : 7.708,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 15.416
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "1",
+          "keyCode" : 49,
+          "processMicroseconds" : 4.458,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 9.208
+        }
+      ],
+      "layer" : "frontend",
+      "note" : "Literal-preservation target for the app. The benchmark reports only an isolated engine probe and its explicit raw-Return flush; it does not grade the complete frontend.",
+      "outputAfterRawReturn" : "192.168.1.1",
+      "preedit" : "192.168.1.1",
+      "preeditAfterRawReturn" : "",
+      "preserveAfterRawReturn" : true,
+      "preserveWithoutFinalization" : false,
+      "processTiming" : {
+        "maximumMicroseconds" : 95,
+        "meanMicroseconds" : 12.825727272727272,
+        "medianMicroseconds" : 4.458,
+        "p95Microseconds" : 95,
+        "p99Microseconds" : 95,
+        "samples" : 11
+      },
+      "rankedOutputs" : [
+        "192.168.1.1"
+      ],
+      "rawInput" : "192.168.1.1",
+      "rawReturnCommit" : "192.168.1.1",
+      "rawReturnHandled" : true,
+      "sessionCreationMicroseconds" : 24516.583,
+      "top1Hit" : true,
+      "top5Hit" : true,
+      "updateTiming" : {
+        "maximumMicroseconds" : 100.75,
+        "meanMicroseconds" : 17.871,
+        "medianMicroseconds" : 8.958,
+        "p95Microseconds" : 100.75,
+        "p99Microseconds" : 100.75,
+        "samples" : 11
+      }
+    },
+    {
+      "candidateCharacterLengths" : [
+        19
+      ],
+      "candidateComments" : [
+        "原文"
+      ],
+      "candidates" : [
+        "https://example.com"
+      ],
+      "category" : "urls-and-email",
+      "emittedOutputBeforeFinalization" : "",
+      "evaluationScope" : "production-composition-keystrokes; no IMK/UI",
+      "expectation" : "preserve",
+      "expected" : [
+        "https://example.com"
+      ],
+      "expectedRank" : 1,
+      "id" : "urls-and-email-01",
+      "input" : "https://example.com",
+      "keyResults" : [
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "h",
+          "keyCode" : 104,
+          "processMicroseconds" : 158.459,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 159.084
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "t",
+          "keyCode" : 116,
+          "processMicroseconds" : 190.75,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 191
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "t",
+          "keyCode" : 116,
+          "processMicroseconds" : 320.333,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 320.708
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "p",
+          "keyCode" : 112,
+          "processMicroseconds" : 323.792,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 324.042
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "s",
+          "keyCode" : 115,
+          "processMicroseconds" : 1040.125,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 1040.334
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : ":",
+          "keyCode" : 58,
+          "processMicroseconds" : 15.042,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 15.75
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "/",
+          "keyCode" : 47,
+          "processMicroseconds" : 3.167,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 3.833
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "/",
+          "keyCode" : 47,
+          "processMicroseconds" : 0.958,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 1.417
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "e",
+          "keyCode" : 101,
+          "processMicroseconds" : 1.042,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 1.584
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "x",
+          "keyCode" : 120,
+          "processMicroseconds" : 0.958,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 1.5
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "a",
+          "keyCode" : 97,
+          "processMicroseconds" : 0.834,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 1.375
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "m",
+          "keyCode" : 109,
+          "processMicroseconds" : 0.833,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 1.417
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "p",
+          "keyCode" : 112,
+          "processMicroseconds" : 0.875,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 1.5
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "l",
+          "keyCode" : 108,
+          "processMicroseconds" : 0.917,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 1.542
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "e",
+          "keyCode" : 101,
+          "processMicroseconds" : 0.916,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 1.625
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : ".",
+          "keyCode" : 46,
+          "processMicroseconds" : 2,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 3.5
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "c",
+          "keyCode" : 99,
+          "processMicroseconds" : 1.75,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 2.709
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "o",
+          "keyCode" : 111,
+          "processMicroseconds" : 1.292,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 2.125
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "m",
+          "keyCode" : 109,
+          "processMicroseconds" : 1.375,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 2.208
+        }
+      ],
+      "layer" : "frontend",
+      "note" : "Literal-preservation target. URL/email recognition and frontend routing must be checked in the app separately from this engine probe.",
+      "outputAfterRawReturn" : "https://example.com",
+      "preedit" : "https://example.com",
+      "preeditAfterRawReturn" : "",
+      "preserveAfterRawReturn" : true,
+      "preserveWithoutFinalization" : false,
+      "processTiming" : {
+        "maximumMicroseconds" : 1040.125,
+        "meanMicroseconds" : 108.70621052631577,
+        "medianMicroseconds" : 1.375,
+        "p95Microseconds" : 1040.125,
+        "p99Microseconds" : 1040.125,
+        "samples" : 19
+      },
+      "rankedOutputs" : [
+        "https://example.com"
+      ],
+      "rawInput" : "https://example.com",
+      "rawReturnCommit" : "https://example.com",
+      "rawReturnHandled" : true,
+      "sessionCreationMicroseconds" : 27186.583,
+      "top1Hit" : true,
+      "top5Hit" : true,
+      "updateTiming" : {
+        "maximumMicroseconds" : 1040.334,
+        "meanMicroseconds" : 109.32910526315789,
+        "medianMicroseconds" : 2.208,
+        "p95Microseconds" : 1040.334,
+        "p99Microseconds" : 1040.334,
+        "samples" : 19
+      }
+    },
+    {
+      "candidateCharacterLengths" : [
+        15
+      ],
+      "candidateComments" : [
+        "原文"
+      ],
+      "candidates" : [
+        "www.example.com"
+      ],
+      "category" : "urls-and-email",
+      "emittedOutputBeforeFinalization" : "",
+      "evaluationScope" : "production-composition-keystrokes; no IMK/UI",
+      "expectation" : "preserve",
+      "expected" : [
+        "www.example.com"
+      ],
+      "expectedRank" : 1,
+      "id" : "urls-and-email-02",
+      "input" : "www.example.com",
+      "keyResults" : [
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "w",
+          "keyCode" : 119,
+          "processMicroseconds" : 126.875,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 127.333
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "w",
+          "keyCode" : 119,
+          "processMicroseconds" : 114.417,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 114.708
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "w",
+          "keyCode" : 119,
+          "processMicroseconds" : 122.917,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 123.125
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : ".",
+          "keyCode" : 46,
+          "processMicroseconds" : 9.542,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 10.292
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "e",
+          "keyCode" : 101,
+          "processMicroseconds" : 3.542,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 4.25
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "x",
+          "keyCode" : 120,
+          "processMicroseconds" : 1.125,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 1.625
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "a",
+          "keyCode" : 97,
+          "processMicroseconds" : 1,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 1.542
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "m",
+          "keyCode" : 109,
+          "processMicroseconds" : 1,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 1.583
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "p",
+          "keyCode" : 112,
+          "processMicroseconds" : 1.041,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 1.625
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "l",
+          "keyCode" : 108,
+          "processMicroseconds" : 1.042,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 1.667
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "e",
+          "keyCode" : 101,
+          "processMicroseconds" : 1.083,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 1.708
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : ".",
+          "keyCode" : 46,
+          "processMicroseconds" : 0.75,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 1.417
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "c",
+          "keyCode" : 99,
+          "processMicroseconds" : 1.166,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 1.875
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "o",
+          "keyCode" : 111,
+          "processMicroseconds" : 1.208,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 1.916
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "m",
+          "keyCode" : 109,
+          "processMicroseconds" : 1.208,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 1.958
+        }
+      ],
+      "layer" : "frontend",
+      "note" : "Literal-preservation target. URL/email recognition and frontend routing must be checked in the app separately from this engine probe.",
+      "outputAfterRawReturn" : "www.example.com",
+      "preedit" : "www.example.com",
+      "preeditAfterRawReturn" : "",
+      "preserveAfterRawReturn" : true,
+      "preserveWithoutFinalization" : false,
+      "processTiming" : {
+        "maximumMicroseconds" : 126.875,
+        "meanMicroseconds" : 25.861066666666666,
+        "medianMicroseconds" : 1.166,
+        "p95Microseconds" : 126.875,
+        "p99Microseconds" : 126.875,
+        "samples" : 15
+      },
+      "rankedOutputs" : [
+        "www.example.com"
+      ],
+      "rawInput" : "www.example.com",
+      "rawReturnCommit" : "www.example.com",
+      "rawReturnHandled" : true,
+      "sessionCreationMicroseconds" : 26660.459,
+      "top1Hit" : true,
+      "top5Hit" : true,
+      "updateTiming" : {
+        "maximumMicroseconds" : 127.333,
+        "meanMicroseconds" : 26.4416,
+        "medianMicroseconds" : 1.875,
+        "p95Microseconds" : 127.333,
+        "p99Microseconds" : 127.333,
+        "samples" : 15
+      }
+    },
+    {
+      "candidateCharacterLengths" : [
+        25
+      ],
+      "candidateComments" : [
+        "原文"
+      ],
+      "candidates" : [
+        "https://example.com/a?x=1"
+      ],
+      "category" : "urls-and-email",
+      "emittedOutputBeforeFinalization" : "",
+      "evaluationScope" : "production-composition-keystrokes; no IMK/UI",
+      "expectation" : "preserve",
+      "expected" : [
+        "https://example.com/a?x=1"
+      ],
+      "expectedRank" : 1,
+      "id" : "urls-and-email-03",
+      "input" : "https://example.com/a?x=1",
+      "keyResults" : [
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "h",
+          "keyCode" : 104,
+          "processMicroseconds" : 160.75,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 161.25
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "t",
+          "keyCode" : 116,
+          "processMicroseconds" : 222.875,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 223.291
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "t",
+          "keyCode" : 116,
+          "processMicroseconds" : 289.959,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 290.209
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "p",
+          "keyCode" : 112,
+          "processMicroseconds" : 294.459,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 294.625
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "s",
+          "keyCode" : 115,
+          "processMicroseconds" : 1616.958,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 1617.458
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : ":",
+          "keyCode" : 58,
+          "processMicroseconds" : 24.834,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 25.792
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "/",
+          "keyCode" : 47,
+          "processMicroseconds" : 3.084,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 3.792
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "/",
+          "keyCode" : 47,
+          "processMicroseconds" : 1.041,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 1.541
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "e",
+          "keyCode" : 101,
+          "processMicroseconds" : 1,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 1.5
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "x",
+          "keyCode" : 120,
+          "processMicroseconds" : 0.875,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 1.416
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "a",
+          "keyCode" : 97,
+          "processMicroseconds" : 0.834,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 1.417
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "m",
+          "keyCode" : 109,
+          "processMicroseconds" : 0.833,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 1.417
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "p",
+          "keyCode" : 112,
+          "processMicroseconds" : 0.875,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 1.459
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "l",
+          "keyCode" : 108,
+          "processMicroseconds" : 0.917,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 1.542
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "e",
+          "keyCode" : 101,
+          "processMicroseconds" : 0.916,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 1.583
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : ".",
+          "keyCode" : 46,
+          "processMicroseconds" : 1.875,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 3.333
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "c",
+          "keyCode" : 99,
+          "processMicroseconds" : 1.75,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 2.583
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "o",
+          "keyCode" : 111,
+          "processMicroseconds" : 1.292,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 2.125
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "m",
+          "keyCode" : 109,
+          "processMicroseconds" : 1.25,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 2.083
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "/",
+          "keyCode" : 47,
+          "processMicroseconds" : 1.75,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 2.625
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "a",
+          "keyCode" : 97,
+          "processMicroseconds" : 1.292,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 2.167
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "?",
+          "keyCode" : 63,
+          "processMicroseconds" : 1.875,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 2.791
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "x",
+          "keyCode" : 120,
+          "processMicroseconds" : 1.334,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 2.292
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "=",
+          "keyCode" : 61,
+          "processMicroseconds" : 2.166,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 3.125
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "1",
+          "keyCode" : 49,
+          "processMicroseconds" : 1.167,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 2.167
+        }
+      ],
+      "layer" : "frontend",
+      "note" : "Literal-preservation target. URL/email recognition and frontend routing must be checked in the app separately from this engine probe.",
+      "outputAfterRawReturn" : "https://example.com/a?x=1",
+      "preedit" : "https://example.com/a?x=1",
+      "preeditAfterRawReturn" : "",
+      "preserveAfterRawReturn" : true,
+      "preserveWithoutFinalization" : false,
+      "processTiming" : {
+        "maximumMicroseconds" : 1616.958,
+        "meanMicroseconds" : 105.43844000000001,
+        "medianMicroseconds" : 1.334,
+        "p95Microseconds" : 294.459,
+        "p99Microseconds" : 1616.958,
+        "samples" : 25
+      },
+      "rankedOutputs" : [
+        "https://example.com/a?x=1"
+      ],
+      "rawInput" : "https://example.com/a?x=1",
+      "rawReturnCommit" : "https://example.com/a?x=1",
+      "rawReturnHandled" : true,
+      "sessionCreationMicroseconds" : 18522.959,
+      "top1Hit" : true,
+      "top5Hit" : true,
+      "updateTiming" : {
+        "maximumMicroseconds" : 1617.458,
+        "meanMicroseconds" : 106.14332,
+        "medianMicroseconds" : 2.292,
+        "p95Microseconds" : 294.625,
+        "p99Microseconds" : 1617.458,
+        "samples" : 25
+      }
+    },
+    {
+      "candidateCharacterLengths" : [
+        15
+      ],
+      "candidateComments" : [
+        "原文"
+      ],
+      "candidates" : [
+        "ken@example.com"
+      ],
+      "category" : "urls-and-email",
+      "emittedOutputBeforeFinalization" : "",
+      "evaluationScope" : "production-composition-keystrokes; no IMK/UI",
+      "expectation" : "preserve",
+      "expected" : [
+        "ken@example.com"
+      ],
+      "expectedRank" : 1,
+      "id" : "urls-and-email-04",
+      "input" : "ken@example.com",
+      "keyResults" : [
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "k",
+          "keyCode" : 107,
+          "processMicroseconds" : 101.334,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 101.792
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "e",
+          "keyCode" : 101,
+          "processMicroseconds" : 31.959,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 32.125
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "n",
+          "keyCode" : 110,
+          "processMicroseconds" : 28.958,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 29.083
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "@",
+          "keyCode" : 64,
+          "processMicroseconds" : 20.375,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 21.667
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "e",
+          "keyCode" : 101,
+          "processMicroseconds" : 2.625,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 3.667
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "x",
+          "keyCode" : 120,
+          "processMicroseconds" : 1.167,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 2.209
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "a",
+          "keyCode" : 97,
+          "processMicroseconds" : 1.125,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 2.166
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "m",
+          "keyCode" : 109,
+          "processMicroseconds" : 1.125,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 3.834
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "p",
+          "keyCode" : 112,
+          "processMicroseconds" : 1.333,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 2.541
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "l",
+          "keyCode" : 108,
+          "processMicroseconds" : 1.25,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 2.5
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "e",
+          "keyCode" : 101,
+          "processMicroseconds" : 1.291,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 2.541
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : ".",
+          "keyCode" : 46,
+          "processMicroseconds" : 2.625,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 4.209
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "c",
+          "keyCode" : 99,
+          "processMicroseconds" : 1.459,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 2.834
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "o",
+          "keyCode" : 111,
+          "processMicroseconds" : 1.459,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 2.834
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "m",
+          "keyCode" : 109,
+          "processMicroseconds" : 1.5,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 2.875
+        }
+      ],
+      "layer" : "frontend",
+      "note" : "Literal-preservation target. URL/email recognition and frontend routing must be checked in the app separately from this engine probe.",
+      "outputAfterRawReturn" : "ken@example.com",
+      "preedit" : "ken@example.com",
+      "preeditAfterRawReturn" : "",
+      "preserveAfterRawReturn" : true,
+      "preserveWithoutFinalization" : false,
+      "processTiming" : {
+        "maximumMicroseconds" : 101.334,
+        "meanMicroseconds" : 13.305666666666667,
+        "medianMicroseconds" : 1.459,
+        "p95Microseconds" : 101.334,
+        "p99Microseconds" : 101.334,
+        "samples" : 15
+      },
+      "rankedOutputs" : [
+        "ken@example.com"
+      ],
+      "rawInput" : "ken@example.com",
+      "rawReturnCommit" : "ken@example.com",
+      "rawReturnHandled" : true,
+      "sessionCreationMicroseconds" : 25085.208,
+      "top1Hit" : true,
+      "top5Hit" : true,
+      "updateTiming" : {
+        "maximumMicroseconds" : 101.792,
+        "meanMicroseconds" : 14.458466666666668,
+        "medianMicroseconds" : 2.875,
+        "p95Microseconds" : 101.792,
+        "p99Microseconds" : 101.792,
+        "samples" : 15
+      }
+    },
+    {
+      "candidateCharacterLengths" : [
+        28
+      ],
+      "candidateComments" : [
+        "原文"
+      ],
+      "candidates" : [
+        "first.last+tag@example.co.uk"
+      ],
+      "category" : "urls-and-email",
+      "emittedOutputBeforeFinalization" : "",
+      "evaluationScope" : "production-composition-keystrokes; no IMK/UI",
+      "expectation" : "preserve",
+      "expected" : [
+        "first.last+tag@example.co.uk"
+      ],
+      "expectedRank" : 1,
+      "id" : "urls-and-email-05",
+      "input" : "first.last+tag@example.co.uk",
+      "keyResults" : [
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "f",
+          "keyCode" : 102,
+          "processMicroseconds" : 353.958,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 354.916
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "i",
+          "keyCode" : 105,
+          "processMicroseconds" : 258.458,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 258.708
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "r",
+          "keyCode" : 114,
+          "processMicroseconds" : 371.042,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 371.292
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "s",
+          "keyCode" : 115,
+          "processMicroseconds" : 618.667,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 619
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "t",
+          "keyCode" : 116,
+          "processMicroseconds" : 2075.666,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 2076.541
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : ".",
+          "keyCode" : 46,
+          "processMicroseconds" : 49.667,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 61.209
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "l",
+          "keyCode" : 108,
+          "processMicroseconds" : 7.708,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 12.5
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "a",
+          "keyCode" : 97,
+          "processMicroseconds" : 4.75,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 9.5
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "s",
+          "keyCode" : 115,
+          "processMicroseconds" : 4.625,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 9.25
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "t",
+          "keyCode" : 116,
+          "processMicroseconds" : 4.791,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 9.583
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "+",
+          "keyCode" : 43,
+          "processMicroseconds" : 4.542,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 10.875
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "t",
+          "keyCode" : 116,
+          "processMicroseconds" : 5.333,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 10.5
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "a",
+          "keyCode" : 97,
+          "processMicroseconds" : 5.291,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 10.541
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "g",
+          "keyCode" : 103,
+          "processMicroseconds" : 5.375,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 10.667
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "@",
+          "keyCode" : 64,
+          "processMicroseconds" : 5.125,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 10
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "e",
+          "keyCode" : 101,
+          "processMicroseconds" : 4.334,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 9.584
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "x",
+          "keyCode" : 120,
+          "processMicroseconds" : 5,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 8.875
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "a",
+          "keyCode" : 97,
+          "processMicroseconds" : 4.333,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 8.208
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "m",
+          "keyCode" : 109,
+          "processMicroseconds" : 4.417,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 8.292
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "p",
+          "keyCode" : 112,
+          "processMicroseconds" : 4.375,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 8.334
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "l",
+          "keyCode" : 108,
+          "processMicroseconds" : 4.416,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 8.416
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "e",
+          "keyCode" : 101,
+          "processMicroseconds" : 4.542,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 8.709
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : ".",
+          "keyCode" : 46,
+          "processMicroseconds" : 4.375,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 8.5
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "c",
+          "keyCode" : 99,
+          "processMicroseconds" : 4.5,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 8.625
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "o",
+          "keyCode" : 111,
+          "processMicroseconds" : 4.625,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 8.833
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : ".",
+          "keyCode" : 46,
+          "processMicroseconds" : 4.375,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 8.667
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "u",
+          "keyCode" : 117,
+          "processMicroseconds" : 4.833,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 9.25
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "k",
+          "keyCode" : 107,
+          "processMicroseconds" : 4.958,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 9.375
+        }
+      ],
+      "layer" : "frontend",
+      "note" : "Literal-preservation target. URL/email recognition and frontend routing must be checked in the app separately from this engine probe.",
+      "outputAfterRawReturn" : "first.last+tag@example.co.uk",
+      "preedit" : "first.last+tag@example.co.uk",
+      "preeditAfterRawReturn" : "",
+      "preserveAfterRawReturn" : true,
+      "preserveWithoutFinalization" : false,
+      "processTiming" : {
+        "maximumMicroseconds" : 2075.666,
+        "meanMicroseconds" : 136.9314642857143,
+        "medianMicroseconds" : 4.791,
+        "p95Microseconds" : 618.667,
+        "p99Microseconds" : 2075.666,
+        "samples" : 28
+      },
+      "rankedOutputs" : [
+        "first.last+tag@example.co.uk"
+      ],
+      "rawInput" : "first.last+tag@example.co.uk",
+      "rawReturnCommit" : "first.last+tag@example.co.uk",
+      "rawReturnHandled" : true,
+      "sessionCreationMicroseconds" : 28789.375,
+      "top1Hit" : true,
+      "top5Hit" : true,
+      "updateTiming" : {
+        "maximumMicroseconds" : 2076.541,
+        "meanMicroseconds" : 141.02678571428572,
+        "medianMicroseconds" : 9.5,
+        "p95Microseconds" : 619,
+        "p99Microseconds" : 2076.541,
+        "samples" : 28
+      }
+    },
+    {
+      "candidateCharacterLengths" : [
+        18
+      ],
+      "candidateComments" : [
+        "原文"
+      ],
+      "candidates" : [
+        "support@openai.com"
+      ],
+      "category" : "urls-and-email",
+      "emittedOutputBeforeFinalization" : "",
+      "evaluationScope" : "production-composition-keystrokes; no IMK/UI",
+      "expectation" : "preserve",
+      "expected" : [
+        "support@openai.com"
+      ],
+      "expectedRank" : 1,
+      "id" : "urls-and-email-06",
+      "input" : "support@openai.com",
+      "keyResults" : [
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "s",
+          "keyCode" : 115,
+          "processMicroseconds" : 177.25,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 177.792
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "u",
+          "keyCode" : 117,
+          "processMicroseconds" : 62.208,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 62.458
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "p",
+          "keyCode" : 112,
+          "processMicroseconds" : 844.875,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 845.084
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "p",
+          "keyCode" : 112,
+          "processMicroseconds" : 789.417,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 789.875
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "o",
+          "keyCode" : 111,
+          "processMicroseconds" : 2137,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 2137.417
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "r",
+          "keyCode" : 114,
+          "processMicroseconds" : 2173.708,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 2174.75
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "t",
+          "keyCode" : 116,
+          "processMicroseconds" : 3218.708,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 3220.208
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "@",
+          "keyCode" : 64,
+          "processMicroseconds" : 35.667,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 37.25
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "o",
+          "keyCode" : 111,
+          "processMicroseconds" : 2.875,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 4.167
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "p",
+          "keyCode" : 112,
+          "processMicroseconds" : 1.416,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 2.75
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "e",
+          "keyCode" : 101,
+          "processMicroseconds" : 1.375,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 2.667
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "n",
+          "keyCode" : 110,
+          "processMicroseconds" : 1.375,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 2.667
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "a",
+          "keyCode" : 97,
+          "processMicroseconds" : 1.375,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 2.75
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "i",
+          "keyCode" : 105,
+          "processMicroseconds" : 1.459,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 2.834
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : ".",
+          "keyCode" : 46,
+          "processMicroseconds" : 2.833,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 4.541
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "c",
+          "keyCode" : 99,
+          "processMicroseconds" : 1.875,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 4.708
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "o",
+          "keyCode" : 111,
+          "processMicroseconds" : 2.459,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 4.209
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "m",
+          "keyCode" : 109,
+          "processMicroseconds" : 1.958,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 3.666
+        }
+      ],
+      "layer" : "frontend",
+      "note" : "Literal-preservation target. URL/email recognition and frontend routing must be checked in the app separately from this engine probe.",
+      "outputAfterRawReturn" : "support@openai.com",
+      "preedit" : "support@openai.com",
+      "preeditAfterRawReturn" : "",
+      "preserveAfterRawReturn" : true,
+      "preserveWithoutFinalization" : false,
+      "processTiming" : {
+        "maximumMicroseconds" : 3218.708,
+        "meanMicroseconds" : 525.4351666666666,
+        "medianMicroseconds" : 2.833,
+        "p95Microseconds" : 3218.708,
+        "p99Microseconds" : 3218.708,
+        "samples" : 18
+      },
+      "rankedOutputs" : [
+        "support@openai.com"
+      ],
+      "rawInput" : "support@openai.com",
+      "rawReturnCommit" : "support@openai.com",
+      "rawReturnHandled" : true,
+      "sessionCreationMicroseconds" : 26753.5,
+      "top1Hit" : true,
+      "top5Hit" : true,
+      "updateTiming" : {
+        "maximumMicroseconds" : 3220.208,
+        "meanMicroseconds" : 526.6551666666667,
+        "medianMicroseconds" : 4.541,
+        "p95Microseconds" : 3220.208,
+        "p99Microseconds" : 3220.208,
+        "samples" : 18
+      }
+    },
+    {
+      "candidateCharacterLengths" : [
+        2
+      ],
+      "candidateComments" : [
+        "原文"
+      ],
+      "candidates" : [
+        "13"
+      ],
+      "category" : "english-mixed-literal",
+      "emittedOutputBeforeFinalization" : "macOS ",
+      "evaluationScope" : "production-composition-keystrokes; no IMK/UI",
+      "expectation" : "preserve",
+      "expected" : [
+        "macOS 13"
+      ],
+      "expectedRank" : 1,
+      "id" : "english-mixed-literal-01",
+      "input" : "macOS 13",
+      "keyResults" : [
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "m",
+          "keyCode" : 109,
+          "processMicroseconds" : 159.708,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 160.333
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "a",
+          "keyCode" : 97,
+          "processMicroseconds" : 54.666,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 54.958
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "c",
+          "keyCode" : 99,
+          "processMicroseconds" : 695.917,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 696.167
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "O",
+          "keyCode" : 79,
+          "processMicroseconds" : 571.667,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 571.917
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "S",
+          "keyCode" : 83,
+          "processMicroseconds" : 613.5,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 617.541
+        },
+        {
+          "commit" : "macOS ",
+          "handled" : true,
+          "key" : " ",
+          "keyCode" : 32,
+          "processMicroseconds" : 7.042,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 7.917
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "1",
+          "keyCode" : 49,
+          "processMicroseconds" : 4.333,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 6.666
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "3",
+          "keyCode" : 51,
+          "processMicroseconds" : 4,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 6.667
+        }
+      ],
+      "layer" : "frontend",
+      "note" : "Space is sent as a real key and can select a Chinese candidate. A failed engine probe is not a verdict on the frontend mixed-input path.",
+      "outputAfterRawReturn" : "macOS 13",
+      "preedit" : "13",
+      "preeditAfterRawReturn" : "",
+      "preserveAfterRawReturn" : true,
+      "preserveWithoutFinalization" : false,
+      "processTiming" : {
+        "maximumMicroseconds" : 695.917,
+        "meanMicroseconds" : 263.854125,
+        "medianMicroseconds" : 54.666,
+        "p95Microseconds" : 695.917,
+        "p99Microseconds" : 695.917,
+        "samples" : 8
+      },
+      "rankedOutputs" : [
+        "macOS 13"
+      ],
+      "rawInput" : "13",
+      "rawReturnCommit" : "13",
+      "rawReturnHandled" : true,
+      "sessionCreationMicroseconds" : 28214.5,
+      "top1Hit" : true,
+      "top5Hit" : true,
+      "updateTiming" : {
+        "maximumMicroseconds" : 696.167,
+        "meanMicroseconds" : 265.27075,
+        "medianMicroseconds" : 54.958,
+        "p95Microseconds" : 696.167,
+        "p99Microseconds" : 696.167,
+        "samples" : 8
+      }
+    },
+    {
+      "candidateCharacterLengths" : [
+        7
+      ],
+      "candidateComments" : [
+        "原文"
+      ],
+      "candidates" : [
+        "SwiftUI"
+      ],
+      "category" : "english-mixed-literal",
+      "emittedOutputBeforeFinalization" : "",
+      "evaluationScope" : "production-composition-keystrokes; no IMK/UI",
+      "expectation" : "preserve",
+      "expected" : [
+        "SwiftUI"
+      ],
+      "expectedRank" : 1,
+      "id" : "english-mixed-literal-02",
+      "input" : "SwiftUI",
+      "keyResults" : [
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "S",
+          "keyCode" : 83,
+          "processMicroseconds" : 47,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 47.583
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "w",
+          "keyCode" : 119,
+          "processMicroseconds" : 13.75,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 13.916
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "i",
+          "keyCode" : 105,
+          "processMicroseconds" : 14,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 14.166
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "f",
+          "keyCode" : 102,
+          "processMicroseconds" : 13.417,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 13.583
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "t",
+          "keyCode" : 116,
+          "processMicroseconds" : 17.583,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 21.167
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "U",
+          "keyCode" : 85,
+          "processMicroseconds" : 6.25,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 10.125
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "I",
+          "keyCode" : 73,
+          "processMicroseconds" : 3.792,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 7.709
+        }
+      ],
+      "layer" : "frontend",
+      "note" : "Space is sent as a real key and can select a Chinese candidate. A failed engine probe is not a verdict on the frontend mixed-input path.",
+      "outputAfterRawReturn" : "SwiftUI",
+      "preedit" : "SwiftUI",
+      "preeditAfterRawReturn" : "",
+      "preserveAfterRawReturn" : true,
+      "preserveWithoutFinalization" : false,
+      "processTiming" : {
+        "maximumMicroseconds" : 47,
+        "meanMicroseconds" : 16.541714285714285,
+        "medianMicroseconds" : 13.75,
+        "p95Microseconds" : 47,
+        "p99Microseconds" : 47,
+        "samples" : 7
+      },
+      "rankedOutputs" : [
+        "SwiftUI"
+      ],
+      "rawInput" : "SwiftUI",
+      "rawReturnCommit" : "SwiftUI",
+      "rawReturnHandled" : true,
+      "sessionCreationMicroseconds" : 30038,
+      "top1Hit" : true,
+      "top5Hit" : true,
+      "updateTiming" : {
+        "maximumMicroseconds" : 47.583,
+        "meanMicroseconds" : 18.321285714285715,
+        "medianMicroseconds" : 13.916,
+        "p95Microseconds" : 47.583,
+        "p99Microseconds" : 47.583,
+        "samples" : 7
+      }
+    },
+    {
+      "candidateCharacterLengths" : [
+        6
+      ],
+      "candidateComments" : [
+        "原文"
+      ],
+      "candidates" : [
+        "GitHub"
+      ],
+      "category" : "english-mixed-literal",
+      "emittedOutputBeforeFinalization" : "",
+      "evaluationScope" : "production-composition-keystrokes; no IMK/UI",
+      "expectation" : "preserve",
+      "expected" : [
+        "GitHub"
+      ],
+      "expectedRank" : 1,
+      "id" : "english-mixed-literal-03",
+      "input" : "GitHub",
+      "keyResults" : [
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "G",
+          "keyCode" : 71,
+          "processMicroseconds" : 49.25,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 49.667
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "i",
+          "keyCode" : 105,
+          "processMicroseconds" : 15.875,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 16.041
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "t",
+          "keyCode" : 116,
+          "processMicroseconds" : 17.5,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 20.833
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "H",
+          "keyCode" : 72,
+          "processMicroseconds" : 5.875,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 9.542
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "u",
+          "keyCode" : 117,
+          "processMicroseconds" : 3.542,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 7.334
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "b",
+          "keyCode" : 98,
+          "processMicroseconds" : 3.666,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 7.458
+        }
+      ],
+      "layer" : "frontend",
+      "note" : "Space is sent as a real key and can select a Chinese candidate. A failed engine probe is not a verdict on the frontend mixed-input path.",
+      "outputAfterRawReturn" : "GitHub",
+      "preedit" : "GitHub",
+      "preeditAfterRawReturn" : "",
+      "preserveAfterRawReturn" : true,
+      "preserveWithoutFinalization" : false,
+      "processTiming" : {
+        "maximumMicroseconds" : 49.25,
+        "meanMicroseconds" : 15.951333333333332,
+        "medianMicroseconds" : 5.875,
+        "p95Microseconds" : 49.25,
+        "p99Microseconds" : 49.25,
+        "samples" : 6
+      },
+      "rankedOutputs" : [
+        "GitHub"
+      ],
+      "rawInput" : "GitHub",
+      "rawReturnCommit" : "GitHub",
+      "rawReturnHandled" : true,
+      "sessionCreationMicroseconds" : 27817.625,
+      "top1Hit" : true,
+      "top5Hit" : true,
+      "updateTiming" : {
+        "maximumMicroseconds" : 49.667,
+        "meanMicroseconds" : 18.479166666666668,
+        "medianMicroseconds" : 9.542,
+        "p95Microseconds" : 49.667,
+        "p99Microseconds" : 49.667,
+        "samples" : 6
+      }
+    },
+    {
+      "candidateCharacterLengths" : [
+        4
+      ],
+      "candidateComments" : [
+        "原文"
+      ],
+      "candidates" : [
+        "3.12"
+      ],
+      "category" : "english-mixed-literal",
+      "emittedOutputBeforeFinalization" : "Python ",
+      "evaluationScope" : "production-composition-keystrokes; no IMK/UI",
+      "expectation" : "preserve",
+      "expected" : [
+        "Python 3.12"
+      ],
+      "expectedRank" : 1,
+      "id" : "english-mixed-literal-04",
+      "input" : "Python 3.12",
+      "keyResults" : [
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "P",
+          "keyCode" : 80,
+          "processMicroseconds" : 52.5,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 53.125
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "y",
+          "keyCode" : 121,
+          "processMicroseconds" : 15.292,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 15.542
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "t",
+          "keyCode" : 116,
+          "processMicroseconds" : 15.5,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 15.708
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "h",
+          "keyCode" : 104,
+          "processMicroseconds" : 14.667,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 14.792
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "o",
+          "keyCode" : 111,
+          "processMicroseconds" : 14.458,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 14.625
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "n",
+          "keyCode" : 110,
+          "processMicroseconds" : 18.875,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 22.75
+        },
+        {
+          "commit" : "Python ",
+          "handled" : true,
+          "key" : " ",
+          "keyCode" : 32,
+          "processMicroseconds" : 7.292,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 7.917
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "3",
+          "keyCode" : 51,
+          "processMicroseconds" : 4.208,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 6.416
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : ".",
+          "keyCode" : 46,
+          "processMicroseconds" : 6.209,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 13.5
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "1",
+          "keyCode" : 49,
+          "processMicroseconds" : 3.334,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 6.834
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "2",
+          "keyCode" : 50,
+          "processMicroseconds" : 3.167,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 6.667
+        }
+      ],
+      "layer" : "frontend",
+      "note" : "Space is sent as a real key and can select a Chinese candidate. A failed engine probe is not a verdict on the frontend mixed-input path.",
+      "outputAfterRawReturn" : "Python 3.12",
+      "preedit" : "3.12",
+      "preeditAfterRawReturn" : "",
+      "preserveAfterRawReturn" : true,
+      "preserveWithoutFinalization" : false,
+      "processTiming" : {
+        "maximumMicroseconds" : 52.5,
+        "meanMicroseconds" : 14.136545454545455,
+        "medianMicroseconds" : 14.458,
+        "p95Microseconds" : 52.5,
+        "p99Microseconds" : 52.5,
+        "samples" : 11
+      },
+      "rankedOutputs" : [
+        "Python 3.12"
+      ],
+      "rawInput" : "3.12",
+      "rawReturnCommit" : "3.12",
+      "rawReturnHandled" : true,
+      "sessionCreationMicroseconds" : 31737.917,
+      "top1Hit" : true,
+      "top5Hit" : true,
+      "updateTiming" : {
+        "maximumMicroseconds" : 53.125,
+        "meanMicroseconds" : 16.170545454545454,
+        "medianMicroseconds" : 14.625,
+        "p95Microseconds" : 53.125,
+        "p99Microseconds" : 53.125,
+        "samples" : 11
+      }
+    },
+    {
+      "candidateCharacterLengths" : [
+        2
+      ],
+      "candidateComments" : [
+        "原文"
+      ],
+      "candidates" : [
+        "v2"
+      ],
+      "category" : "english-mixed-literal",
+      "emittedOutputBeforeFinalization" : "API ",
+      "evaluationScope" : "production-composition-keystrokes; no IMK/UI",
+      "expectation" : "preserve",
+      "expected" : [
+        "API v2"
+      ],
+      "expectedRank" : 1,
+      "id" : "english-mixed-literal-05",
+      "input" : "API v2",
+      "keyResults" : [
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "A",
+          "keyCode" : 65,
+          "processMicroseconds" : 48.833,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 49.167
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "P",
+          "keyCode" : 80,
+          "processMicroseconds" : 12.834,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 13.042
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "I",
+          "keyCode" : 73,
+          "processMicroseconds" : 17.5,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 20.709
+        },
+        {
+          "commit" : "API ",
+          "handled" : true,
+          "key" : " ",
+          "keyCode" : 32,
+          "processMicroseconds" : 6.084,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 6.709
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "v",
+          "keyCode" : 118,
+          "processMicroseconds" : 41.959,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 42.25
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "2",
+          "keyCode" : 50,
+          "processMicroseconds" : 9.583,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 12
+        }
+      ],
+      "layer" : "frontend",
+      "note" : "Space is sent as a real key and can select a Chinese candidate. A failed engine probe is not a verdict on the frontend mixed-input path.",
+      "outputAfterRawReturn" : "API v2",
+      "preedit" : "v2",
+      "preeditAfterRawReturn" : "",
+      "preserveAfterRawReturn" : true,
+      "preserveWithoutFinalization" : false,
+      "processTiming" : {
+        "maximumMicroseconds" : 48.833,
+        "meanMicroseconds" : 22.798833333333334,
+        "medianMicroseconds" : 12.834,
+        "p95Microseconds" : 48.833,
+        "p99Microseconds" : 48.833,
+        "samples" : 6
+      },
+      "rankedOutputs" : [
+        "API v2"
+      ],
+      "rawInput" : "v2",
+      "rawReturnCommit" : "v2",
+      "rawReturnHandled" : true,
+      "sessionCreationMicroseconds" : 27596.167,
+      "top1Hit" : true,
+      "top5Hit" : true,
+      "updateTiming" : {
+        "maximumMicroseconds" : 49.167,
+        "meanMicroseconds" : 23.9795,
+        "medianMicroseconds" : 13.042,
+        "p95Microseconds" : 49.167,
+        "p99Microseconds" : 49.167,
+        "samples" : 6
+      }
+    },
+    {
+      "candidateCharacterLengths" : [
+        5,
+        4,
+        6,
+        8,
+        8,
+        9,
+        9
+      ],
+      "candidateComments" : [
+        "",
+        "wo re lie de",
+        "英文英文",
+        "英文英文",
+        "英文英文",
+        "英文英文",
+        "英文英文"
+      ],
+      "candidates" : [
+        "world",
+        "我热烈的",
+        "worlds",
+        "WorldCat",
+        "worldsex",
+        "Worldcoin",
+        "worldwide"
+      ],
+      "category" : "english-mixed-literal",
+      "emittedOutputBeforeFinalization" : "hello ",
+      "evaluationScope" : "production-composition-keystrokes; no IMK/UI",
+      "expectation" : "preserve",
+      "expected" : [
+        "hello world"
+      ],
+      "expectedRank" : 1,
+      "id" : "english-mixed-literal-06",
+      "input" : "hello world",
+      "keyResults" : [
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "h",
+          "keyCode" : 104,
+          "processMicroseconds" : 218.709,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 219.5
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "e",
+          "keyCode" : 101,
+          "processMicroseconds" : 74.208,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 74.5
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "l",
+          "keyCode" : 108,
+          "processMicroseconds" : 591.916,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 592.375
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "l",
+          "keyCode" : 108,
+          "processMicroseconds" : 681.708,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 682.042
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "o",
+          "keyCode" : 111,
+          "processMicroseconds" : 747.334,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 747.917
+        },
+        {
+          "commit" : "hello ",
+          "handled" : true,
+          "key" : " ",
+          "keyCode" : 32,
+          "processMicroseconds" : 35.125,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 35.417
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "w",
+          "keyCode" : 119,
+          "processMicroseconds" : 133.5,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 134
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "o",
+          "keyCode" : 111,
+          "processMicroseconds" : 62.791,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 63.083
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "r",
+          "keyCode" : 114,
+          "processMicroseconds" : 275.875,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 276.166
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "l",
+          "keyCode" : 108,
+          "processMicroseconds" : 271.209,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 271.584
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "d",
+          "keyCode" : 100,
+          "processMicroseconds" : 1146.167,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 1146.542
+        }
+      ],
+      "layer" : "frontend",
+      "note" : "Space is sent as a real key and can select a Chinese candidate. A failed engine probe is not a verdict on the frontend mixed-input path.",
+      "outputAfterRawReturn" : "hello world",
+      "preedit" : "world",
+      "preeditAfterRawReturn" : "",
+      "preserveAfterRawReturn" : true,
+      "preserveWithoutFinalization" : false,
+      "processTiming" : {
+        "maximumMicroseconds" : 1146.167,
+        "meanMicroseconds" : 385.32199999999995,
+        "medianMicroseconds" : 271.209,
+        "p95Microseconds" : 1146.167,
+        "p99Microseconds" : 1146.167,
+        "samples" : 11
+      },
+      "rankedOutputs" : [
+        "hello world",
+        "hello 我热烈的",
+        "hello worlds",
+        "hello WorldCat",
+        "hello worldsex",
+        "hello Worldcoin",
+        "hello worldwide"
+      ],
+      "rawInput" : "world",
+      "rawReturnCommit" : "world",
+      "rawReturnHandled" : true,
+      "sessionCreationMicroseconds" : 28070.125,
+      "top1Hit" : true,
+      "top5Hit" : true,
+      "updateTiming" : {
+        "maximumMicroseconds" : 1146.542,
+        "meanMicroseconds" : 385.7387272727273,
+        "medianMicroseconds" : 271.584,
+        "p95Microseconds" : 1146.542,
+        "p99Microseconds" : 1146.542,
+        "samples" : 11
+      }
+    },
+    {
+      "candidateCharacterLengths" : [
+        5,
+        3,
+        3,
+        5,
+        2,
+        2,
+        2
+      ],
+      "candidateComments" : [
+        "wo zai yong ma che",
+        "wo zai ye",
+        "wo zai ya",
+        "wo zai kan dian ying",
+        "",
+        "",
+        ""
+      ],
+      "candidates" : [
+        "我再用马车",
+        "我再也",
+        "我在呀",
+        "我在看电影",
+        "我在",
+        "我再",
+        "握在"
+      ],
+      "category" : "chinese-mixed",
+      "emittedOutputBeforeFinalization" : "",
+      "evaluationScope" : "production-composition-reference-only; no IMK/UI",
+      "expectation" : "top5",
+      "expected" : [
+        "我在用macOS",
+        "我在用 macOS"
+      ],
+      "id" : "chinese-mixed-01",
+      "input" : "wozaiyongmacOS",
+      "keyResults" : [
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "w",
+          "keyCode" : 119,
+          "processMicroseconds" : 67.625,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 67.958
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "o",
+          "keyCode" : 111,
+          "processMicroseconds" : 24.875,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 25
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "z",
+          "keyCode" : 122,
+          "processMicroseconds" : 158.208,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 158.292
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "a",
+          "keyCode" : 97,
+          "processMicroseconds" : 26.291,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 26.375
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "i",
+          "keyCode" : 105,
+          "processMicroseconds" : 28.75,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 28.833
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "y",
+          "keyCode" : 121,
+          "processMicroseconds" : 248.917,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 249.167
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "o",
+          "keyCode" : 111,
+          "processMicroseconds" : 62.542,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 62.667
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "n",
+          "keyCode" : 110,
+          "processMicroseconds" : 39.958,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 40.042
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "g",
+          "keyCode" : 103,
+          "processMicroseconds" : 33.667,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 33.75
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "m",
+          "keyCode" : 109,
+          "processMicroseconds" : 7546.167,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 7546.75
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "a",
+          "keyCode" : 97,
+          "processMicroseconds" : 81.5,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 81.625
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "c",
+          "keyCode" : 99,
+          "processMicroseconds" : 7310.209,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 7311.334
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "O",
+          "keyCode" : 79,
+          "processMicroseconds" : 8897.625,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 8898.041
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "S",
+          "keyCode" : 83,
+          "processMicroseconds" : 6809.833,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 6811.375
+        }
+      ],
+      "layer" : "frontend",
+      "note" : "Desired complete-app mixed-input result. Recorded as an engine probe only and excluded from engine ranking aggregates; requires a frontend test for acceptance.",
+      "preedit" : "wo zai yong ma cOS",
+      "processTiming" : {
+        "maximumMicroseconds" : 8897.625,
+        "meanMicroseconds" : 2238.297642857143,
+        "medianMicroseconds" : 67.625,
+        "p95Microseconds" : 8897.625,
+        "p99Microseconds" : 8897.625,
+        "samples" : 14
+      },
+      "rankedOutputs" : [
+        "我再用马车",
+        "我再也",
+        "我在呀",
+        "我在看电影",
+        "我在",
+        "我再",
+        "握在"
+      ],
+      "rawInput" : "wozaiyongmacOS",
+      "sessionCreationMicroseconds" : 27711,
+      "top1Hit" : false,
+      "top5Hit" : false,
+      "updateTiming" : {
+        "maximumMicroseconds" : 8898.041,
+        "meanMicroseconds" : 2238.657785714285,
+        "medianMicroseconds" : 67.958,
+        "p95Microseconds" : 8898.041,
+        "p99Microseconds" : 8898.041,
+        "samples" : 14
+      }
+    },
+    {
+      "candidateCharacterLengths" : [
+        3,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1
+      ],
+      "candidateComments" : [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "candidates" : [
+        "请发送",
+        "请发",
+        "轻罚",
+        "青发",
+        "请",
+        "轻",
+        "清"
+      ],
+      "category" : "chinese-mixed",
+      "emittedOutputBeforeFinalization" : "",
+      "evaluationScope" : "production-composition-reference-only; no IMK/UI",
+      "expectation" : "top5",
+      "expected" : [
+        "请发送PDF文件",
+        "请发送 PDF 文件"
+      ],
+      "id" : "chinese-mixed-02",
+      "input" : "qingfasongPDFwenjian",
+      "keyResults" : [
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "q",
+          "keyCode" : 113,
+          "processMicroseconds" : 146.583,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 147.208
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "i",
+          "keyCode" : 105,
+          "processMicroseconds" : 53.791,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 54.041
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "n",
+          "keyCode" : 110,
+          "processMicroseconds" : 41.958,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 42.208
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "g",
+          "keyCode" : 103,
+          "processMicroseconds" : 41.75,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 41.917
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "f",
+          "keyCode" : 102,
+          "processMicroseconds" : 698.583,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 698.791
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "a",
+          "keyCode" : 97,
+          "processMicroseconds" : 70.25,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 70.459
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "s",
+          "keyCode" : 115,
+          "processMicroseconds" : 4038.375,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 4039.417
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "o",
+          "keyCode" : 111,
+          "processMicroseconds" : 4028.416,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 4029.291
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "n",
+          "keyCode" : 110,
+          "processMicroseconds" : 118.041,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 118.333
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "g",
+          "keyCode" : 103,
+          "processMicroseconds" : 76.041,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 76.208
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "P",
+          "keyCode" : 80,
+          "processMicroseconds" : 76.25,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 76.5
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "D",
+          "keyCode" : 68,
+          "processMicroseconds" : 71.166,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 71.375
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "F",
+          "keyCode" : 70,
+          "processMicroseconds" : 69.5,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 69.667
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "w",
+          "keyCode" : 119,
+          "processMicroseconds" : 77.458,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 77.666
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "e",
+          "keyCode" : 101,
+          "processMicroseconds" : 101.083,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 101.792
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "n",
+          "keyCode" : 110,
+          "processMicroseconds" : 144.833,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 145.333
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "j",
+          "keyCode" : 106,
+          "processMicroseconds" : 108.917,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 109.208
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "i",
+          "keyCode" : 105,
+          "processMicroseconds" : 115.125,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 115.417
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "a",
+          "keyCode" : 97,
+          "processMicroseconds" : 87.625,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 87.834
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "n",
+          "keyCode" : 110,
+          "processMicroseconds" : 86,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 86.208
+        }
+      ],
+      "layer" : "frontend",
+      "note" : "Desired complete-app mixed-input result. Recorded as an engine probe only and excluded from engine ranking aggregates; requires a frontend test for acceptance.",
+      "preedit" : "qing fa songPDFwenjian",
+      "processTiming" : {
+        "maximumMicroseconds" : 4038.375,
+        "meanMicroseconds" : 512.58725,
+        "medianMicroseconds" : 86,
+        "p95Microseconds" : 4028.416,
+        "p99Microseconds" : 4038.375,
+        "samples" : 20
+      },
+      "rankedOutputs" : [
+        "请发送",
+        "请发",
+        "轻罚",
+        "青发",
+        "请",
+        "轻",
+        "清"
+      ],
+      "rawInput" : "qingfasongPDFwenjian",
+      "sessionCreationMicroseconds" : 27914.209,
+      "top1Hit" : false,
+      "top5Hit" : false,
+      "updateTiming" : {
+        "maximumMicroseconds" : 4039.417,
+        "meanMicroseconds" : 512.9436499999999,
+        "medianMicroseconds" : 86.208,
+        "p95Microseconds" : 4029.291,
+        "p99Microseconds" : 4039.417,
+        "samples" : 20
+      }
+    },
+    {
+      "candidateCharacterLengths" : [
+        3,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "candidateComments" : [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "candidates" : [
+        "点开会",
+        "点开",
+        "点",
+        "电",
+        "店",
+        "殿",
+        "典"
+      ],
+      "category" : "chinese-mixed",
+      "emittedOutputBeforeFinalization" : "明天0",
+      "evaluationScope" : "production-composition-reference-only; no IMK/UI",
+      "expectation" : "top5",
+      "expected" : [
+        "明天10点开会"
+      ],
+      "id" : "chinese-mixed-03",
+      "input" : "mingtian10diankaihui",
+      "keyResults" : [
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "m",
+          "keyCode" : 109,
+          "processMicroseconds" : 129.167,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 129.459
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "i",
+          "keyCode" : 105,
+          "processMicroseconds" : 53.583,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 53.792
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "n",
+          "keyCode" : 110,
+          "processMicroseconds" : 43.083,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 43.291
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "g",
+          "keyCode" : 103,
+          "processMicroseconds" : 40.083,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 40.25
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "t",
+          "keyCode" : 116,
+          "processMicroseconds" : 762.833,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 763
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "i",
+          "keyCode" : 105,
+          "processMicroseconds" : 63.5,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 63.667
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "a",
+          "keyCode" : 97,
+          "processMicroseconds" : 70.083,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 70.291
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "n",
+          "keyCode" : 110,
+          "processMicroseconds" : 57.208,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 57.375
+        },
+        {
+          "commit" : "明天",
+          "handled" : true,
+          "key" : "1",
+          "keyCode" : 49,
+          "processMicroseconds" : 26.083,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 26.291
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "0",
+          "keyCode" : 48,
+          "processMicroseconds" : 4.791,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 7.125
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "d",
+          "keyCode" : 100,
+          "processMicroseconds" : 20.667,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 24.709
+        },
+        {
+          "commit" : "0",
+          "handled" : true,
+          "key" : "i",
+          "keyCode" : 105,
+          "processMicroseconds" : 107.834,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 118.167
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "a",
+          "keyCode" : 97,
+          "processMicroseconds" : 58.875,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 59.083
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "n",
+          "keyCode" : 110,
+          "processMicroseconds" : 44.709,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 44.917
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "k",
+          "keyCode" : 107,
+          "processMicroseconds" : 2019.791,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 2020.333
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "a",
+          "keyCode" : 97,
+          "processMicroseconds" : 105.708,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 106
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "i",
+          "keyCode" : 105,
+          "processMicroseconds" : 67.333,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 67.583
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "h",
+          "keyCode" : 104,
+          "processMicroseconds" : 11506.125,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 11507.875
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "u",
+          "keyCode" : 117,
+          "processMicroseconds" : 172.958,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 173.208
+        },
+        {
+          "commit" : "",
+          "handled" : true,
+          "key" : "i",
+          "keyCode" : 105,
+          "processMicroseconds" : 101.75,
+          "rawPassthrough" : "",
+          "updateMicroseconds" : 101.959
+        }
+      ],
+      "layer" : "frontend",
+      "note" : "Desired complete-app mixed-input result. Recorded as an engine probe only and excluded from engine ranking aggregates; requires a frontend test for acceptance.",
+      "preedit" : "dian kai hui",
+      "processTiming" : {
+        "maximumMicroseconds" : 11506.125,
+        "meanMicroseconds" : 772.8082,
+        "medianMicroseconds" : 63.5,
+        "p95Microseconds" : 2019.791,
+        "p99Microseconds" : 11506.125,
+        "samples" : 20
+      },
+      "rankedOutputs" : [
+        "明天0点开会",
+        "明天0点开",
+        "明天0点",
+        "明天0电",
+        "明天0店",
+        "明天0殿",
+        "明天0典"
+      ],
+      "rawInput" : "diankaihui",
+      "sessionCreationMicroseconds" : 29370.5,
+      "top1Hit" : false,
+      "top5Hit" : false,
+      "updateTiming" : {
+        "maximumMicroseconds" : 11507.875,
+        "meanMicroseconds" : 773.91875,
+        "medianMicroseconds" : 63.667,
+        "p95Microseconds" : 2020.333,
+        "p99Microseconds" : 11507.875,
+        "samples" : 20
+      }
+    }
+  ],
+  "scores" : {
+    "cases" : 21,
+    "engineRankingCases" : 0,
+    "engineRequirementsMet" : 0,
+    "engineTop1Hits" : 0,
+    "engineTop5Hits" : 0,
+    "frontendProbeCases" : 21,
+    "literalPreserveProbes" : 18,
+    "literalPreservedAfterRawReturn" : 18,
+    "literalPreservedWithoutFinalization" : 0
+  },
+  "sourceSchemaSHA256" : "cd288d689f3ea4e9cf0c8a2cfc69877cda544d11511928d2f6cbfaefc12593e6",
+  "updateTiming" : {
+    "maximumMicroseconds" : 11507.875,
+    "meanMicroseconds" : 317.9622425373134,
+    "medianMicroseconds" : 13.916,
+    "p95Microseconds" : 1486.292,
+    "p99Microseconds" : 7546.75,
+    "samples" : 268
+  },
+  "userProfilePolicy" : "Fresh profile per run; separate session per case; no candidate acceptance in ranking cases; frontend probes run last; temporary profile removed after run.",
+  "workingTreeHasTrackedChanges" : true
+}

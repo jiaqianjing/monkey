@@ -48,7 +48,7 @@ int monkey_rime_acquire(const char *library_path, const char *shared_path,
   traits.user_data_dir = active_user;
   traits.distribution_name = "Monkey";
   traits.distribution_code_name = "monkey";
-  traits.distribution_version = "0.1.0";
+  traits.distribution_version = "0.2.0";
   traits.app_name = "rime.monkey";
   traits.min_log_level = 2;
   traits.log_dir = "";
@@ -96,6 +96,14 @@ int monkey_rime_select(uintptr_t session, int index) {
 int monkey_rime_commit_composition(uintptr_t session) {
   return owners && session ? api->commit_composition(session) : 0;
 }
+int monkey_rime_forget_candidate(uintptr_t session, int index) {
+  return owners && session && index >= 0 && RIME_PROVIDED(api, delete_candidate_on_current_page)
+    ? api->delete_candidate_on_current_page(session, (size_t)index) : 0;
+}
+int monkey_rime_change_page(uintptr_t session, int backward) {
+  return owners && session && RIME_PROVIDED(api, change_page)
+    ? api->change_page(session, backward != 0) : 0;
+}
 void monkey_rime_clear(uintptr_t session) {
   if (owners && session) api->clear_composition(session);
 }
@@ -113,16 +121,25 @@ MonkeyRimeSnapshot *monkey_rime_snapshot(uintptr_t session) {
   MonkeyRimeSnapshot *snapshot = calloc(1, sizeof(*snapshot));
   if (!snapshot) return NULL;
   snapshot->preedit = strdup("");
+  snapshot->raw_input = strdup("");
   snapshot->is_last_page = 1;
   if (!owners || !session) return snapshot;
   RIME_STRUCT(RimeContext, context);
   if (!api->get_context(session, &context)) return snapshot;
   free(snapshot->preedit);
   snapshot->preedit = strdup(context.composition.preedit ? context.composition.preedit : "");
+  free(snapshot->raw_input);
+  const char *input = api->get_input(session);
+  snapshot->raw_input = strdup(input ? input : "");
+  snapshot->cursor_pos = context.composition.cursor_pos;
+  snapshot->raw_cursor_pos = api->get_caret_pos(session);
   snapshot->candidate_count = context.menu.num_candidates;
   snapshot->candidates = calloc((size_t)snapshot->candidate_count, sizeof(char *));
-  for (int i = 0; i < snapshot->candidate_count; ++i)
+  snapshot->comments = calloc((size_t)snapshot->candidate_count, sizeof(char *));
+  for (int i = 0; i < snapshot->candidate_count; ++i) {
     snapshot->candidates[i] = strdup(context.menu.candidates[i].text ? context.menu.candidates[i].text : "");
+    snapshot->comments[i] = strdup(context.menu.candidates[i].comment ? context.menu.candidates[i].comment : "");
+  }
   snapshot->highlighted_index = context.menu.highlighted_candidate_index;
   snapshot->page = context.menu.page_no;
   snapshot->is_last_page = context.menu.is_last_page;
@@ -132,7 +149,12 @@ MonkeyRimeSnapshot *monkey_rime_snapshot(uintptr_t session) {
 void monkey_rime_free_snapshot(MonkeyRimeSnapshot *snapshot) {
   if (!snapshot) return;
   free(snapshot->preedit);
-  for (int i = 0; i < snapshot->candidate_count; ++i) free(snapshot->candidates[i]);
+  free(snapshot->raw_input);
+  for (int i = 0; i < snapshot->candidate_count; ++i) {
+    free(snapshot->candidates[i]);
+    free(snapshot->comments[i]);
+  }
   free(snapshot->candidates);
+  free(snapshot->comments);
   free(snapshot);
 }

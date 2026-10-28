@@ -13,6 +13,7 @@ import io
 import json
 import os
 import pathlib
+import re
 import subprocess
 import tarfile
 import tempfile
@@ -95,9 +96,68 @@ manifest = (f'Official librime 1.17.0 / source revision 33e7814\n{url}\n'
 (vendor / 'BUILD-MANIFEST.txt').write_text(manifest)
 print('Ready: Vendor/Rime/lib/librime.1.dylib (arm64 + x86_64).')
 
+# Keep upstream word lists reproducible and untouched. Derived English entries
+# have lowercase lookup codes and no one/two-letter codes, so they do not take
+# over Chinese shortcuts such as nh / xx / hd. Pinyin's exact syllables still
+# outrank this secondary table translator; English completions rank lower.
+shared = root / 'Resources/Rime'
+dictionary_manifest_path = shared / 'licenses/DICTIONARY-SOURCES.json'
+dictionary_manifest = json.loads(dictionary_manifest_path.read_text())
+for item in dictionary_manifest:
+    if 'source' not in item:
+        continue
+    path = shared / item['file']
+    if hashlib.sha256(path.read_bytes()).hexdigest() != item['sha256']:
+        raise SystemExit(f'Upstream dictionary checksum mismatch: {item["file"]}')
+entries = []
+seen = set()
+english_inputs = ['cn_dicts/upstream/cn_en.txt', 'cn_dicts/upstream/en_ext.dict.yaml',
+                  'cn_dicts/upstream/en.dict.yaml']
+for relative in english_inputs:
+    started_body = relative.endswith('.txt')
+    for line in (shared / relative).read_text().splitlines():
+        if line == '...':
+            started_body = True
+            continue
+        if not started_body or not line or line.startswith('#'):
+            continue
+        row = line.split('\t')
+        if len(row) < 2 or not re.fullmatch('[A-Za-z]{3,}', row[1]):
+            continue
+        key = (row[0], row[1].lower())
+        if key in seen:
+            continue
+        seen.add(key)
+        entries.append((key[0], key[1], row[2] if len(row) > 2 else '100'))
+english_output = shared / 'cn_dicts/monkey_english_terms.dict.yaml'
+english_output.write_text(
+    '# Derived from Rime Ice en/en_ext/cn_en at revision da1fbe602e38f26db846fa10120ee64c2b0324c0.\n'
+    '# Modified by Monkey contributors 2026-10-29: lowercase alphabetic lookup codes,\n'
+    '# exclude codes shorter than 3 letters to protect Chinese abbreviations, deduplicate.\n'
+    '# Original source comments are preserved in cn_dicts/upstream/; GPL-3.0 applies.\n'
+    '---\nname: monkey_english_terms\nversion: "0.2.0"\nsort: by_weight\n...\n' +
+    ''.join('\t'.join(row) + '\n' for row in entries))
+dictionary_manifest = [item for item in dictionary_manifest if item.get('file') != 'cn_dicts/monkey_english_terms.dict.yaml']
+dictionary_manifest.append({'file': 'cn_dicts/monkey_english_terms.dict.yaml',
+    'generated_from': english_inputs, 'sha256': hashlib.sha256(english_output.read_bytes()).hexdigest(),
+    'entries': len(entries), 'license': 'GPL-3.0'})
+mixed_entries = [row for row in entries if any('\u4e00' <= char <= '\u9fff' for char in row[0])]
+mixed_output = shared / 'cn_dicts/monkey_mixed_terms.dict.yaml'
+mixed_output.write_text(
+    '# Derived from the same pinned Rime Ice sources as monkey_english_terms.dict.yaml.\n'
+    '# Modified by Monkey contributors 2026-10-29: retain mixed Han/English outputs,\n'
+    '# lowercase alphabetic lookup codes, exclude one/two-letter codes; GPL-3.0.\n'
+    '---\nname: monkey_mixed_terms\nversion: "0.2.0"\nsort: by_weight\n...\n' +
+    ''.join('\t'.join(row) + '\n' for row in mixed_entries))
+dictionary_manifest = [item for item in dictionary_manifest if item.get('file') != 'cn_dicts/monkey_mixed_terms.dict.yaml']
+dictionary_manifest.append({'file': 'cn_dicts/monkey_mixed_terms.dict.yaml',
+    'generated_from': english_inputs, 'sha256': hashlib.sha256(mixed_output.read_bytes()).hexdigest(),
+    'entries': len(mixed_entries), 'license': 'GPL-3.0'})
+dictionary_manifest_path.write_text(json.dumps(dictionary_manifest, indent=2) + '\n')
+print(f'English / mixed vocabulary: {len(entries)} entries.')
+
 # Compile the large, shared dictionary at build time. The bundle includes this
 # generated directory, so first use only creates the small per-user config.
-shared = root / 'Resources/Rime'
 staging = shared / 'build'
 staging.mkdir(exist_ok=True)
 environment = os.environ.copy()
@@ -112,7 +172,9 @@ with tempfile.TemporaryDirectory(prefix='monkey-rime-build-') as temporary:
     if result.returncode:
         print(log.read_text()[-12000:])
         raise SystemExit('Dictionary deployment failed; see Vendor/Rime/dictionary-build.log.')
-required = ['monkey_pinyin.table.bin', 'monkey_pinyin.prism.bin', 'monkey_pinyin.schema.yaml', 'default.yaml']
+required = ['monkey_pinyin.table.bin', 'monkey_pinyin.prism.bin', 'monkey_pinyin.schema.yaml',
+            'monkey_english.table.bin', 'monkey_english.prism.bin',
+            'monkey_mixed.table.bin', 'monkey_mixed.prism.bin', 'default.yaml']
 if not all((staging / item).exists() for item in required):
     raise SystemExit('Dictionary deployment did not create all required files.')
 print(f'Bundled dictionary ready in {time.monotonic() - started:.1f}s: {staging}')

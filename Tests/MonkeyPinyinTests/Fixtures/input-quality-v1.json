@@ -1,0 +1,1160 @@
+{
+  "version": 1,
+  "title": "Monkey Chinese input quality corpus v1",
+  "baselineCommit": "76db9e6553b626a80c5af0735bfcdbe53d0d6b9c",
+  "evaluationContract": "Exact, case-sensitive candidate/output matches. Engine ranking excludes frontend-layer probes. Preserve probes report automatic output and a separately identified raw-Return flush. Expectations freeze before baseline measurement.",
+  "cases": [
+    {
+      "id": "common-full-pinyin-01",
+      "category": "common-full-pinyin",
+      "input": "nihao",
+      "expected": [
+        "你好"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "common-full-pinyin-02",
+      "category": "common-full-pinyin",
+      "input": "xiexie",
+      "expected": [
+        "谢谢"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "common-full-pinyin-03",
+      "category": "common-full-pinyin",
+      "input": "zaijian",
+      "expected": [
+        "再见"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "common-full-pinyin-04",
+      "category": "common-full-pinyin",
+      "input": "meiguanxi",
+      "expected": [
+        "没关系"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "common-full-pinyin-05",
+      "category": "common-full-pinyin",
+      "input": "buhaoyisi",
+      "expected": [
+        "不好意思"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "common-full-pinyin-06",
+      "category": "common-full-pinyin",
+      "input": "gongzuo",
+      "expected": [
+        "工作"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "common-full-pinyin-07",
+      "category": "common-full-pinyin",
+      "input": "shijian",
+      "expected": [
+        "时间"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "common-full-pinyin-08",
+      "category": "common-full-pinyin",
+      "input": "wenti",
+      "expected": [
+        "问题"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "common-full-pinyin-09",
+      "category": "common-full-pinyin",
+      "input": "mingtian",
+      "expected": [
+        "明天"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "common-full-pinyin-10",
+      "category": "common-full-pinyin",
+      "input": "jintian",
+      "expected": [
+        "今天"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "common-full-pinyin-11",
+      "category": "common-full-pinyin",
+      "input": "xianzai",
+      "expected": [
+        "现在"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "common-full-pinyin-12",
+      "category": "common-full-pinyin",
+      "input": "tushuguan",
+      "expected": [
+        "图书馆"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "common-full-pinyin-13",
+      "category": "common-full-pinyin",
+      "input": "pengyou",
+      "expected": [
+        "朋友"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "common-full-pinyin-14",
+      "category": "common-full-pinyin",
+      "input": "xihuan",
+      "expected": [
+        "喜欢"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "common-full-pinyin-15",
+      "category": "common-full-pinyin",
+      "input": "gongsi",
+      "expected": [
+        "公司"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "common-full-pinyin-16",
+      "category": "common-full-pinyin",
+      "input": "xuexi",
+      "expected": [
+        "学习"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "common-full-pinyin-17",
+      "category": "common-full-pinyin",
+      "input": "shurufa",
+      "expected": [
+        "输入法"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "common-full-pinyin-18",
+      "category": "common-full-pinyin",
+      "input": "xitong",
+      "expected": [
+        "系统"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "common-full-pinyin-19",
+      "category": "common-full-pinyin",
+      "input": "zhongwen",
+      "expected": [
+        "中文"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "common-full-pinyin-20",
+      "category": "common-full-pinyin",
+      "input": "zhongguo",
+      "expected": [
+        "中国"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "daily-phrase-01",
+      "category": "daily-phrase",
+      "input": "zaoshanghao",
+      "expected": [
+        "早上好"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "daily-phrase-02",
+      "category": "daily-phrase",
+      "input": "wanan",
+      "expected": [
+        "晚安"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "daily-phrase-03",
+      "category": "daily-phrase",
+      "input": "qingshaodeng",
+      "expected": [
+        "请稍等"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "daily-phrase-04",
+      "category": "daily-phrase",
+      "input": "shouhuodizhi",
+      "expected": [
+        "收货地址"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "daily-phrase-05",
+      "category": "daily-phrase",
+      "input": "kuaidi",
+      "expected": [
+        "快递"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "daily-phrase-06",
+      "category": "daily-phrase",
+      "input": "chenggong",
+      "expected": [
+        "成功"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "daily-phrase-07",
+      "category": "daily-phrase",
+      "input": "wojiudaole",
+      "expected": [
+        "我就到了"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "daily-phrase-08",
+      "category": "daily-phrase",
+      "input": "mashangjiudao",
+      "expected": [
+        "马上就到"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "daily-phrase-09",
+      "category": "daily-phrase",
+      "input": "jintianyoukongma",
+      "expected": [
+        "今天有空吗"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "daily-phrase-10",
+      "category": "daily-phrase",
+      "input": "mingtianzaishuo",
+      "expected": [
+        "明天再说"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "daily-phrase-11",
+      "category": "daily-phrase",
+      "input": "wozhidaole",
+      "expected": [
+        "我知道了"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "daily-phrase-12",
+      "category": "daily-phrase",
+      "input": "haojiubujian",
+      "expected": [
+        "好久不见"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "daily-phrase-13",
+      "category": "daily-phrase",
+      "input": "zhoumokuaile",
+      "expected": [
+        "周末快乐"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "daily-phrase-14",
+      "category": "daily-phrase",
+      "input": "zhuyishenti",
+      "expected": [
+        "注意身体"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "daily-phrase-15",
+      "category": "daily-phrase",
+      "input": "baochilianxi",
+      "expected": [
+        "保持联系"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "daily-phrase-16",
+      "category": "daily-phrase",
+      "input": "bukeneng",
+      "expected": [
+        "不可能"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "sentence-01",
+      "category": "sentence",
+      "input": "wojintianxianghebeikafei",
+      "expected": [
+        "我今天想喝杯咖啡"
+      ],
+      "expectation": "top5",
+      "layer": "engine"
+    },
+    {
+      "id": "sentence-02",
+      "category": "sentence",
+      "input": "mingtianxiawuliangdiankaihui",
+      "expected": [
+        "明天下午两点开会"
+      ],
+      "expectation": "top5",
+      "layer": "engine"
+    },
+    {
+      "id": "sentence-03",
+      "category": "sentence",
+      "input": "qingbawenjianfageiwo",
+      "expected": [
+        "请把文件发给我"
+      ],
+      "expectation": "top5",
+      "layer": "engine"
+    },
+    {
+      "id": "sentence-04",
+      "category": "sentence",
+      "input": "zhegewentiwoyijingxiufule",
+      "expected": [
+        "这个问题我已经修复了"
+      ],
+      "expectation": "top5",
+      "layer": "engine"
+    },
+    {
+      "id": "sentence-05",
+      "category": "sentence",
+      "input": "womenxiagexingqizaitaolun",
+      "expected": [
+        "我们下个星期再讨论"
+      ],
+      "expectation": "top5",
+      "layer": "engine"
+    },
+    {
+      "id": "sentence-06",
+      "category": "sentence",
+      "input": "qingbangwoquerenyixiashijian",
+      "expected": [
+        "请帮我确认一下时间"
+      ],
+      "expectation": "top5",
+      "layer": "engine"
+    },
+    {
+      "id": "sentence-07",
+      "category": "sentence",
+      "input": "zhegebanbenhaixuyaoceshi",
+      "expected": [
+        "这个版本还需要测试"
+      ],
+      "expectation": "top5",
+      "layer": "engine"
+    },
+    {
+      "id": "sentence-08",
+      "category": "sentence",
+      "input": "wozhengzailushang",
+      "expected": [
+        "我正在路上"
+      ],
+      "expectation": "top5",
+      "layer": "engine"
+    },
+    {
+      "id": "sentence-09",
+      "category": "sentence",
+      "input": "nengbunengshaoweidengyixia",
+      "expected": [
+        "能不能稍微等一下"
+      ],
+      "expectation": "top5",
+      "layer": "engine"
+    },
+    {
+      "id": "sentence-10",
+      "category": "sentence",
+      "input": "shoudaoyoujianhouqinghuifu",
+      "expected": [
+        "收到邮件后请回复"
+      ],
+      "expectation": "top5",
+      "layer": "engine"
+    },
+    {
+      "id": "sentence-11",
+      "category": "sentence",
+      "input": "womenkeyixianzuoyigeceshi",
+      "expected": [
+        "我们可以先做一个测试"
+      ],
+      "expectation": "top5",
+      "layer": "engine"
+    },
+    {
+      "id": "sentence-12",
+      "category": "sentence",
+      "input": "jintianwanshangyiqichifan",
+      "expected": [
+        "今天晚上一起吃饭"
+      ],
+      "expectation": "top5",
+      "layer": "engine"
+    },
+    {
+      "id": "abbreviation-01",
+      "category": "abbreviation",
+      "input": "nh",
+      "expected": [
+        "你好",
+        "您好"
+      ],
+      "expectation": "top5",
+      "layer": "engine",
+      "note": "No preceding context. Multiple accepted words are limited to familiar phrases sharing these initials; this is not a unique-intent test."
+    },
+    {
+      "id": "abbreviation-02",
+      "category": "abbreviation",
+      "input": "xx",
+      "expected": [
+        "谢谢"
+      ],
+      "expectation": "top5",
+      "layer": "engine",
+      "note": "No preceding context. Multiple accepted words are limited to familiar phrases sharing these initials; this is not a unique-intent test."
+    },
+    {
+      "id": "abbreviation-03",
+      "category": "abbreviation",
+      "input": "zg",
+      "expected": [
+        "中国"
+      ],
+      "expectation": "top5",
+      "layer": "engine",
+      "note": "No preceding context. Multiple accepted words are limited to familiar phrases sharing these initials; this is not a unique-intent test."
+    },
+    {
+      "id": "abbreviation-04",
+      "category": "abbreviation",
+      "input": "srf",
+      "expected": [
+        "输入法"
+      ],
+      "expectation": "top5",
+      "layer": "engine",
+      "note": "No preceding context. Multiple accepted words are limited to familiar phrases sharing these initials; this is not a unique-intent test."
+    },
+    {
+      "id": "abbreviation-05",
+      "category": "abbreviation",
+      "input": "bj",
+      "expected": [
+        "北京"
+      ],
+      "expectation": "top5",
+      "layer": "engine",
+      "note": "No preceding context. Multiple accepted words are limited to familiar phrases sharing these initials; this is not a unique-intent test."
+    },
+    {
+      "id": "abbreviation-06",
+      "category": "abbreviation",
+      "input": "sh",
+      "expected": [
+        "上海"
+      ],
+      "expectation": "top5",
+      "layer": "engine",
+      "note": "No preceding context. Multiple accepted words are limited to familiar phrases sharing these initials; this is not a unique-intent test."
+    },
+    {
+      "id": "abbreviation-07",
+      "category": "abbreviation",
+      "input": "sj",
+      "expected": [
+        "时间",
+        "手机",
+        "世界"
+      ],
+      "expectation": "top5",
+      "layer": "engine",
+      "note": "No preceding context. Multiple accepted words are limited to familiar phrases sharing these initials; this is not a unique-intent test."
+    },
+    {
+      "id": "abbreviation-08",
+      "category": "abbreviation",
+      "input": "gz",
+      "expected": [
+        "工作",
+        "广州",
+        "关注"
+      ],
+      "expectation": "top5",
+      "layer": "engine",
+      "note": "No preceding context. Multiple accepted words are limited to familiar phrases sharing these initials; this is not a unique-intent test."
+    },
+    {
+      "id": "abbreviation-09",
+      "category": "abbreviation",
+      "input": "xq",
+      "expected": [
+        "星期",
+        "需求",
+        "小区"
+      ],
+      "expectation": "top5",
+      "layer": "engine",
+      "note": "No preceding context. Multiple accepted words are limited to familiar phrases sharing these initials; this is not a unique-intent test."
+    },
+    {
+      "id": "abbreviation-10",
+      "category": "abbreviation",
+      "input": "wt",
+      "expected": [
+        "问题"
+      ],
+      "expectation": "top5",
+      "layer": "engine",
+      "note": "No preceding context. Multiple accepted words are limited to familiar phrases sharing these initials; this is not a unique-intent test."
+    },
+    {
+      "id": "typo-01",
+      "category": "typo",
+      "input": "zhognguo",
+      "expected": [
+        "中国"
+      ],
+      "expectation": "top5",
+      "layer": "engine",
+      "note": "Deliberate adjacent transposition, duplicate or missing-key error. These expectations are product-quality targets, not claims that the current schema supports every correction."
+    },
+    {
+      "id": "typo-02",
+      "category": "typo",
+      "input": "beijign",
+      "expected": [
+        "北京"
+      ],
+      "expectation": "top5",
+      "layer": "engine",
+      "note": "Deliberate adjacent transposition, duplicate or missing-key error. These expectations are product-quality targets, not claims that the current schema supports every correction."
+    },
+    {
+      "id": "typo-03",
+      "category": "typo",
+      "input": "xingqitina",
+      "expected": [
+        "星期天"
+      ],
+      "expectation": "top5",
+      "layer": "engine",
+      "note": "Deliberate adjacent transposition, duplicate or missing-key error. These expectations are product-quality targets, not claims that the current schema supports every correction."
+    },
+    {
+      "id": "typo-04",
+      "category": "typo",
+      "input": "shurfa",
+      "expected": [
+        "输入法"
+      ],
+      "expectation": "top5",
+      "layer": "engine",
+      "note": "Deliberate adjacent transposition, duplicate or missing-key error. These expectations are product-quality targets, not claims that the current schema supports every correction."
+    },
+    {
+      "id": "typo-05",
+      "category": "typo",
+      "input": "xieixe",
+      "expected": [
+        "谢谢"
+      ],
+      "expectation": "top5",
+      "layer": "engine",
+      "note": "Deliberate adjacent transposition, duplicate or missing-key error. These expectations are product-quality targets, not claims that the current schema supports every correction."
+    },
+    {
+      "id": "typo-06",
+      "category": "typo",
+      "input": "nihoa",
+      "expected": [
+        "你好"
+      ],
+      "expectation": "top5",
+      "layer": "engine",
+      "note": "Deliberate adjacent transposition, duplicate or missing-key error. These expectations are product-quality targets, not claims that the current schema supports every correction."
+    },
+    {
+      "id": "typo-07",
+      "category": "typo",
+      "input": "gongzuuo",
+      "expected": [
+        "工作"
+      ],
+      "expectation": "top5",
+      "layer": "engine",
+      "note": "Deliberate adjacent transposition, duplicate or missing-key error. These expectations are product-quality targets, not claims that the current schema supports every correction."
+    },
+    {
+      "id": "typo-08",
+      "category": "typo",
+      "input": "shijina",
+      "expected": [
+        "时间"
+      ],
+      "expectation": "top5",
+      "layer": "engine",
+      "note": "Deliberate adjacent transposition, duplicate or missing-key error. These expectations are product-quality targets, not claims that the current schema supports every correction."
+    },
+    {
+      "id": "typo-09",
+      "category": "typo",
+      "input": "weishenm",
+      "expected": [
+        "为什么"
+      ],
+      "expectation": "top5",
+      "layer": "engine",
+      "note": "Deliberate adjacent transposition, duplicate or missing-key error. These expectations are product-quality targets, not claims that the current schema supports every correction."
+    },
+    {
+      "id": "typo-10",
+      "category": "typo",
+      "input": "zhonggou",
+      "expected": [
+        "中国"
+      ],
+      "expectation": "top5",
+      "layer": "engine",
+      "note": "Deliberate adjacent transposition, duplicate or missing-key error. These expectations are product-quality targets, not claims that the current schema supports every correction."
+    },
+    {
+      "id": "typo-11",
+      "category": "typo",
+      "input": "pignyin",
+      "expected": [
+        "拼音"
+      ],
+      "expectation": "top5",
+      "layer": "engine",
+      "note": "Deliberate adjacent transposition, duplicate or missing-key error. These expectations are product-quality targets, not claims that the current schema supports every correction."
+    },
+    {
+      "id": "typo-12",
+      "category": "typo",
+      "input": "shangahi",
+      "expected": [
+        "上海"
+      ],
+      "expectation": "top5",
+      "layer": "engine",
+      "note": "Deliberate adjacent transposition, duplicate or missing-key error. These expectations are product-quality targets, not claims that the current schema supports every correction."
+    },
+    {
+      "id": "professional-01",
+      "category": "professional",
+      "input": "rengongzhineng",
+      "expected": [
+        "人工智能"
+      ],
+      "expectation": "top5",
+      "layer": "engine"
+    },
+    {
+      "id": "professional-02",
+      "category": "professional",
+      "input": "shujuku",
+      "expected": [
+        "数据库"
+      ],
+      "expectation": "top5",
+      "layer": "engine"
+    },
+    {
+      "id": "professional-03",
+      "category": "professional",
+      "input": "biancheng",
+      "expected": [
+        "编程"
+      ],
+      "expectation": "top5",
+      "layer": "engine"
+    },
+    {
+      "id": "professional-04",
+      "category": "professional",
+      "input": "yonghutiyan",
+      "expected": [
+        "用户体验"
+      ],
+      "expectation": "top5",
+      "layer": "engine"
+    },
+    {
+      "id": "professional-05",
+      "category": "professional",
+      "input": "bendidaima",
+      "expected": [
+        "本地代码"
+      ],
+      "expectation": "top5",
+      "layer": "engine"
+    },
+    {
+      "id": "professional-06",
+      "category": "professional",
+      "input": "kaifazhe",
+      "expected": [
+        "开发者"
+      ],
+      "expectation": "top5",
+      "layer": "engine"
+    },
+    {
+      "id": "professional-07",
+      "category": "professional",
+      "input": "wangluoqingqiu",
+      "expected": [
+        "网络请求"
+      ],
+      "expectation": "top5",
+      "layer": "engine"
+    },
+    {
+      "id": "professional-08",
+      "category": "professional",
+      "input": "danyuanceshi",
+      "expected": [
+        "单元测试"
+      ],
+      "expectation": "top5",
+      "layer": "engine"
+    },
+    {
+      "id": "professional-09",
+      "category": "professional",
+      "input": "yibu",
+      "expected": [
+        "异步"
+      ],
+      "expectation": "top5",
+      "layer": "engine"
+    },
+    {
+      "id": "professional-10",
+      "category": "professional",
+      "input": "bingfa",
+      "expected": [
+        "并发"
+      ],
+      "expectation": "top5",
+      "layer": "engine"
+    },
+    {
+      "id": "professional-11",
+      "category": "professional",
+      "input": "jiqixuexi",
+      "expected": [
+        "机器学习"
+      ],
+      "expectation": "top5",
+      "layer": "engine"
+    },
+    {
+      "id": "professional-12",
+      "category": "professional",
+      "input": "chuanganqi",
+      "expected": [
+        "传感器"
+      ],
+      "expectation": "top5",
+      "layer": "engine"
+    },
+    {
+      "id": "professional-13",
+      "category": "professional",
+      "input": "neicunxielou",
+      "expected": [
+        "内存泄漏"
+      ],
+      "expectation": "top5",
+      "layer": "engine"
+    },
+    {
+      "id": "professional-14",
+      "category": "professional",
+      "input": "jiaohusheji",
+      "expected": [
+        "交互设计"
+      ],
+      "expectation": "top5",
+      "layer": "engine"
+    },
+    {
+      "id": "professional-15",
+      "category": "professional",
+      "input": "shenduxuexi",
+      "expected": [
+        "深度学习"
+      ],
+      "expectation": "top5",
+      "layer": "engine"
+    },
+    {
+      "id": "punctuation-01",
+      "category": "punctuation",
+      "input": ",",
+      "expected": [
+        "，"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "punctuation-02",
+      "category": "punctuation",
+      "input": ".",
+      "expected": [
+        "。"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "punctuation-03",
+      "category": "punctuation",
+      "input": "?",
+      "expected": [
+        "？"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "punctuation-04",
+      "category": "punctuation",
+      "input": "!",
+      "expected": [
+        "！"
+      ],
+      "expectation": "top1",
+      "layer": "engine"
+    },
+    {
+      "id": "numbers-and-versions-01",
+      "category": "numbers-and-versions",
+      "input": "123456",
+      "expected": [
+        "123456"
+      ],
+      "expectation": "preserve",
+      "layer": "frontend",
+      "note": "Literal-preservation target for the app. The benchmark reports only an isolated engine probe and its explicit raw-Return flush; it does not grade the complete frontend."
+    },
+    {
+      "id": "numbers-and-versions-02",
+      "category": "numbers-and-versions",
+      "input": "3.14159",
+      "expected": [
+        "3.14159"
+      ],
+      "expectation": "preserve",
+      "layer": "frontend",
+      "note": "Literal-preservation target for the app. The benchmark reports only an isolated engine probe and its explicit raw-Return flush; it does not grade the complete frontend."
+    },
+    {
+      "id": "numbers-and-versions-03",
+      "category": "numbers-and-versions",
+      "input": "2026-10-29",
+      "expected": [
+        "2026-10-29"
+      ],
+      "expectation": "preserve",
+      "layer": "frontend",
+      "note": "Literal-preservation target for the app. The benchmark reports only an isolated engine probe and its explicit raw-Return flush; it does not grade the complete frontend."
+    },
+    {
+      "id": "numbers-and-versions-04",
+      "category": "numbers-and-versions",
+      "input": "10:30",
+      "expected": [
+        "10:30"
+      ],
+      "expectation": "preserve",
+      "layer": "frontend",
+      "note": "Literal-preservation target for the app. The benchmark reports only an isolated engine probe and its explicit raw-Return flush; it does not grade the complete frontend."
+    },
+    {
+      "id": "numbers-and-versions-05",
+      "category": "numbers-and-versions",
+      "input": "v0.1.0",
+      "expected": [
+        "v0.1.0"
+      ],
+      "expectation": "preserve",
+      "layer": "frontend",
+      "note": "Literal-preservation target for the app. The benchmark reports only an isolated engine probe and its explicit raw-Return flush; it does not grade the complete frontend."
+    },
+    {
+      "id": "numbers-and-versions-06",
+      "category": "numbers-and-versions",
+      "input": "192.168.1.1",
+      "expected": [
+        "192.168.1.1"
+      ],
+      "expectation": "preserve",
+      "layer": "frontend",
+      "note": "Literal-preservation target for the app. The benchmark reports only an isolated engine probe and its explicit raw-Return flush; it does not grade the complete frontend."
+    },
+    {
+      "id": "urls-and-email-01",
+      "category": "urls-and-email",
+      "input": "https://example.com",
+      "expected": [
+        "https://example.com"
+      ],
+      "expectation": "preserve",
+      "layer": "frontend",
+      "note": "Literal-preservation target. URL/email recognition and frontend routing must be checked in the app separately from this engine probe."
+    },
+    {
+      "id": "urls-and-email-02",
+      "category": "urls-and-email",
+      "input": "www.example.com",
+      "expected": [
+        "www.example.com"
+      ],
+      "expectation": "preserve",
+      "layer": "frontend",
+      "note": "Literal-preservation target. URL/email recognition and frontend routing must be checked in the app separately from this engine probe."
+    },
+    {
+      "id": "urls-and-email-03",
+      "category": "urls-and-email",
+      "input": "https://example.com/a?x=1",
+      "expected": [
+        "https://example.com/a?x=1"
+      ],
+      "expectation": "preserve",
+      "layer": "frontend",
+      "note": "Literal-preservation target. URL/email recognition and frontend routing must be checked in the app separately from this engine probe."
+    },
+    {
+      "id": "urls-and-email-04",
+      "category": "urls-and-email",
+      "input": "ken@example.com",
+      "expected": [
+        "ken@example.com"
+      ],
+      "expectation": "preserve",
+      "layer": "frontend",
+      "note": "Literal-preservation target. URL/email recognition and frontend routing must be checked in the app separately from this engine probe."
+    },
+    {
+      "id": "urls-and-email-05",
+      "category": "urls-and-email",
+      "input": "first.last+tag@example.co.uk",
+      "expected": [
+        "first.last+tag@example.co.uk"
+      ],
+      "expectation": "preserve",
+      "layer": "frontend",
+      "note": "Literal-preservation target. URL/email recognition and frontend routing must be checked in the app separately from this engine probe."
+    },
+    {
+      "id": "urls-and-email-06",
+      "category": "urls-and-email",
+      "input": "support@openai.com",
+      "expected": [
+        "support@openai.com"
+      ],
+      "expectation": "preserve",
+      "layer": "frontend",
+      "note": "Literal-preservation target. URL/email recognition and frontend routing must be checked in the app separately from this engine probe."
+    },
+    {
+      "id": "english-mixed-literal-01",
+      "category": "english-mixed-literal",
+      "input": "macOS 13",
+      "expected": [
+        "macOS 13"
+      ],
+      "expectation": "preserve",
+      "layer": "frontend",
+      "note": "Space is sent as a real key and can select a Chinese candidate. A failed engine probe is not a verdict on the frontend mixed-input path."
+    },
+    {
+      "id": "english-mixed-literal-02",
+      "category": "english-mixed-literal",
+      "input": "SwiftUI",
+      "expected": [
+        "SwiftUI"
+      ],
+      "expectation": "preserve",
+      "layer": "frontend",
+      "note": "Space is sent as a real key and can select a Chinese candidate. A failed engine probe is not a verdict on the frontend mixed-input path."
+    },
+    {
+      "id": "english-mixed-literal-03",
+      "category": "english-mixed-literal",
+      "input": "GitHub",
+      "expected": [
+        "GitHub"
+      ],
+      "expectation": "preserve",
+      "layer": "frontend",
+      "note": "Space is sent as a real key and can select a Chinese candidate. A failed engine probe is not a verdict on the frontend mixed-input path."
+    },
+    {
+      "id": "english-mixed-literal-04",
+      "category": "english-mixed-literal",
+      "input": "Python 3.12",
+      "expected": [
+        "Python 3.12"
+      ],
+      "expectation": "preserve",
+      "layer": "frontend",
+      "note": "Space is sent as a real key and can select a Chinese candidate. A failed engine probe is not a verdict on the frontend mixed-input path."
+    },
+    {
+      "id": "english-mixed-literal-05",
+      "category": "english-mixed-literal",
+      "input": "API v2",
+      "expected": [
+        "API v2"
+      ],
+      "expectation": "preserve",
+      "layer": "frontend",
+      "note": "Space is sent as a real key and can select a Chinese candidate. A failed engine probe is not a verdict on the frontend mixed-input path."
+    },
+    {
+      "id": "english-mixed-literal-06",
+      "category": "english-mixed-literal",
+      "input": "hello world",
+      "expected": [
+        "hello world"
+      ],
+      "expectation": "preserve",
+      "layer": "frontend",
+      "note": "Space is sent as a real key and can select a Chinese candidate. A failed engine probe is not a verdict on the frontend mixed-input path."
+    },
+    {
+      "id": "chinese-mixed-01",
+      "category": "chinese-mixed",
+      "input": "wozaiyongmacOS",
+      "expected": [
+        "我在用macOS",
+        "我在用 macOS"
+      ],
+      "expectation": "top5",
+      "layer": "frontend",
+      "note": "Desired complete-app mixed-input result. Recorded as an engine probe only and excluded from engine ranking aggregates; requires a frontend test for acceptance."
+    },
+    {
+      "id": "chinese-mixed-02",
+      "category": "chinese-mixed",
+      "input": "qingfasongPDFwenjian",
+      "expected": [
+        "请发送PDF文件",
+        "请发送 PDF 文件"
+      ],
+      "expectation": "top5",
+      "layer": "frontend",
+      "note": "Desired complete-app mixed-input result. Recorded as an engine probe only and excluded from engine ranking aggregates; requires a frontend test for acceptance."
+    },
+    {
+      "id": "chinese-mixed-03",
+      "category": "chinese-mixed",
+      "input": "mingtian10diankaihui",
+      "expected": [
+        "明天10点开会"
+      ],
+      "expectation": "top5",
+      "layer": "frontend",
+      "note": "Desired complete-app mixed-input result. Recorded as an engine probe only and excluded from engine ranking aggregates; requires a frontend test for acceptance."
+    }
+  ]
+}

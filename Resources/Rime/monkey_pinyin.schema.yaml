@@ -2,7 +2,10 @@
 schema:
   schema_id: monkey_pinyin
   name: Monkey 拼音
-  version: "0.1.0"
+  version: "0.2.0"
+  dependencies:
+    - monkey_english
+    - monkey_mixed
 switches:
   - name: ascii_mode
     reset: 0
@@ -28,16 +31,37 @@ engine:
     - fallback_segmentor
   translators:
     - punct_translator
+    - table_translator@mixed
     - script_translator
+    - table_translator@english
   filters:
     - uniquifier
 speller:
-  alphabet: abcdefghijklmnopqrstuvwxyz
+  alphabet: abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
   delimiter: " '"
   algebra:
-    - derive/^([a-z]).+$/$1/
-    - derive/^([zcs]h).+$/$1/
-    - derive/([aeiou])ng$/$1gn/
+    # Standard pinyin aliases preserve exact spelling; no n/l or z/zh fuzzing.
+    - derive/^([nl])ve$/$1ue/
+    - derive/^([jqxy])u$/$1v/
+    # Fuzzy keyboard-error spellings carry credibility *= 0.5. The explicit
+    # legal-final guard prevents a misspelling produced by one rule from
+    # recursively generating many further errors. This bounds key latency.
+    # Never merge n/l, z/zh, or valid -in/-ing pronunciations.
+    - fuzz/^(?=(?:[bpmfdtnlgkhjqxrzcsyw]|[zcs]h)?(?:a|ai|an|ang|ao|e|ei|en|eng|er|o|ong|ou|i|ia|ian|iang|iao|ie|in|ing|iong|iu|u|ua|uai|uan|uang|ue|ui|un|uo|v|ve)$)(.*[aeiou])ng$/$1gn/
+    - fuzz/^(?=(?:[bpmfdtnlgkhjqxrzcsyw]|[zcs]h)?(?:a|ai|an|ang|ao|e|ei|en|eng|er|o|ong|ou|i|ia|ian|iang|iao|ie|in|ing|iong|iu|u|ua|uai|uan|uang|ue|ui|un|uo|v|ve)$)(.*[aeiou])n$/$1gn/
+    - fuzz/^(?=(?:[bpmfdtnlgkhjqxrzcsyw]|[zcs]h)?(?:a|ai|an|ang|ao|e|ei|en|eng|er|o|ong|ou|i|ia|ian|iang|iao|ie|in|ing|iong|iu|u|ua|uai|uan|uang|ue|ui|un|uo|v|ve)$)(.*)uan$/$1aun/
+    - fuzz/^(?=(?:[bpmfdtnlgkhjqxrzcsyw]|[zcs]h)?(?:a|ai|an|ang|ao|e|ei|en|eng|er|o|ong|ou|i|ia|ian|iang|iao|ie|in|ing|iong|iu|u|ua|uai|uan|uang|ue|ui|un|uo|v|ve)$)(.*)ong$/$1on/
+    - fuzz/^(?=(?:[bpmfdtnlgkhjqxrzcsyw]|[zcs]h)?(?:a|ai|an|ang|ao|e|ei|en|eng|er|o|ong|ou|i|ia|ian|iang|iao|ie|in|ing|iong|iu|u|ua|uai|uan|uang|ue|ui|un|uo|v|ve)$)(.*)ao$/$1oa/
+    - fuzz/^(?=(?:[bpmfdtnlgkhjqxrzcsyw]|[zcs]h)?(?:a|ai|an|ang|ao|e|ei|en|eng|er|o|ong|ou|i|ia|ian|iang|iao|ie|in|ing|iong|iu|u|ua|uai|uan|uang|ue|ui|un|uo|v|ve)$)(.+[iu])an$/$1na/
+    - fuzz/^(?=(?:[bpmfdtnlgkhjqxrzcsyw]|[zcs]h)?(?:a|ai|an|ang|ao|e|ei|en|eng|er|o|ong|ou|i|ia|ian|iang|iao|ie|in|ing|iong|iu|u|ua|uai|uan|uang|ue|ui|un|uo|v|ve)$)(.*)([iu])a([ou]|ng?)$/$1a$2$3/
+    - fuzz/^(?=(?:[bpmfdtnlgkhjqxrzcsyw]|[zcs]h)?(?:a|ai|an|ang|ao|e|ei|en|eng|er|o|ong|ou|i|ia|ian|iang|iao|ie|in|ing|iong|iu|u|ua|uai|uan|uang|ue|ui|un|uo|v|ve)$)([^aeiou]*)([aeiou])([a-z]+)$/$1$2$2$3/
+    - fuzz/^(?=(?:[bpmfdtnlgkhjqxrzcsyw]|[zcs]h)?(?:a|ai|an|ang|ao|e|ei|en|eng|er|o|ong|ou|i|ia|ian|iang|iao|ie|in|ing|iong|iu|u|ua|uai|uan|uang|ue|ui|un|uo|v|ve)$)(.*)([aeiou])$/$1$2$2/
+    - fuzz/^(?=(?:[bpmfdtnlgkhjqxrzcsyw]|[zcs]h)?(?:a|ai|an|ang|ao|e|ei|en|eng|er|o|ong|ou|i|ia|ian|iang|iao|ie|in|ing|iong|iu|u|ua|uai|uan|uang|ue|ui|un|uo|v|ve)$)([bpmfdtnlgkhjqxrzcsyw])([aeiou])(.+)$/$2$1$3/
+    - fuzz/^(?=(?:[bpmfdtnlgkhjqxrzcsyw]|[zcs]h)?(?:a|ai|an|ang|ao|e|ei|en|eng|er|o|ong|ou|i|ia|ian|iang|iao|ie|in|ing|iong|iu|u|ua|uai|uan|uang|ue|ui|un|uo|v|ve)$)([gkh])uo$/$1ou/
+    # Abbreviation is a distinct, lower-quality spelling class. Derive would
+    # incorrectly give a one-letter syllable the same status as full pinyin.
+    - abbrev/^([a-z]).+$/$1/
+    - abbrev/^([zcs]h).+$/$1/
 translator:
   dictionary: monkey_pinyin
   enable_user_dict: true
@@ -46,6 +70,24 @@ translator:
   spelling_hints: 5
   preedit_format:
     - xform/([jqxy])v/$1u/
+english:
+  dictionary: monkey_english
+  prism: monkey_english
+  enable_user_dict: false
+  enable_sentence: false
+  enable_completion: true
+  initial_quality: 0.5
+  comment_format:
+    - xform/.*/英文/
+mixed:
+  dictionary: monkey_mixed
+  prism: monkey_mixed
+  enable_user_dict: false
+  enable_sentence: false
+  enable_completion: false
+  initial_quality: 5.0
+  comment_format:
+    - xform/.*/中英混输/
 menu:
   page_size: 7
 ascii_composer:
@@ -65,7 +107,7 @@ key_binder:
 recognizer:
   patterns:
     email: "^[A-Za-z][-_.0-9A-Za-z]*@.*$"
-    url: "^(www[.]|https?://|ftp[.]).*$"
+    url: "^(https?|ftp|file|www)([.:/].*)?$"
 punctuator:
   half_shape:
     ',': { commit: '，' }

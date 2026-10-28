@@ -238,7 +238,7 @@ public final class ChatGPTClient: ObservableObject {
         request.setValue("Bearer \(credential.accessToken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("text/event-stream", forHTTPHeaderField: "Accept")
-        request.setValue("Monkey/0.1.0", forHTTPHeaderField: "User-Agent")
+        request.setValue("Monkey/\(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "0.2.0")", forHTTPHeaderField: "User-Agent")
         request.httpBody = try JSONSerialization.data(withJSONObject: [
             "model": selected, "instructions": instructions,
             "input": [["role": "user", "content": input]], "store": false, "stream": true

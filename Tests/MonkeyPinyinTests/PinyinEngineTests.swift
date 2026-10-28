@@ -63,6 +63,30 @@ final class PinyinEngineTests: XCTestCase {
             XCTAssertEqual(session.snapshot().candidates.first, learned)
         }
     }
+
+    func testForgettingLearnedChineseRestoresRankingWithoutDeletingBuiltinWord() async throws {
+        let shared = root.appendingPathComponent("Resources/Rime")
+        let library = root.appendingPathComponent("Vendor/Rime/lib/librime.1.dylib")
+        let user = FileManager.default.temporaryDirectory.appendingPathComponent("MonkeyForget-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: user) }
+        let learned = try await MainActor.run { try learnPhrase(shared: shared, user: user, library: library) }
+        try await MainActor.run {
+            let engine = try PinyinEngine(sharedDataURL: shared, userDataURL: user, libraryURL: library)
+            let session = try engine.makeSession()
+            defer { session.close() }
+            feed("nihao", to: session)
+            XCTAssertEqual(session.snapshot().candidates.first, learned)
+            XCTAssertTrue(session.forgetCandidate(0))
+        }
+        try await MainActor.run {
+            let engine = try PinyinEngine(sharedDataURL: shared, userDataURL: user, libraryURL: library)
+            let session = try engine.makeSession()
+            defer { session.close() }
+            feed("nihao", to: session)
+            XCTAssertEqual(session.snapshot().candidates.first, "你好")
+            XCTAssertTrue(session.snapshot().candidates.contains(learned))
+        }
+    }
 }
 
 @MainActor

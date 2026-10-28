@@ -100,8 +100,9 @@ else
     SIGNING_STATUS='Ad-hoc signed development build; NOT NOTARIZED'
 fi
 MINIMUM="$(/usr/libexec/PlistBuddy -c 'Print :LSMinimumSystemVersion' "$CONTENTS/Info.plist")"
+APP_VERSION="$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$CONTENTS/Info.plist")"
 {
-    printf 'Monkey 0.1.0\nArchitecture: %s\nMinimum macOS: %s\n' "$(uname -m)" "$MINIMUM"
+    printf 'Monkey %s\nArchitecture: %s\nMinimum macOS: %s\n' "$APP_VERSION" "$(uname -m)" "$MINIMUM"
     printf 'Built: %s\nSigning: %s\n' "$(date -u '+%Y-%m-%dT%H:%M:%SZ')" "$SIGNING_STATUS"
     printf 'Commit: %s\n' "$(git rev-parse HEAD 2>/dev/null || printf 'uncommitted source')"
 } > "$CONTENTS/Resources/BUILD-INFO.txt"

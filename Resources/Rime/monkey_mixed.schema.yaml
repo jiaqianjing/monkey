@@ -1,0 +1,17 @@
+# Helper schema builds the small mixed-word prism; not a separate input source.
+schema:
+  schema_id: monkey_mixed
+  name: Monkey mixed vocabulary
+  version: "0.2.0"
+engine:
+  processors: [speller, selector, express_editor]
+  segmentors: [abc_segmentor, fallback_segmentor]
+  translators: [table_translator]
+speller:
+  alphabet: abcdefghijklmnopqrstuvwxyz
+translator:
+  dictionary: monkey_mixed
+  prism: monkey_mixed
+  enable_user_dict: false
+  enable_sentence: false
+  enable_completion: false
