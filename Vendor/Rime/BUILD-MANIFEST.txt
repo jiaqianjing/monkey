@@ -1,0 +1,33 @@
+Official librime 1.17.0 / source revision 33e7814
+https://github.com/rime/librime/releases/download/1.17.0/rime-33e7814-macOS-universal.tar.bz2
+Archive SHA-256: 11d8dc663c6ec06d5ccb6111ba664a9e7b631b703ac6acd07cffbac664021850
+
+/Users/ken/workspace/monkey/Vendor/Rime/lib/librime.1.dylib (architecture x86_64):
+Load command 9
+      cmd LC_BUILD_VERSION
+  cmdsize 32
+ platform MACOS
+    minos 10.15
+      sdk 15.5
+   ntools 1
+     tool LD
+  version 1167.5
+/Users/ken/workspace/monkey/Vendor/Rime/lib/librime.1.dylib (architecture arm64):
+Load command 9
+      cmd LC_BUILD_VERSION
+  cmdsize 32
+ platform MACOS
+    minos 11.0
+      sdk 15.5
+   ntools 1
+     tool LD
+  version 1167.5
+
+/Users/ken/workspace/monkey/Vendor/Rime/lib/librime.1.dylib (architecture x86_64):
+	@rpath/librime.1.dylib (compatibility version 1.0.0, current version 1.17.0)
+	/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1351.0.0)
+	/usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 1900.180.0)
+/Users/ken/workspace/monkey/Vendor/Rime/lib/librime.1.dylib (architecture arm64):
+	@rpath/librime.1.dylib (compatibility version 1.0.0, current version 1.17.0)
+	/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1351.0.0)
+	/usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 1900.180.0)

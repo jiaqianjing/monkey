@@ -1,0 +1,79 @@
+[
+  {
+    "component": "librime",
+    "source": "https://github.com/rime/librime/tree/33e7814",
+    "notice_source": "https://raw.githubusercontent.com/rime/librime/33e7814/LICENSE",
+    "notice": "librime.txt",
+    "sha256": "f67d27a6d2d586fcfed4b4c886a83747095396a39b6641e18e855086be2ec400"
+  },
+  {
+    "component": "glog",
+    "source": "https://github.com/google/glog/tree/7b134a5c82c0c0b5698bb6bf7a835b230c5638e4",
+    "notice_source": "https://raw.githubusercontent.com/google/glog/7b134a5c82c0c0b5698bb6bf7a835b230c5638e4/COPYING",
+    "notice": "glog.txt",
+    "sha256": "136d48dea7a681413691f3db3098f6cf5ffaa3119d96d97bb83b8cff3ce38c4a"
+  },
+  {
+    "component": "leveldb",
+    "source": "https://github.com/google/leveldb/tree/99b3c03b3284f5886f9ef9a4ef703d57373e61be",
+    "notice_source": "https://raw.githubusercontent.com/google/leveldb/99b3c03b3284f5886f9ef9a4ef703d57373e61be/LICENSE",
+    "notice": "leveldb.txt",
+    "sha256": "ccc19f1da0798ed666609b65a5b44dd8b3abe6fc08b9c0592eb76e82e174db19"
+  },
+  {
+    "component": "marisa-trie",
+    "source": "https://github.com/s-yata/marisa-trie/tree/3e87d53b78e15f2f43783d5e376561a8c9722051",
+    "notice_source": "https://raw.githubusercontent.com/s-yata/marisa-trie/3e87d53b78e15f2f43783d5e376561a8c9722051/COPYING.md",
+    "notice": "marisa-trie.txt",
+    "sha256": "edf58dab34c3dc239ba4ba2d5d3d844d8c5b442aa4dd1149fac81b2d8c6cb8d1"
+  },
+  {
+    "component": "opencc",
+    "source": "https://github.com/BYVoid/OpenCC/tree/556ed22496d650bd0b13b6c163be9814637970ae",
+    "notice_source": "https://raw.githubusercontent.com/BYVoid/OpenCC/556ed22496d650bd0b13b6c163be9814637970ae/LICENSE",
+    "notice": "opencc.txt",
+    "sha256": "b534e465949558eec2597b04f5092b5e161236a68dfbfd04d547592ac3964308"
+  },
+  {
+    "component": "yaml-cpp",
+    "source": "https://github.com/jbeder/yaml-cpp/tree/2f86d13775d119edbb69af52e5f566fd65c6953b",
+    "notice_source": "https://raw.githubusercontent.com/jbeder/yaml-cpp/2f86d13775d119edbb69af52e5f566fd65c6953b/LICENSE",
+    "notice": "yaml-cpp.txt",
+    "sha256": "aa6fcc27be034e41e21dd832f9175bfe694a48491d9e14ff0fa278e19ad14f1b"
+  },
+  {
+    "component": "boost",
+    "source": "https://github.com/boostorg/boost/tree/boost-1.89.0",
+    "notice_source": "https://raw.githubusercontent.com/boostorg/boost/boost-1.89.0/LICENSE_1_0.txt",
+    "notice": "boost.txt",
+    "sha256": "c9bff75738922193e67fa726fa225535870d2aa1059f91452c411736284ad566"
+  },
+  {
+    "component": "opencc-marisa",
+    "source": "https://github.com/BYVoid/OpenCC/tree/556ed22496d650bd0b13b6c163be9814637970ae",
+    "notice_source": "https://raw.githubusercontent.com/BYVoid/OpenCC/556ed22496d650bd0b13b6c163be9814637970ae/deps/marisa-0.2.6/COPYING.md",
+    "notice": "opencc-marisa.txt",
+    "sha256": "c0e214362b4dcf118371b02c87321f64a4d8317112d732b6d768167a635f383a"
+  },
+  {
+    "component": "darts-clone",
+    "source": "https://github.com/rime/librime/tree/33e7814",
+    "notice_source": "https://raw.githubusercontent.com/rime/librime/33e7814/include/COPYING.darts-clone",
+    "notice": "darts-clone.txt",
+    "sha256": "11bf6ca180d01e60656cd3cbe65cff95b738afe4ca5a8a66b9dd1ec594a41d2f"
+  },
+  {
+    "component": "utf8cpp",
+    "source": "https://github.com/rime/librime/tree/33e7814",
+    "notice_source": "https://raw.githubusercontent.com/rime/librime/33e7814/include/utf8.h",
+    "notice": "utf8cpp.txt",
+    "sha256": "1b45829b2934a146274162752708e2f3355aae05e13d78a2cf3a656540a553c1"
+  },
+  {
+    "component": "rapidjson",
+    "source": "https://github.com/Tencent/rapidjson/tree/v1.1.0",
+    "notice_source": "https://raw.githubusercontent.com/Tencent/rapidjson/v1.1.0/license.txt",
+    "notice": "rapidjson.txt",
+    "sha256": "a140e5d46fe734a1c78f1a3c3ef207871dd75648be71fdda8e309b23ab8b1f32"
+  }
+]

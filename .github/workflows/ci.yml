@@ -1,0 +1,40 @@
+name: Build and test macOS
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: macos-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Toolchain
+        run: swift --version
+      - name: Bootstrap Rime runtime
+        run: ./scripts/bootstrap-rime.sh
+      - name: Validate scripts and metadata
+        run: |
+          for script in scripts/*.sh; do bash -n "$script"; done
+          plutil -lint Resources/Info.plist Resources/entitlements.plist
+      - name: Test
+        run: swift test
+      - name: Build app and development archive
+        env:
+          MONKEY_SIGNING_IDENTITY: '-'
+          MONKEY_CREATE_DMG: '0'
+        run: ./scripts/package-release.sh
+      - name: Upload unsigned-for-distribution development artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Monkey-development-${{ runner.arch }}
+          path: |
+            dist/Monkey-*.zip
+            dist/Monkey-*.sha256
+          if-no-files-found: error

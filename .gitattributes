@@ -1,0 +1,3 @@
+*.pdf binary
+# Preserve upstream notices byte-for-byte, including their original whitespace.
+Vendor/Rime/licenses/* -whitespace

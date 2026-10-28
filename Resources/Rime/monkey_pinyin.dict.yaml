@@ -1,0 +1,12 @@
+# Monkey dictionary manifest; upstream dictionary files are unmodified.
+# See licenses/README.md for source, license and checksums.
+---
+name: monkey_pinyin
+version: "2026.10.29"
+sort: by_weight
+use_preset_vocabulary: false
+import_tables:
+  - cn_dicts/8105
+  - cn_dicts/base
+  - cn_dicts/ext
+...

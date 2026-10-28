@@ -1,0 +1,8 @@
+config_version: "0.1.0"
+schema_list:
+  - schema: monkey_pinyin
+menu:
+  page_size: 7
+switcher:
+  caption: Monkey
+  hotkeys: []

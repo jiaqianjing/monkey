@@ -1,0 +1,17 @@
+.DS_Store
+.build/
+.swiftpm/
+dist/
+Vendor/Rime/lib/
+Vendor/Rime/cache/
+Vendor/Rime/downloads/
+Vendor/Rime/bin/
+Vendor/Rime/dictionary-build.log
+Resources/Rime/build/
+*.xcuserstate
+xcuserdata/
+.env
+*.pem
+*.p12
+*.mobileprovision
+coverage/

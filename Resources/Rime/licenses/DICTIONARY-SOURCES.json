@@ -1,0 +1,20 @@
+[
+  {
+    "file": "cn_dicts/8105.dict.yaml",
+    "source": "https://github.com/iDvel/rime-ice/blob/da1fbe602e38f26db846fa10120ee64c2b0324c0/cn_dicts/8105.dict.yaml",
+    "sha256": "1f9a42b91dea6982baee2551981780271aeffd78876662b9c9f324e56b37b120",
+    "bytes": 115728
+  },
+  {
+    "file": "cn_dicts/base.dict.yaml",
+    "source": "https://github.com/iDvel/rime-ice/blob/da1fbe602e38f26db846fa10120ee64c2b0324c0/cn_dicts/base.dict.yaml",
+    "sha256": "0418d5103d8e40c8fff4b686a873ad03e9836cd0419ecae0b7e1e2526312dba0",
+    "bytes": 16602296
+  },
+  {
+    "file": "cn_dicts/ext.dict.yaml",
+    "source": "https://github.com/iDvel/rime-ice/blob/da1fbe602e38f26db846fa10120ee64c2b0324c0/cn_dicts/ext.dict.yaml",
+    "sha256": "8e49a0294c0139e63c815cc33a2d438cc144eb7889297d30cec899a368697c06",
+    "bytes": 11922913
+  }
+]
