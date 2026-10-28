@@ -45,7 +45,20 @@ chmod +x "$FOLDER/Install.command" "$FOLDER/Uninstall.command" "$FOLDER/scripts/
 } > "$FOLDER/READ-ME.txt"
 ditto -c -k --sequesterRsrc --keepParent "$FOLDER" "$ROOT/dist/$NAME.zip"
 if [[ "${MONKEY_CREATE_DMG:-1}" == 1 ]]; then
-    hdiutil create -volname "Monkey $VERSION" -srcfolder "$FOLDER" -ov -format UDZO "$ROOT/dist/$NAME.dmg"
+    DMG="$ROOT/dist/$NAME.dmg"
+    if ! hdiutil create -volname "Monkey $VERSION" -srcfolder "$FOLDER" -ov -format UDZO "$DMG"; then
+        rm -f "$DMG"
+        # Newer macOS releases provide a replacement image CLI. Keep hdiutil
+        # first for older systems, and do not fail a valid ZIP if imaging fails.
+        if diskutil image create from --help >/dev/null 2>&1; then
+            if ! diskutil image create from --format UDZO --volumeName "Monkey $VERSION" "$FOLDER" "$DMG"; then
+                rm -f "$DMG"
+            fi
+        fi
+        if [[ ! -f "$DMG" ]]; then
+            printf 'DMG was not generated because the system image service failed; the ZIP remains available.\n' >&2
+        fi
+    fi
 fi
 (
     cd "$ROOT/dist"

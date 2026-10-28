@@ -52,7 +52,7 @@ codesign --verify --deep --strict "$HOME/Library/Input Methods/Monkey.app"
 ./scripts/package-release.sh
 ```
 
-输出 ZIP、DMG 和 SHA-256 文件。设置 `MONKEY_CREATE_DMG=0` 可仅生成 ZIP；`--skip-build` 可打包已存在且验证通过的 `dist/Monkey.app`。
+输出 ZIP 和 SHA-256 文件，并尽力生成可选 DMG。先使用兼容旧系统的 `hdiutil`，失败时若系统提供新版 `diskutil image` 则重试；镜像服务仍失败时不保留不完整 DMG，ZIP 仍可独立安装。设置 `MONKEY_CREATE_DMG=0` 可直接仅生成 ZIP；`--skip-build` 可打包已存在且验证通过的 `dist/Monkey.app`。
 
 ```sh
 MONKEY_SIGNING_IDENTITY='Developer ID Application: Your Name (TEAMID)' ./scripts/package-release.sh

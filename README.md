@@ -63,11 +63,13 @@ swift test
 ./scripts/install.sh
 ```
 
-构建输出位于 `dist/Monkey.app`。生成含安装器的 ZIP 和 DMG：
+构建输出位于 `dist/Monkey.app`。生成含安装器的 ZIP、校验值，并尝试生成 DMG：
 
 ```sh
 ./scripts/package-release.sh
 ```
+
+ZIP 已包含完整安装器。DMG 为可选分发格式，系统镜像服务失败时会保留 ZIP 并明确提示；可用 `MONKEY_CREATE_DMG=0` 跳过镜像生成。
 
 脚本会优先使用本机可用的 Developer ID Application 身份；没有时使用 ad-hoc 签名。也可通过 `MONKEY_SIGNING_IDENTITY` 指定签名身份。签名和公证是不同步骤，本项目脚本不会自动提交 Apple 公证。
 
