@@ -1,12 +1,12 @@
 <p align="center">
-  <img src="docs/assets/readme-hero.svg" alt="Monkey 拼音：macOS 原生中文输入法，支持本地拼音与中译英预览。图中为输入流程示意。" width="100%">
+  <img src="Resources/AppIcon.png" alt="Monkey 盲 key：青柠色键帽与输入光标" width="104" height="104">
 </p>
 
-<h1 align="center">Monkey 拼音</h1>
+<h1 align="center">Monkey · 盲 key</h1>
 
 <p align="center">
-  为 macOS 打造的开源中文输入法。<br>
-  盲 key，输入自如。<br>本地拼音、日常混输，以及留在输入框里的中译英。
+  <strong>中文输入自如，英文表达随手。</strong><br>
+  为 macOS 打造的开源拼音输入法：本地选词、日常混输，在输入框里预览英文。
 </p>
 
 <p align="center">
@@ -22,6 +22,16 @@
   &nbsp; · &nbsp; <a href="docs/install.md">安装指南</a>
   &nbsp; · &nbsp; <a href="https://github.com/jiaqianjing/monkey/releases/tag/v0.2.1">更新记录</a>
   &nbsp; · &nbsp; <a href="https://github.com/jiaqianjing/monkey/issues/new">反馈问题</a>
+  &nbsp; · &nbsp; <a href="#support">请我喝杯咖啡 ☕</a>
+</p>
+
+<p align="center">
+  <img src="docs/assets/readme-hero.svg" alt="Monkey 的本地中文输入与中译英确认流程示意" width="100%">
+  <br><sub>输入流程示意，非应用截图。翻译由你开启，英文由你确认。</sub>
+</p>
+
+<p align="center">
+  <a href="#download">下载与安装</a> · <a href="#translation">中译英</a> · <a href="#shortcuts">快捷键</a> · <a href="#quality">输入质量</a> · <a href="#development">从源码构建</a>
 </p>
 
 ---
@@ -36,6 +46,17 @@
 
 普通拼音输入、候选排序和用户词学习在本地完成，无需登录。只有你开启翻译模式后，当前中文草稿才会发送到 OpenAI。
 
+## 看看实际界面
+
+Monkey 0.2.1 的原生设置与翻译试写窗口，点击图片可放大。截图中为一次实际试译，具体表达和耗时随模型、网络而变化；输入法的实体键盘与跨应用验证另见 [验收记录](docs/validation.md)。
+
+<table>
+  <tr>
+    <td align="center" width="50%"><a href="docs/assets/settings-overview.png"><img src="docs/assets/settings-overview.png" alt="Monkey 设置概览：中文输入、中译英入口与三步引导" width="100%"></a><br><sub>概览 · 输入与翻译入口</sub></td>
+    <td align="center" width="50%"><a href="docs/assets/settings-translation.png"><img src="docs/assets/settings-translation.png" alt="Monkey 中译英试写：中文草稿、表达语气与一次完成的英文译文" width="100%"></a><br><sub>中译英 · 先在这里试写一句</sub></td>
+  </tr>
+</table>
+
 ## 试试这些输入
 
 | 场景 | 输入 | 结果或操作 |
@@ -48,9 +69,11 @@
 
 混合输入时，先确认中文候选，再继续输入英文或数字。例如，先输入并确认“我在用”，再输入 `macOS`。目前尚未支持把任意无分隔长串自动拆成正确的中英文句子。候选会随个人学习发生变化。
 
+<a id="translation"></a>
+
 ### 用中文写，确认英文上屏
 
-1. 按 `Control + Shift + T` 开启中译英模式。
+1. 点击候选条里的 **中译英**，或按 `Control + Shift + T` 开启。
 2. 正常用拼音选词，组成中文草稿，等待英文预览完成。
 3. 按 `Control + Return` 将英文上屏；直接按 `Return` 使用中文原文（`Shift + Return` 也可）。
 
@@ -61,6 +84,8 @@
 ```
 
 上方是一次实际翻译示例，具体表达会因模型和上下文而变化。英文经确认才会写入当前输入框；请求失败时保留中文草稿。修改草稿后，需等待新版本翻译完成。
+
+<a id="download"></a>
 
 ## 下载与安装
 
@@ -94,6 +119,8 @@ shasum -a 256 -c Monkey-0.2.1-macos-arm64.sha256
 
 </details>
 
+<a id="shortcuts"></a>
+
 ## 常用快捷键
 
 | 操作 | 快捷键 |
@@ -119,6 +146,8 @@ shasum -a 256 -c Monkey-0.2.1-macos-arm64.sha256
 - 账号状态展示不再读取钥匙串，凭据仅在本进程内缓存；自动预览不弹授权提示，需授权时引导至设置中的“允许钥匙串访问”。临时签名更新后，系统仍可能要求对新版本确认一次。
 
 [0.2.1 更新与验证记录](docs/releases/0.2.1.md)
+
+<a id="quality"></a>
 
 ## 中文输入质量
 
@@ -146,6 +175,8 @@ shasum -a 256 -c Monkey-0.2.1-macos-arm64.sha256
 
 [完整隐私边界](docs/privacy.md)
 
+<a id="development"></a>
+
 ## 从源码构建
 
 使用 Swift、InputMethodKit、AppKit / SwiftUI 与 librime。需要 Xcode 命令行工具（含支持本项目的 Swift 工具链）、Python 3，以及首次下载固定版本依赖所需的网络。
@@ -170,6 +201,32 @@ MONKEY_CREATE_DMG=0 ./scripts/package-release.sh
 ## 一起打磨日常输入
 
 欢迎通过 [Issues](https://github.com/jiaqianjing/monkey/issues/new) 提交具体例子：输入的拼音或按键顺序、实际候选、期望候选，以及 macOS 版本和使用的应用。请使用可公开的示例，避免贴出密码、私人文档或账号凭据。
+
+<a id="support"></a>
+
+## 请我喝杯咖啡 ☕
+
+Monkey 免费开源，由作者持续维护。如果它让你的中文输入或英文写作更顺手，欢迎请我喝杯咖啡，支持日常测试与体验打磨。
+
+**[爱发电 · 支持作者 ↗](https://afdian.com/a/kenjia)**
+
+<details>
+<summary>微信、支付宝与支持渠道说明</summary>
+
+爱发电沿用作者已有主页，目前展示为「Ken · 小喷」。这里的入口用于自愿支持作者的开源维护。
+
+<table>
+  <tr>
+    <td align="center"><img src="docs/assets/support/wechat.png" width="180" alt="作者现有微信收款二维码"><br>微信</td>
+    <td align="center"><img src="docs/assets/support/alipay.png" width="180" alt="作者现有支付宝收款二维码"><br>支付宝</td>
+  </tr>
+</table>
+
+</details>
+
+赞助完全自愿，所有现有功能照常免费提供。ChatGPT 订阅及服务额度由对应服务商管理，赞助不包含这些费用。点一个 Star、提交可复现的问题和分享使用建议，同样是很大的支持。
+
+## 开源与致谢
 
 [架构说明](docs/architecture.md) · [验收清单](docs/validation.md) · [第三方声明](THIRD_PARTY_NOTICES.md)
 
