@@ -200,6 +200,7 @@ final class MonkeyInputController: IMKInputController {
 
     @objc private func recoverDraft(_ sender: Any?) {
         guard active, !recoverableDraft.isEmpty else { return }
+        panelSuppressed = false
         if !markedText.isEmpty { commitOriginal() }
         translationMode = true
         asciiMode = false
