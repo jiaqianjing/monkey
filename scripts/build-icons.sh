@@ -2,6 +2,7 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+mkdir -p "$ROOT/.build"
 STAGE="$(mktemp -d "$ROOT/.build/monkey-icons.XXXXXXXX")"
 trap 'rm -rf "$STAGE"' EXIT
 ICONSET="$STAGE/AppIcon.iconset"
