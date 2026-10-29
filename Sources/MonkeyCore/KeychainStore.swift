@@ -5,8 +5,9 @@ import Security
 /// Credentials are scoped to Monkey, never imported from another application.
 enum KeychainStore {
     static let service = "org.monkey.inputmethod"
+    private static let operations = KeychainOperationQueue()
 
-    static func read<T: Decodable>(_ type: T.Type, account: String, allowAuthenticationUI: Bool = true) throws -> T? {
+    private static func read<T: Decodable>(_ type: T.Type, account: String, allowAuthenticationUI: Bool) throws -> T? {
         var query = base(account)
         if !allowAuthenticationUI { preventAuthenticationUI(in: &query) }
         query[kSecReturnData as String] = true
@@ -18,7 +19,7 @@ enum KeychainStore {
         return try JSONDecoder().decode(type, from: data)
     }
 
-    static func write<T: Encodable>(_ value: T, account: String, allowAuthenticationUI: Bool = true) throws {
+    private static func write<T: Encodable>(_ value: T, account: String, allowAuthenticationUI: Bool) throws {
         let data = try JSONEncoder().encode(value)
         var lookup = base(account)
         if !allowAuthenticationUI { preventAuthenticationUI(in: &lookup) }
@@ -34,7 +35,7 @@ enum KeychainStore {
         } else if status != errSecSuccess { throw error(status) }
     }
 
-    static func delete(account: String) throws {
+    private static func delete(account: String) throws {
         let status = SecItemDelete(base(account) as CFDictionary)
         guard status == errSecSuccess || status == errSecItemNotFound else { throw error(status) }
     }
@@ -42,19 +43,19 @@ enum KeychainStore {
     // Keychain Services is synchronous and may wait for system authorization.
     // Never block the input-method's main actor while waiting for it.
     static func readAsync<T: Decodable & Sendable>(_ type: T.Type, account: String, allowAuthenticationUI: Bool = false) async throws -> T? {
-        try await Task.detached(priority: .userInitiated) {
+        try await operations.perform(allowAuthenticationUI: allowAuthenticationUI) {
             try read(type, account: account, allowAuthenticationUI: allowAuthenticationUI)
-        }.value
+        }
     }
 
     static func writeAsync<T: Encodable & Sendable>(_ value: T, account: String, allowAuthenticationUI: Bool = true) async throws {
-        try await Task.detached(priority: .userInitiated) {
+        try await operations.perform(allowAuthenticationUI: allowAuthenticationUI) {
             try write(value, account: account, allowAuthenticationUI: allowAuthenticationUI)
-        }.value
+        }
     }
 
     static func deleteAsync(account: String) async throws {
-        try await Task.detached(priority: .userInitiated) { try delete(account: account) }.value
+        try await operations.perform(allowAuthenticationUI: true) { try delete(account: account) }
     }
 
     private static func base(_ account: String) -> [String: Any] {
