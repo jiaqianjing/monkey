@@ -6,15 +6,15 @@
 
 <p align="center">
   为 macOS 打造的开源中文输入法。<br>
-  本地拼音、日常混输，以及留在输入框里的中译英。
+  盲 key，输入自如。<br>本地拼音、日常混输，以及留在输入框里的中译英。
 </p>
 
 <p align="center">
-  <a href="https://github.com/jiaqianjing/monkey/releases/tag/v0.2.1"><img src="https://img.shields.io/badge/release-v0.2.1_preview-D9EF78?style=flat-square&amp;labelColor=183D35&amp;color=D9EF78" alt="v0.2.1 开发预览"></a>
-  <img src="https://img.shields.io/badge/macOS-13%2B-183D35?style=flat-square" alt="最低系统要求 macOS 13">
-  <img src="https://img.shields.io/badge/Apple_Silicon-arm64-183D35?style=flat-square" alt="Apple Silicon arm64">
+  <a href="https://github.com/jiaqianjing/monkey/releases/tag/v0.2.1"><img src="https://img.shields.io/badge/release-v0.2.1_preview-D7F879?style=flat-square&amp;labelColor=171B2E&amp;color=D7F879" alt="v0.2.1 开发预览"></a>
+  <img src="https://img.shields.io/badge/macOS-13%2B-171B2E?style=flat-square" alt="最低系统要求 macOS 13">
+  <img src="https://img.shields.io/badge/Apple_Silicon-arm64-171B2E?style=flat-square" alt="Apple Silicon arm64">
   <a href="https://github.com/jiaqianjing/monkey/actions/workflows/ci.yml"><img src="https://github.com/jiaqianjing/monkey/actions/workflows/ci.yml/badge.svg" alt="Build and test macOS"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/code-MIT-183D35?style=flat-square" alt="原创代码 MIT 许可证"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/code-MIT-171B2E?style=flat-square" alt="原创代码 MIT 许可证"></a>
 </p>
 
 <p align="center">
@@ -64,7 +64,7 @@
 
 ## 下载与安装
 
-**当前版本：[0.2.1 开发预览](https://github.com/jiaqianjing/monkey/releases/tag/v0.2.1)** · Apple Silicon（arm64）· 最低要求 macOS 13.0 · ZIP 约 26 MB
+**当前版本：[0.2.1 开发预览](https://github.com/jiaqianjing/monkey/releases/tag/v0.2.1)** · Apple Silicon（arm64）· 最低要求 macOS 13.0 · ZIP 约 29 MB
 
 > 预览包使用 ad-hoc 签名，尚未经过 Apple 公证。暂不提供 Intel 安装包；较旧系统和更多应用的兼容性仍待验证。
 
@@ -109,6 +109,8 @@ shasum -a 256 -c Monkey-0.2.1-macos-arm64.sha256
 右键中文候选可尝试清除该候选的个人学习记录，内置词库仍保留。候选条顶部可直接开启中译英或点击齿轮进入设置。悬浮窗只在拼音输入或未确认草稿存在时显示，提交、取消或切走后收起。在设置的「中文输入」中，可调整英文自动识别、候选布局，以及选中英文词后是否附带空格。
 
 ## 0.2.1：入口、等待与日常操作
+
+全新「盲 key」品牌图标与设置界面：立体青柠键帽、双拱与光标标记，去掉「猴」字标识。[视觉资源与构建说明](docs/brand.md)
 
 - 候选条新增中译英按钮与设置齿轮，设置首页提供三步引导；普通输入采用更紧凑的候选条。
 - 翻译模式下直接回车提交中文；英文仍需 `Control + Return` 明确确认，没有组合内容时回车交给当前应用。

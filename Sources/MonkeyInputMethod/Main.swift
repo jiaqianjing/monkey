@@ -12,6 +12,7 @@ struct MonkeyMain {
         let arguments = CommandLine.arguments
         if let code = InputSourceManager.runCommand(arguments) { exit(code) }
         if PreviewCommand.runIfRequested(arguments) { return }
+        if SettingsPreviewCommand.runIfRequested(arguments) { return }
         if Bundle.main.bundleIdentifier == InputSourceManager.bundleID,
            !arguments.contains("--demo"),
            NSRunningApplication.runningApplications(withBundleIdentifier: InputSourceManager.bundleID)
@@ -22,6 +23,8 @@ struct MonkeyMain {
             return
         }
         let app = NSApplication.shared
+        if let icon = Bundle.main.url(forResource: "AppIcon", withExtension: "png"),
+           let image = NSImage(contentsOf: icon) { app.applicationIconImage = image }
         let delegate = MonkeyApplicationDelegate()
         app.delegate = delegate
         app.setActivationPolicy(arguments.contains("--settings") || arguments.contains("--demo") ? .regular : .accessory)

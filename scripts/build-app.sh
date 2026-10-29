@@ -21,6 +21,8 @@ mkdir -p "$CONTENTS/MacOS" "$CONTENTS/Resources" "$CONTENTS/Frameworks"
 cp "$BIN_DIR/MonkeyInputMethod" "$CONTENTS/MacOS/MonkeyInputMethod"
 cp "$ROOT/Resources/Info.plist" "$CONTENTS/Info.plist"
 cp "$ROOT/Resources/monkey.pdf" "$CONTENTS/Resources/monkey.pdf"
+cp "$ROOT/Resources/AppIcon.icns" "$CONTENTS/Resources/AppIcon.icns"
+cp "$ROOT/Resources/AppIcon.png" "$CONTENTS/Resources/AppIcon.png"
 ditto "$ROOT/Resources/Rime" "$CONTENTS/Resources/Rime"
 for locale in en zh-Hans; do
     ditto "$ROOT/Resources/$locale.lproj" "$CONTENTS/Resources/$locale.lproj"
