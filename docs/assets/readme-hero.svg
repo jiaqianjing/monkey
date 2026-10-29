@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="540" viewBox="0 0 1280 540" role="img" aria-labelledby="title desc">
+  <title id="title">Monkey 拼音</title>
+  <desc id="desc">为 macOS 打造的开源中文输入法。本地拼音与中译英流程示意，非应用截图。</desc>
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#F7F8EF"/>
+      <stop offset="1" stop-color="#EAF0E7"/>
+    </linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="1" fill="#183D35" opacity=".055"/>
+    </pattern>
+  </defs>
+  <rect width="1280" height="540" rx="28" fill="url(#paper)"/>
+  <rect width="1280" height="540" rx="28" fill="url(#grid)"/>
+  <circle cx="1190" cy="20" r="215" fill="#D9EF78" opacity=".38"/>
+  <circle cx="658" cy="540" r="150" fill="#DDE9DC" opacity=".8"/>
+
+  <g font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif">
+    <rect x="60" y="57" width="72" height="72" rx="22" fill="#183D35"/>
+    <g transform="translate(72 68)" stroke="#D9EF78" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="8" cy="25" r="7" fill="#183D35"/>
+      <circle cx="40" cy="25" r="7" fill="#183D35"/>
+      <path d="M7 24C7 12 13 7 24 7s17 5 17 17v8c0 11-7 17-17 17S7 43 7 32Z" fill="#183D35"/>
+      <path d="M14 25c0-5 6-8 10-3 4-5 10-2 10 3v9c0 6-4 10-10 10s-10-4-10-10Z" fill="#D9EF78" stroke="none"/>
+      <path d="M20 34q4 4 8 0" stroke="#183D35" stroke-width="2" fill="none"/>
+      <circle cx="19" cy="28" r="1.5" stroke="none" fill="#183D35"/>
+      <circle cx="29" cy="28" r="1.5" stroke="none" fill="#183D35"/>
+    </g>
+    <text x="151" y="88" font-size="16" font-weight="600" letter-spacing="2" fill="#4D6A5F">MADE FOR macOS</text>
+    <text x="151" y="116" font-size="17" fill="#657B6D">本地中文输入 · 开源</text>
+
+    <text x="60" y="211" font-size="66" font-weight="750" letter-spacing="-2" fill="#183D35">Monkey</text>
+    <text x="337" y="209" font-size="40" font-weight="600" fill="#183D35">拼音</text>
+    <text x="60" y="282" font-size="36" font-weight="600" fill="#183D35">中文打得顺。</text>
+    <text x="60" y="334" font-size="36" font-weight="600" fill="#183D35">英文写得出。</text>
+    <text x="62" y="387" font-size="18" fill="#657B6D">从日常选词，到输入框里的英文预览。</text>
+
+    <rect x="60" y="433" width="104" height="36" rx="18" fill="#183D35"/>
+    <text x="112" y="457" text-anchor="middle" font-size="14" font-weight="600" fill="#F7F8EF">本地拼音</text>
+    <rect x="176" y="433" width="104" height="36" rx="18" fill="none" stroke="#B7C7B6"/>
+    <text x="228" y="457" text-anchor="middle" font-size="14" fill="#33574A">中英混输</text>
+    <rect x="292" y="433" width="118" height="36" rx="18" fill="none" stroke="#B7C7B6"/>
+    <text x="351" y="457" text-anchor="middle" font-size="14" fill="#33574A">ChatGPT 翻译</text>
+
+    <rect x="630" y="73" width="590" height="398" rx="24" fill="#183D35" opacity=".06"/>
+    <rect x="624" y="65" width="590" height="398" rx="24" fill="#FFFFFF" stroke="#D4DED1"/>
+    <circle cx="653" cy="93" r="5" fill="#B6C7B5"/>
+    <circle cx="670" cy="93" r="5" fill="#CCD6C7"/>
+    <circle cx="687" cy="93" r="5" fill="#E0E6DA"/>
+    <text x="1184" y="98" text-anchor="end" font-size="13" fill="#6E8173">MONKEY / 输入流程示意</text>
+    <path d="M624 117h590" stroke="#EBEEE5"/>
+
+    <text x="653" y="152" font-size="13" font-weight="600" letter-spacing="1" fill="#6E8173">01 / 日常中文</text>
+    <text x="653" y="189" font-family="'SFMono-Regular', Consolas, monospace" font-size="25" fill="#183D35">nh<tspan fill="#A3B598"> |</tspan></text>
+    <rect x="653" y="205" width="133" height="44" rx="10" fill="#D9EF78"/>
+    <text x="669" y="234" font-size="20" font-weight="600" fill="#183D35"><tspan font-size="13">1 </tspan> 你好</text>
+    <text x="808" y="234" font-size="19" fill="#738272"><tspan font-size="13">2 </tspan> 您好</text>
+    <text x="1182" y="233" text-anchor="end" font-size="13" fill="#738272">Space 选词</text>
+
+    <path d="M653 272h532" stroke="#EBEEE5"/>
+    <text x="653" y="302" font-size="13" font-weight="600" letter-spacing="1" fill="#6E8173">02 / 中译英预览</text>
+    <text x="653" y="338" font-size="23" font-weight="500" fill="#183D35">明天下午三点开会。</text>
+    <rect x="653" y="354" width="532" height="53" rx="10" fill="#F1F5EC"/>
+    <text x="669" y="387" font-size="20" fill="#33574A">Let’s meet tomorrow at 3 p.m.</text>
+    <rect x="653" y="423" width="135" height="23" rx="5" fill="#183D35"/>
+    <text x="720" y="439" text-anchor="middle" font-size="11" font-family="'SFMono-Regular', Consolas, monospace" fill="#F7F8EF">Control + Return</text>
+    <text x="801" y="440" font-size="13" fill="#738272">确认英文上屏</text>
+    <text x="1185" y="440" text-anchor="end" font-size="11" fill="#8C9B88">翻译示例</text>
+  </g>
+</svg>

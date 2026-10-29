@@ -1,55 +1,84 @@
-# Monkey 拼音
+<p align="center">
+  <img src="docs/assets/readme-hero.svg" alt="Monkey 拼音：macOS 原生中文输入法，支持本地拼音与中译英预览。图中为输入流程示意。" width="100%">
+</p>
 
-macOS 原生中文拼音输入法，支持在当前输入框里用中文写作、预览英文并确认上屏。
+<h1 align="center">Monkey 拼音</h1>
 
-0.2.0 开发预览重点改进中文输入体验。项目使用 Swift、InputMethodKit 和 librime；中文词库来自雾凇拼音。日常拼音、纠错和中英混输均在本地完成，翻译通过用户明确连接的 ChatGPT 账号执行。
+<p align="center">
+  为 macOS 打造的开源中文输入法。<br>
+  本地拼音、日常混输，以及留在输入框里的中译英。
+</p>
 
-## 当前范围
+<p align="center">
+  <a href="https://github.com/jiaqianjing/monkey/releases/tag/v0.2.0"><img src="https://img.shields.io/badge/release-v0.2.0_preview-D9EF78?style=flat-square&amp;labelColor=183D35&amp;color=D9EF78" alt="v0.2.0 开发预览"></a>
+  <img src="https://img.shields.io/badge/macOS-13%2B-183D35?style=flat-square" alt="最低系统要求 macOS 13">
+  <img src="https://img.shields.io/badge/Apple_Silicon-arm64-183D35?style=flat-square" alt="Apple Silicon arm64">
+  <a href="https://github.com/jiaqianjing/monkey/actions/workflows/ci.yml"><img src="https://github.com/jiaqianjing/monkey/actions/workflows/ci.yml/badge.svg" alt="Build and test macOS"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/code-MIT-183D35?style=flat-square" alt="原创代码 MIT 许可证"></a>
+</p>
 
-- 中文全拼、简拼、整句候选、选词与本地用户词学习。
-- 日常词频优化，常见键位颠倒、漏键、重复键纠错；默认不混淆 n/l、平翘音。
-- 常用英文与中英词候选，网址、邮箱、小数、版本号的 ASCII 标点保留。
-- 紧凑横排候选、鼠标翻页、候选右键删除个人学习记录，可切回竖排。
-- 在输入法内切换中译英模式，保留中文草稿并显示英文预览。
-- 英文确认后才上屏；断网、额度不足或登录失效时保留原文。
-- 官方 Sign in with ChatGPT 登录，使用符合条件账号授权的 ChatGPT 订阅额度，无需填写 API key。
-- 设置窗口管理账号、模型和翻译偏好。
+<p align="center">
+  <strong><a href="https://github.com/jiaqianjing/monkey/releases/download/v0.2.0/Monkey-0.2.0-macos-arm64.zip">下载 macOS 预览版 ↗</a></strong>
+  &nbsp; · &nbsp; <a href="docs/install.md">安装指南</a>
+  &nbsp; · &nbsp; <a href="https://github.com/jiaqianjing/monkey/releases/tag/v0.2.0">更新记录</a>
+  &nbsp; · &nbsp; <a href="https://github.com/jiaqianjing/monkey/issues/new">反馈问题</a>
+</p>
 
-ChatGPT 登录不等于无限调用，也不会让本地拼音引擎自动拥有 ChatGPT 的记忆或聊天记录。可用模型、资格与额度以登录账号和服务返回为准。[官方接入说明](https://developers.openai.com/siwc/token-sharing-open-source)。
+---
 
-首版重点是中文输入与中译英流程。基础拼音体验尚未通过长期日常试用证明可替代微信或搜狗；跨应用兼容性和真实翻译延迟仍需持续验证。
+## 中文输入优先，翻译随手可用
 
-## 安装
+| | Monkey 能做什么 |
+| :--- | :--- |
+| **熟悉的中文输入** | 基于 librime 与雾凇拼音词库，支持全拼、简拼、整句候选和本机用户词学习。补充日常表达词频，让“你好”“谢谢”“好的”等常用词更容易选中。 |
+| **照顾真实打字习惯** | 常见换位、漏键、重复键纠错；英文与中英词候选；保留网址、邮箱、小数和版本号的 ASCII 符号。横排、竖排和英文空格习惯均可调整。 |
+| **在输入框里写英文** | 用中文组织表达，查看英文预览，再亲自确认上屏。通过官方 Sign in with ChatGPT 连接符合条件的订阅账号，无需填写 API key。 |
 
-源码目标为 macOS 13+。每个二进制包会扫描实际依赖的最低系统版本，具体要求见包内 `READ-ME.txt` 与 `Monkey.app/Contents/Resources/BUILD-INFO.txt`。首个本地交付包为 Apple Silicon（arm64）。
+普通拼音输入、候选排序和用户词学习在本地完成，无需登录。只有你开启翻译模式后，当前中文草稿才会发送到 OpenAI。
 
-下载并解压发行包后，运行 `Install.command`。安装目标只有：
+## 试试这些输入
+
+| 场景 | 输入 | 结果或操作 |
+| :--- | :--- | :--- |
+| 日常简拼 | `nh` / `xx` / `hd` | 首选“你好” / “谢谢” / “好的” |
+| 常见错拼 | `nihoa` | 首选“你好” |
+| 中英词 | `upan` / `txu` | 候选“U盘” / “T恤” |
+| 英文与版本 | `macOS 13` / `Python 3.12` | 保留大小写、空格与小数点 |
+| 邮箱与网址 | `first.last+tag@example.co.uk` / `https://github.com` | 保留 ASCII 符号，按 `Return` 原样确认 |
+
+混合输入时，先确认中文候选，再继续输入英文或数字。例如，先输入并确认“我在用”，再输入 `macOS`。目前尚未支持把任意无分隔长串自动拆成正确的中英文句子。候选会随个人学习发生变化。
+
+### 用中文写，确认英文上屏
+
+1. 按 `Control + Shift + T` 开启中译英模式。
+2. 正常用拼音选词，组成中文草稿，等待英文预览完成。
+3. 按 `Control + Return` 将英文上屏；按 `Shift + Return` 可改用中文原文。
 
 ```text
-~/Library/Input Methods/Monkey.app
+中文草稿   明天下午我有空，我们把会议改到三点吧。
+英文预览   I’m free tomorrow afternoon. Let’s move the meeting to 3:00 p.m.
+确认上屏   Control + Return
 ```
 
-安装器注册并启用 Monkey，不切换当前输入源。随后从菜单栏输入法菜单选择 **Monkey 拼音**；若没有出现，在系统设置 → 键盘 → 文字输入 → 编辑中添加。首次安装后若未显示或部分应用无法输入，请注销当前 macOS 用户再登录。
+上方是一次实际翻译示例，具体表达会因模型和上下文而变化。英文经确认才会写入当前输入框；请求失败时保留中文草稿。修改草稿后，需等待新版本翻译完成。
 
-开发预览包未经过 Apple 公证；当前本地构建使用临时签名（ad-hoc）。它不是已通过 Gatekeeper 认证的公开发行版。安装与自行构建的详细步骤见 [安装说明](docs/install.md)。
+## 下载与安装
 
-## 使用
+**当前版本：[0.2.0 开发预览](https://github.com/jiaqianjing/monkey/releases/tag/v0.2.0)** · Apple Silicon（arm64）· 最低要求 macOS 13.0 · ZIP 约 26 MB
 
-| 操作 | 快捷键 |
-| --- | --- |
-| 拼音选首个候选 | 空格 |
-| 按编号选词 | 数字键 |
-| 原样输入当前拼音或英文，不额外换行 | `Return` |
-| 翻页 | `Page Up / Page Down` 或 `- / =` |
-| 切换中文拼音 / 英文直输 | `Shift + Space` |
-| 开关中译英模式 | `Control + Shift + T` |
-| 确认当前英文上屏 | `Control + Return` |
-| 将中文原文上屏 | `Shift + Return` |
-| 清除当前拼音，或取消翻译请求并保留中文 | `Esc` |
+> 预览包使用 ad-hoc 签名，尚未经过 Apple 公证。暂不提供 Intel 安装包；较旧系统和更多应用的兼容性仍待验证。
 
-翻译模式中的选词会进入当前中文草稿。英文预览随草稿更新，只有当前版本翻译完成后才能确认。切换输入框时，旧请求不得向新输入框写入内容。
+1. [下载 ZIP](https://github.com/jiaqianjing/monkey/releases/download/v0.2.0/Monkey-0.2.0-macos-arm64.zip)，解压后运行目录中的 **`Install.command`**。
+2. 从 macOS 菜单栏的输入法菜单选择 **Monkey 拼音**。安装器会注册并启用它，仍需你手动选中。
+3. 若没有出现，在 **系统设置 → 键盘 → 文字输入 → 编辑** 中添加；首次安装或更新后仍无法使用时，注销当前 macOS 用户再登录。
+4. 如需翻译，打开 Monkey 设置，选择 **Continue with ChatGPT**，在浏览器完成登录与授权。
 
-在设置的「中文输入」中，可调整英文自动识别、横竖候选布局和英文空格习惯。默认选中英文词时保留分词空格，便于输入 `hello world`、`macOS 13`；`Return` 确认原文不会加空格。普通拼音的数字选词保持不变。中英文单词按正常候选边界确认即可混合输入，尚不支持把任意无分隔长串都自动拆成正确的中英文句子。
+安装位置为 `~/Library/Input Methods/Monkey.app`，不需要管理员密码。更新时重新运行新版安装器，用户词库和账号连接会保留。
+
+[详细安装、Gatekeeper 与卸载说明](docs/install.md) · [SHA-256 校验文件](https://github.com/jiaqianjing/monkey/releases/download/v0.2.0/Monkey-0.2.0-macos-arm64.sha256)
+
+<details>
+<summary>打开设置 / 校验下载文件</summary>
 
 打开设置：
 
@@ -57,43 +86,79 @@ ChatGPT 登录不等于无限调用，也不会让本地拼音引擎自动拥有
 open -a "$HOME/Library/Input Methods/Monkey.app" --args --settings
 ```
 
-在设置中选择 **Continue with ChatGPT**，由系统浏览器完成 OpenAI 登录和授权。密码、验证码及授权确认由你本人操作。首次使用需实际完成一次翻译，才能确认该账号拥有当前请求所需权限。
+将 ZIP 与 `.sha256` 文件下载到同一目录后，在该目录运行：
+
+```sh
+shasum -a 256 -c Monkey-0.2.0-macos-arm64.sha256
+```
+
+</details>
+
+## 常用快捷键
+
+| 操作 | 快捷键 |
+| :--- | :--- |
+| 选首个候选 / 按编号选词 | `Space` / 数字键 |
+| 原样确认当前拼音或英文，不额外换行 | `Return` |
+| 候选翻页 | `Page Up` / `Page Down` 或 `-` / `=` |
+| 切换中文拼音 / 英文直输 | `Shift + Space` |
+| 开关中译英模式 | `Control + Shift + T` |
+| 确认英文 / 使用中文原文 | `Control + Return` / `Shift + Return` |
+| 清除拼音 / 取消翻译请求并保留草稿 | `Esc` |
+
+右键中文候选可尝试清除该候选的个人学习记录，内置词库仍保留。在设置的「中文输入」中，可调整英文自动识别、候选布局，以及选中英文词后是否附带空格。
+
+## 0.2.0 做到了哪里
+
+本轮主要改进词频、排序、纠错和混输。固定语料上的自身前后对比如下：
+
+| 指标 | 0.1.0 数据 | 0.2.0 数据 |
+| :--- | ---: | ---: |
+| 89 条排序语料：首选命中 | 73 / 89 | **83 / 89** |
+| 89 条排序语料：前五命中 | 78 / 89 | **84 / 89** |
+| 12 条错拼：首选命中 | 4 / 12 | **12 / 12** |
+| 另 150 条精确拼音：前五命中 | 150 / 150 | **150 / 150** |
+
+36 项自动测试通过。上述数据来自冻结的小型语料，是 Monkey 自身的配置对照，不能当作日常输入准确率，也没有与微信或搜狗进行同条件比较。纠错同时增加了计算量：本机引擎按键处理 P95 从 1.221 ms 增至 7.970 ms，未包含系统事件和界面绘制。
+
+“两点 / 亮点”“再 / 在”等上下文同音选择、无分隔中英长串和跨应用体验仍需继续打磨。0.2.0 的新候选窗口尚待实体键盘与跨应用验收。
+
+[完整质量报告与复现方法](docs/input-quality.md) · [0.2.0 交付记录](docs/releases/0.2.0.md)
+
+## 隐私与 ChatGPT 连接
+
+- **本地打字**：普通中文输入和词库学习不联网，不需要 ChatGPT 账号。
+- **主动翻译**：开启翻译后，当前中文草稿和所选表达偏好发往 OpenAI。Monkey 不主动读取整个文档、剪贴板或其他应用内容。
+- **凭据保护**：登录凭据存放在 macOS Keychain；Monkey 使用自己的授权，不读取其他应用的登录凭据。
+- **订阅使用**：符合条件的 ChatGPT Plus / Pro 账号可授权使用订阅额度；模型、资格和额度以账号及服务返回为准。登录不会带入 ChatGPT 聊天记录，也不代表无限调用。[OpenAI 官方说明](https://developers.openai.com/siwc/quickstart)
+
+[完整隐私边界](docs/privacy.md)
 
 ## 从源码构建
 
-需要 Xcode 命令行工具（含支持本项目的 Swift 工具链）、Python 3，以及联网下载固定版本的 librime 运行库。
+使用 Swift、InputMethodKit、AppKit / SwiftUI 与 librime。需要 Xcode 命令行工具（含支持本项目的 Swift 工具链）、Python 3，以及首次下载固定版本依赖所需的网络。
 
 ```sh
+git clone https://github.com/jiaqianjing/monkey.git
+cd monkey
 ./scripts/bootstrap-rime.sh
 swift test
 ./scripts/build-app.sh
 ./scripts/install.sh
 ```
 
-构建输出位于 `dist/Monkey.app`。生成含安装器的 ZIP、校验值，并尝试生成 DMG：
+应用输出到 `dist/Monkey.app`。生成含安装器与 SHA-256 的 ZIP：
 
 ```sh
-./scripts/package-release.sh
+MONKEY_CREATE_DMG=0 ./scripts/package-release.sh
 ```
 
-ZIP 已包含完整安装器。DMG 为可选分发格式，系统镜像服务失败时会保留 ZIP 并明确提示；可用 `MONKEY_CREATE_DMG=0` 跳过镜像生成。
+构建脚本会检查实际架构、最低系统版本与动态依赖，并优先使用本机 Developer ID Application 身份；没有时采用 ad-hoc 签名。可用 `MONKEY_SIGNING_IDENTITY` 指定身份。Apple 公证需另行完成。详见 [构建与打包说明](docs/install.md)。
 
-脚本会优先使用本机可用的 Developer ID Application 身份；没有时使用 ad-hoc 签名。也可通过 `MONKEY_SIGNING_IDENTITY` 指定签名身份。签名和公证是不同步骤，本项目脚本不会自动提交 Apple 公证。
+## 一起打磨日常输入
 
-## 隐私和数据
+欢迎通过 [Issues](https://github.com/jiaqianjing/monkey/issues/new) 提交具体例子：输入的拼音或按键顺序、实际候选、期望候选，以及 macOS 版本和使用的应用。请使用可公开的示例，避免贴出密码、私人文档或账号凭据。
 
-普通拼音输入无需网络。启用翻译后，当前中文草稿和选择的表达偏好会发往 OpenAI；Monkey 不主动读取整个文档、剪贴板或其他应用内容。登录凭据保存在 macOS Keychain。详见 [隐私边界](docs/privacy.md)。
+[架构说明](docs/architecture.md) · [验收清单](docs/validation.md) · [第三方声明](THIRD_PARTY_NOTICES.md)
 
-卸载输入法：
-
-```sh
-./scripts/uninstall.sh
-```
-
-卸载保留用户词库、偏好及保存的账号连接。如需删除凭据，请先在 Monkey 设置中断开账号。
-
-## 开发与许可证
-
-[架构说明](docs/architecture.md) · [输入质量对比与局限](docs/input-quality.md) · [验收清单](docs/validation.md) · [第三方声明](THIRD_PARTY_NOTICES.md)
-
-Monkey 原创程序代码使用 [MIT](LICENSE)。librime、词库及其依赖保持各自许可证；雾凇词库包含 GPL-3.0 数据，具体来源及许可随资源保留。不要将根目录 MIT 许可证理解为第三方资源也改用了 MIT。
+Monkey 原创代码使用 [MIT](LICENSE)。librime、雾凇词库及其他依赖保留各自许可证；其中词库包含 GPL-3.0 数据，具体来源和许可随资源提供。

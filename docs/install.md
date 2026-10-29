@@ -2,13 +2,13 @@
 
 ## 二进制开发包
 
-1. 解压 `Monkey-0.1.0-macos-arm64.zip`，或打开同名 DMG 并复制整个发行目录到可写位置。
+1. 从 [GitHub Releases](https://github.com/jiaqianjing/monkey/releases/tag/v0.2.0) 下载并解压 `Monkey-0.2.0-macos-arm64.zip`。当前提供 Apple Silicon 安装包，最低系统要求为 macOS 13.0。
 2. 阅读 `READ-ME.txt`，确认架构及最低 macOS 版本匹配。
 3. 运行 `Install.command`。它只写入 `~/Library/Input Methods/Monkey.app`，不需要管理员密码，也不会修改其他输入法。
 4. 从菜单栏输入法菜单选择 Monkey 拼音。安装不会自动切换输入源。
 5. 若未出现，注销 macOS 用户再登录，在系统设置 → 键盘 → 文字输入 → 编辑中添加 Monkey。
 
-首版包未公证。若 Gatekeeper 拦截下载的开发包，可自行从源码构建，或在确认来源后使用 macOS 提供的打开/隐私与安全性流程；不需要关闭系统安全功能。脚本不会清除 quarantine 属性或绕过 Gatekeeper。
+当前预览包使用 ad-hoc 签名，未经过 Apple 公证。若 Gatekeeper 拦截下载的开发包，可自行从源码构建，或在确认来源后使用 macOS 提供的打开/隐私与安全性流程；不需要关闭系统安全功能。脚本不会清除 quarantine 属性或绕过 Gatekeeper。
 
 DMG 是文件分发容器，不是系统安装器。若直接在只读 DMG 中运行安装脚本被系统策略拦截，先将完整目录复制到本机，再运行。
 
@@ -34,7 +34,7 @@ Swift 源码目标为 macOS 13，运行库或未来其他依赖若要求更高�
 
 ## 更新
 
-先结束正在编辑的组合文本。重新构建后运行安装脚本，它会要求旧 Monkey 进程退出，再替换该应用。用户数据不会被覆盖。更新后若 macOS 仍运行旧版本，请注销再登录。
+先结束正在编辑的组合文本。下载新版 ZIP 并运行其中的 `Install.command`，或重新构建后运行安装脚本。它会要求旧 Monkey 进程退出，再替换该应用。用户数据不会被覆盖。更新后若 macOS 仍运行旧版本，请注销再登录。
 
 ## 状态检查
 
