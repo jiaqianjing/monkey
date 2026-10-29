@@ -195,7 +195,7 @@ final class CandidatePanel: NSPanel {
         header.stringValue = inputInTopBar ? preedit : (translationMode ? "中 → 英 · 联网" : (literal ? "原文 · ASCII" : "中文 · 拼音"))
         header.font = .systemFont(ofSize: inputInTopBar ? 14 : 11, weight: .medium)
         header.textColor = inputInTopBar ? .labelColor : .secondaryLabelColor
-        let hasPaging = !literal && (pageNumber > 0 || !isLastPage)
+        let hasPaging = !literal && !candidates.isEmpty && (pageNumber > 0 || !isLastPage)
         let pagingWidth: CGFloat = hasPaging ? 60 : 0
         let settingsWidth: CGFloat = 26
         let toggleWidth: CGFloat = 124
