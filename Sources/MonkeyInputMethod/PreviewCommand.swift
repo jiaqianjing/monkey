@@ -65,13 +65,7 @@ private final class CandidatePreviewDelegate: NSObject, NSApplicationDelegate {
             session = CompositionSession(session: native)
             feedInitialInput()
 
-            if translationMode {
-                // This text is explicitly a layout fixture; no inference occurs.
-                draft.replaceSource("明天下午我有空，我们把会议改到三点吧。")
-                if let request = draft.beginRequest() {
-                    draft.complete("I’m free tomorrow afternoon. Let’s move the meeting to 3:00 p.m.", for: request)
-                }
-            }
+            if translationMode { prepareTranslationFixture() }
             let panel = CandidatePanel()
             panel.title = "Monkey 候选预览"
             panel.setAccessibilityLabel("Monkey 候选预览")
@@ -134,7 +128,8 @@ private final class CandidatePreviewDelegate: NSObject, NSApplicationDelegate {
                      onForget: { [weak self] index in self?.forget(index) },
                      onPage: { [weak self] backward in self?.page(backward: backward) },
                      onConfirm: { [weak self] in self?.recordFixtureAction("已点击英文确认（仅布局）") },
-                     onChinese: { [weak self] in self?.recordFixtureAction("已点击中文确认（仅布局）") })
+                     onChinese: { [weak self] in self?.recordFixtureAction("已点击中文确认（仅布局）") },
+                     onToggleTranslation: { [weak self] in self?.toggleTranslationFixture() })
         let visible = NSScreen.main?.visibleFrame ?? NSRect(x: 0, y: 0, width: 1440, height: 900)
         panel.setFrameOrigin(NSPoint(x: visible.midX - panel.frame.width / 2,
                                      y: visible.midY - panel.frame.height / 2))
@@ -161,6 +156,23 @@ private final class CandidatePreviewDelegate: NSObject, NSApplicationDelegate {
 
     private func recordFixtureAction(_ description: String) {
         lastAction = description
+        render()
+    }
+
+    private func prepareTranslationFixture() {
+        // These are labeled layout fixtures, never account-backed inference.
+        session?.clear()
+        draft.replaceSource("明天下午我有空，我们把会议改到三点吧。")
+        if let request = draft.beginRequest() {
+            draft.complete("I’m free tomorrow afternoon. Let’s move the meeting to 3:00 p.m.", for: request)
+        }
+    }
+
+    private func toggleTranslationFixture() {
+        translationMode.toggle()
+        draft.reset()
+        if translationMode { prepareTranslationFixture() }
+        else { feedInitialInput() }
         render()
     }
 

@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/jiaqianjing/monkey/releases/tag/v0.2.0"><img src="https://img.shields.io/badge/release-v0.2.0_preview-D9EF78?style=flat-square&amp;labelColor=183D35&amp;color=D9EF78" alt="v0.2.0 开发预览"></a>
+  <a href="https://github.com/jiaqianjing/monkey/releases/tag/v0.2.1"><img src="https://img.shields.io/badge/release-v0.2.1_preview-D9EF78?style=flat-square&amp;labelColor=183D35&amp;color=D9EF78" alt="v0.2.1 开发预览"></a>
   <img src="https://img.shields.io/badge/macOS-13%2B-183D35?style=flat-square" alt="最低系统要求 macOS 13">
   <img src="https://img.shields.io/badge/Apple_Silicon-arm64-183D35?style=flat-square" alt="Apple Silicon arm64">
   <a href="https://github.com/jiaqianjing/monkey/actions/workflows/ci.yml"><img src="https://github.com/jiaqianjing/monkey/actions/workflows/ci.yml/badge.svg" alt="Build and test macOS"></a>
@@ -18,9 +18,9 @@
 </p>
 
 <p align="center">
-  <strong><a href="https://github.com/jiaqianjing/monkey/releases/download/v0.2.0/Monkey-0.2.0-macos-arm64.zip">下载 macOS 预览版 ↗</a></strong>
+  <strong><a href="https://github.com/jiaqianjing/monkey/releases/download/v0.2.1/Monkey-0.2.1-macos-arm64.zip">下载 macOS 预览版 ↗</a></strong>
   &nbsp; · &nbsp; <a href="docs/install.md">安装指南</a>
-  &nbsp; · &nbsp; <a href="https://github.com/jiaqianjing/monkey/releases/tag/v0.2.0">更新记录</a>
+  &nbsp; · &nbsp; <a href="https://github.com/jiaqianjing/monkey/releases/tag/v0.2.1">更新记录</a>
   &nbsp; · &nbsp; <a href="https://github.com/jiaqianjing/monkey/issues/new">反馈问题</a>
 </p>
 
@@ -52,7 +52,7 @@
 
 1. 按 `Control + Shift + T` 开启中译英模式。
 2. 正常用拼音选词，组成中文草稿，等待英文预览完成。
-3. 按 `Control + Return` 将英文上屏；按 `Shift + Return` 可改用中文原文。
+3. 按 `Control + Return` 将英文上屏；直接按 `Return` 使用中文原文（`Shift + Return` 也可）。
 
 ```text
 中文草稿   明天下午我有空，我们把会议改到三点吧。
@@ -64,18 +64,18 @@
 
 ## 下载与安装
 
-**当前版本：[0.2.0 开发预览](https://github.com/jiaqianjing/monkey/releases/tag/v0.2.0)** · Apple Silicon（arm64）· 最低要求 macOS 13.0 · ZIP 约 26 MB
+**当前版本：[0.2.1 开发预览](https://github.com/jiaqianjing/monkey/releases/tag/v0.2.1)** · Apple Silicon（arm64）· 最低要求 macOS 13.0 · ZIP 约 26 MB
 
 > 预览包使用 ad-hoc 签名，尚未经过 Apple 公证。暂不提供 Intel 安装包；较旧系统和更多应用的兼容性仍待验证。
 
-1. [下载 ZIP](https://github.com/jiaqianjing/monkey/releases/download/v0.2.0/Monkey-0.2.0-macos-arm64.zip)，解压后运行目录中的 **`Install.command`**。
+1. [下载 ZIP](https://github.com/jiaqianjing/monkey/releases/download/v0.2.1/Monkey-0.2.1-macos-arm64.zip)，解压后运行目录中的 **`Install.command`**。
 2. 从 macOS 菜单栏的输入法菜单选择 **Monkey 拼音**。安装器会注册并启用它，仍需你手动选中。
 3. 若没有出现，在 **系统设置 → 键盘 → 文字输入 → 编辑** 中添加；首次安装或更新后仍无法使用时，注销当前 macOS 用户再登录。
 4. 如需翻译，打开 Monkey 设置，选择 **Continue with ChatGPT**，在浏览器完成登录与授权。
 
 安装位置为 `~/Library/Input Methods/Monkey.app`，不需要管理员密码。更新时重新运行新版安装器，用户词库和账号连接会保留。
 
-[详细安装、Gatekeeper 与卸载说明](docs/install.md) · [SHA-256 校验文件](https://github.com/jiaqianjing/monkey/releases/download/v0.2.0/Monkey-0.2.0-macos-arm64.sha256)
+[详细安装、Gatekeeper 与卸载说明](docs/install.md) · [SHA-256 校验文件](https://github.com/jiaqianjing/monkey/releases/download/v0.2.1/Monkey-0.2.1-macos-arm64.sha256)
 
 <details>
 <summary>打开设置 / 校验下载文件</summary>
@@ -89,7 +89,7 @@ open -a "$HOME/Library/Input Methods/Monkey.app" --args --settings
 将 ZIP 与 `.sha256` 文件下载到同一目录后，在该目录运行：
 
 ```sh
-shasum -a 256 -c Monkey-0.2.0-macos-arm64.sha256
+shasum -a 256 -c Monkey-0.2.1-macos-arm64.sha256
 ```
 
 </details>
@@ -99,16 +99,26 @@ shasum -a 256 -c Monkey-0.2.0-macos-arm64.sha256
 | 操作 | 快捷键 |
 | :--- | :--- |
 | 选首个候选 / 按编号选词 | `Space` / 数字键 |
-| 原样确认当前拼音或英文，不额外换行 | `Return` |
+| 普通模式：原样确认拼音或英文；翻译模式：提交中文草稿 | `Return` |
 | 候选翻页 | `Page Up` / `Page Down` 或 `-` / `=` |
 | 切换中文拼音 / 英文直输 | `Shift + Space` |
 | 开关中译英模式 | `Control + Shift + T` |
-| 确认英文 / 使用中文原文 | `Control + Return` / `Shift + Return` |
+| 确认英文 / 使用中文原文 | `Control + Return` / `Return`（或 `Shift + Return`） |
 | 清除拼音 / 取消翻译请求并保留草稿 | `Esc` |
 
-右键中文候选可尝试清除该候选的个人学习记录，内置词库仍保留。在设置的「中文输入」中，可调整英文自动识别、候选布局，以及选中英文词后是否附带空格。
+右键中文候选可尝试清除该候选的个人学习记录，内置词库仍保留。候选条顶部可直接开启中译英或点击齿轮进入设置。悬浮窗只在拼音输入或未确认草稿存在时显示，提交、取消或切走后收起。在设置的「中文输入」中，可调整英文自动识别、候选布局，以及选中英文词后是否附带空格。
 
-## 0.2.0 做到了哪里
+## 0.2.1：入口、等待与日常操作
+
+- 候选条新增中译英按钮与设置齿轮，设置首页提供三步引导；普通输入采用更紧凑的候选条。
+- 翻译模式下直接回车提交中文；英文仍需 `Control + Return` 明确确认，没有组合内容时回车交给当前应用。
+- 候选窗只随输入出现；取消、提交或离开输入框后收起，不因仅开启翻译或切回应用而驻留。
+- 翻译等待由 650 ms 缩短为 250 ms。新增可关闭的“响应优先”，在已明确支持的 GPT-6.1 Terra 上减少推理等待，保留所选模型；其他模型保持默认参数。
+- 账号状态展示不再读取钥匙串，凭据仅在本进程内缓存；自动预览不弹授权提示，需授权时引导至设置中的“允许钥匙串访问”。临时签名更新后，系统仍可能要求对新版本确认一次。
+
+[0.2.1 更新与验证记录](docs/releases/0.2.1.md)
+
+## 中文输入质量
 
 本轮主要改进词频、排序、纠错和混输。固定语料上的自身前后对比如下：
 
@@ -119,9 +129,9 @@ shasum -a 256 -c Monkey-0.2.0-macos-arm64.sha256
 | 12 条错拼：首选命中 | 4 / 12 | **12 / 12** |
 | 另 150 条精确拼音：前五命中 | 150 / 150 | **150 / 150** |
 
-36 项自动测试通过。上述数据来自冻结的小型语料，是 Monkey 自身的配置对照，不能当作日常输入准确率，也没有与微信或搜狗进行同条件比较。纠错同时增加了计算量：本机引擎按键处理 P95 从 1.221 ms 增至 7.970 ms，未包含系统事件和界面绘制。
+45 项自动测试通过。上述数据来自冻结的小型语料，是 Monkey 自身的配置对照，不能当作日常输入准确率，也没有与微信或搜狗进行同条件比较。纠错同时增加了计算量：本机引擎按键处理 P95 从 1.221 ms 增至 7.970 ms，未包含系统事件和界面绘制。
 
-“两点 / 亮点”“再 / 在”等上下文同音选择、无分隔中英长串和跨应用体验仍需继续打磨。0.2.0 的新候选窗口尚待实体键盘与跨应用验收。
+“两点 / 亮点”“再 / 在”等上下文同音选择、无分隔中英长串和跨应用体验仍需继续打磨。自动测试不能替代实体键盘与跨应用日常验收。
 
 [完整质量报告与复现方法](docs/input-quality.md) · [0.2.0 交付记录](docs/releases/0.2.0.md)
 

@@ -18,15 +18,19 @@ public final class ChatGPTClient: ObservableObject {
     @Published public private(set) var accounts: [ChatGPTAccount] = []
     @Published public private(set) var isSigningIn = false
     @Published public private(set) var activeAccountID: String?
+    @Published public private(set) var requiresKeychainAuthorization = false
+    @Published public private(set) var lastTranslationLatency: TranslationLatency?
     @Published public var selectedModel: String {
         didSet { Self.defaults.set(selectedModel, forKey: "ChatGPT.selectedModel") }
     }
 
     private let session: URLSession
     private var refreshTask: Task<ChatGPTCredential, Error>?
+    private var refreshTaskIdentity = UUID()
     private var accountGeneration = UUID()
     private var loopback: ChatGPTLoopbackServer?
     private var accountObserver: NSObjectProtocol?
+    private let credentialCache = ChatGPTCredentialCache()
 
     public init() {
         selectedModel = Self.defaults.string(forKey: "ChatGPT.selectedModel") ?? ""
@@ -45,24 +49,54 @@ public final class ChatGPTClient: ObservableObject {
         if selectedModel != savedModel { selectedModel = savedModel }
         accounts = (Self.defaults.data(forKey: "ChatGPT.accounts")).flatMap { try? JSONDecoder().decode([ChatGPTAccount].self, from: $0) } ?? []
         let savedID = Self.defaults.string(forKey: "ChatGPT.activeClientID")
-        if activeAccountID != savedID { accountGeneration = UUID(); models = [] }
+        if activeAccountID != savedID {
+            accountGeneration = UUID()
+            refreshTask?.cancel(); refreshTask = nil
+            models = []
+        }
         activeAccountID = savedID
+        let disabled = savedID.map { disabledClients().contains($0) } ?? true
+        credentialCache.synchronize(clientID: disabled ? nil : savedID,
+                                    revision: savedID.flatMap { credentialRevision($0) })
+        requiresKeychainAuthorization = credentialCache.requiresAuthorization
         guard let savedID, let account = accounts.first(where: { $0.clientID == savedID }) else {
             accountEmail = nil
             return
         }
-        if disabledClients().contains(savedID) {
+        if disabled {
             if accountEmail != nil { accountGeneration = UUID() }
             accountEmail = nil
             return
         }
+        // Account labels are nonsecret metadata. Merely focusing an input field
+        // or opening settings must never read Keychain data or show authorization UI.
+        accountEmail = account.email
+        if credentialCache.hasCredential { statusMessage = "ChatGPT 已连接。翻译会使用此账号授权的订阅额度。" }
+        else if !requiresKeychainAuthorization { statusMessage = "ChatGPT 连接已保存，首次翻译时验证授权。" }
+    }
+
+    /// The explicit settings button is the only retry that may show a Keychain
+    /// prompt. Automatic previews always use a noninteractive lookup.
+    public func authorizeKeychainAccess() async throws {
+        reloadAccount()
+        guard let id = activeAccountID, !disabledClients().contains(id) else {
+            throw ChatGPTError.message("请先连接 ChatGPT。")
+        }
         do {
-            let credential = try KeychainStore.read(ChatGPTCredential.self, account: credentialKey(savedID))
-            accountEmail = credential == nil ? nil : account.email
-            if credential != nil { statusMessage = "ChatGPT 已连接。翻译会使用此账号授权的订阅额度。" }
+            guard let credential = try await loadCredential(id, authorize: true) else {
+                throw ChatGPTError.message("未找到保存的 ChatGPT 连接，请重新登录。")
+            }
+            guard activeAccountID == id, !disabledClients().contains(id) else { throw CancellationError() }
+            // Notify an already-running input-method process to retry its failed
+            // noninteractive read after the user has granted this binary access.
+            rememberCredential(credential)
+            requiresKeychainAuthorization = false
+            statusMessage = "钥匙串访问已允许，可返回输入框继续翻译。"
+            postAccountChange()
         } catch {
-            accountEmail = nil
-            statusMessage = error.localizedDescription
+            requiresKeychainAuthorization = credentialCache.requiresAuthorization
+            statusMessage = Self.userMessage(error)
+            throw error
         }
     }
 
@@ -87,7 +121,12 @@ public final class ChatGPTClient: ObservableObject {
             let previous = asNewAccount ? nil : accounts.first(where: { $0.clientID == activeAccountID })
             let pendingID = asNewAccount ? nil : Self.defaults.string(forKey: "ChatGPT.pendingClientID")
             let registeredClientID = previous?.clientID ?? pendingID
-            let previousCredential = try previous.flatMap { try KeychainStore.read(ChatGPTCredential.self, account: credentialKey($0.clientID)) }
+            let previousCredential: ChatGPTCredential?
+            if let previous {
+                // An ID-token login hint is optional. Failure to read it must not
+                // block browser login or create another authorization prompt.
+                previousCredential = try? await loadCredential(previous.clientID)
+            } else { previousCredential = nil }
             let state = try ChatGPTOAuth.randomURLString()
             let nonce = try ChatGPTOAuth.randomURLString()
             let verifier = try ChatGPTOAuth.randomURLString(bytes: 64)
@@ -135,7 +174,7 @@ public final class ChatGPTClient: ObservableObject {
             let signInLock = try ChatGPTRefreshLock(clientID: account.clientID)
             try await signInLock.acquire()
             defer { signInLock.release() }
-            try KeychainStore.write(credential, account: credentialKey(account.clientID))
+            try await KeychainStore.writeAsync(credential, account: credentialKey(account.clientID))
             setDisabled(account.clientID, disabled: false)
             accounts.removeAll { $0.clientID == account.clientID }
             accounts.append(account)
@@ -143,6 +182,7 @@ public final class ChatGPTClient: ObservableObject {
             Self.defaults.set(account.clientID, forKey: "ChatGPT.activeClientID")
             Self.defaults.removeObject(forKey: "ChatGPT.pendingClientID")
             accountGeneration = UUID()
+            rememberCredential(credential)
             reloadAccount()
             postAccountChange()
             do { try await refreshModels() }
@@ -160,12 +200,14 @@ public final class ChatGPTClient: ObservableObject {
         accountGeneration = UUID()
         guard let id = activeAccountID else { return }
         setDisabled(id, disabled: true)
+        credentialCache.invalidate()
+        requiresKeychainAuthorization = false
         accountEmail = nil
         postAccountChange()
         let signOutLock = try ChatGPTRefreshLock(clientID: id)
         try await signOutLock.acquire()
         defer { signOutLock.release() }
-        let credential = try KeychainStore.read(ChatGPTCredential.self, account: credentialKey(id))
+        let credential = try await KeychainStore.readAsync(ChatGPTCredential.self, account: credentialKey(id), allowAuthenticationUI: true)
         var revocationConfirmed = credential == nil
         if let credential {
             // Attempt remote revocation before deleting the only local copy of the refresh token.
@@ -182,7 +224,8 @@ public final class ChatGPTClient: ObservableObject {
                 if attempt == 0 { try? await Task.sleep(nanoseconds: 700_000_000) }
             }
         }
-        try KeychainStore.delete(account: credentialKey(id))
+        try await KeychainStore.deleteAsync(account: credentialKey(id))
+        credentialCache.invalidate()
         // Retain the verified account/client mapping and host ID for subsequent sign-in.
         accountEmail = nil
         models = []
@@ -225,7 +268,6 @@ public final class ChatGPTClient: ObservableObject {
         let input = text.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !input.isEmpty else { throw ChatGPTError.message("请先输入中文。") }
         guard input.count <= 4000 else { throw ChatGPTError.message("首版每次翻译最多 4000 个字符，请分句输入。") }
-        reloadAccount()
         let credential = try await validCredential()
         if selectedModel.isEmpty && model == nil { try await refreshModels() }
         let selected = model ?? selectedModel
@@ -238,11 +280,18 @@ public final class ChatGPTClient: ObservableObject {
         request.setValue("Bearer \(credential.accessToken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("text/event-stream", forHTTPHeaderField: "Accept")
-        request.setValue("Monkey/\(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "0.2.0")", forHTTPHeaderField: "User-Agent")
-        request.httpBody = try JSONSerialization.data(withJSONObject: [
+        request.setValue("Monkey/\(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "0.2.1")", forHTTPHeaderField: "User-Agent")
+        var body: [String: Any] = [
             "model": selected, "instructions": instructions,
             "input": [["role": "user", "content": input]], "store": false, "stream": true
-        ])
+        ]
+        if let effort = TranslationRequestPolicy.reasoningEffort(model: selected, preferSpeed: TranslationRequestPolicy.preferSpeed) {
+            body["reasoning"] = ["effort": effort]
+        }
+        request.httpBody = try JSONSerialization.data(withJSONObject: body)
+        let started = ProcessInfo.processInfo.systemUptime
+        var firstTokenMilliseconds: Double?
+        lastTranslationLatency = nil
         let (bytes, response) = try await session.bytes(for: request)
         guard let http = response as? HTTPURLResponse, (200..<300).contains(http.statusCode) else {
             var data = Data()
@@ -250,16 +299,24 @@ public final class ChatGPTClient: ObservableObject {
             try Self.checkHTTP(response, data: data)
             throw ChatGPTError.message("翻译服务暂时不可用。")
         }
-        return try await ChatGPTSSETransport.decode(bytes, validate: {
+        let result = try await ChatGPTSSETransport.decode(bytes, validate: {
             guard generation == accountGeneration else { throw CancellationError() }
-        }, onDelta: onDelta)
+        }, onDelta: { delta in
+            if firstTokenMilliseconds == nil {
+                firstTokenMilliseconds = (ProcessInfo.processInfo.systemUptime - started) * 1000
+            }
+            onDelta?(delta)
+        })
+        lastTranslationLatency = TranslationLatency(firstTokenMilliseconds: firstTokenMilliseconds,
+            completionMilliseconds: (ProcessInfo.processInfo.systemUptime - started) * 1000)
+        return result
     }
 
     private func validCredential() async throws -> ChatGPTCredential {
         reloadAccount()
         guard let id = activeAccountID,
               !disabledClients().contains(id),
-              let credential = try KeychainStore.read(ChatGPTCredential.self, account: credentialKey(id)) else {
+              let credential = try await loadCredential(id) else {
             throw ChatGPTError.message("请先打开 Monkey 设置，登录 ChatGPT 并授权订阅使用。")
         }
         guard credential.scopes.contains("chatgpt.tokens.use.direct"), credential.scopes.contains("resource.invoke") else {
@@ -268,17 +325,30 @@ public final class ChatGPTClient: ObservableObject {
         if credential.expiresAt.timeIntervalSinceNow > 90 { return credential }
         if let refreshTask { return try await refreshTask.value }
         let generation = accountGeneration
+        let taskIdentity = UUID()
+        refreshTaskIdentity = taskIdentity
         let task = Task { @MainActor [self] () throws -> ChatGPTCredential in
             let lock = try ChatGPTRefreshLock(clientID: id)
             try await lock.acquire()
             defer { lock.release() }
             // Another process may already have rotated the token while this process waited.
-            guard let latest = try KeychainStore.read(ChatGPTCredential.self, account: credentialKey(id)) else {
+            guard let latest = try await KeychainStore.readAsync(ChatGPTCredential.self, account: credentialKey(id)) else {
                 throw ChatGPTError.message("ChatGPT 已退出，请重新登录。")
             }
-            if latest.expiresAt.timeIntervalSinceNow > 90 { return latest }
+            guard generation == accountGeneration, !disabledClients().contains(id) else { throw CancellationError() }
+            guard latest.account.clientID == id, latest.account.subject == credential.account.subject,
+                  latest.scopes.contains("chatgpt.tokens.use.direct"), latest.scopes.contains("resource.invoke") else {
+                throw ChatGPTError.message("保存的 ChatGPT 授权不匹配或已失效，请重新登录。")
+            }
+            if latest.expiresAt.timeIntervalSinceNow > 90 {
+                credentialCache.store(latest, clientID: id, revision: credentialRevision(id))
+                return latest
+            }
             if let earliest = latest.earliestRefreshAt, earliest > Date() {
-                if latest.expiresAt > Date() { return latest }
+                if latest.expiresAt > Date() {
+                    credentialCache.store(latest, clientID: id, revision: credentialRevision(id))
+                    return latest
+                }
                 throw ChatGPTError.message("ChatGPT 凭据暂不能刷新，请稍后重试。")
             }
             let token = try await exchange(["grant_type": "refresh_token", "client_id": id,
@@ -295,13 +365,53 @@ public final class ChatGPTClient: ObservableObject {
                 refreshToken: replacement, idToken: token.idToken ?? latest.idToken,
                 expiresAt: Date().addingTimeInterval(token.expiresIn), earliestRefreshAt: token.earliestRefreshAt,
                 scopes: token.scopes.isEmpty ? latest.scopes : token.scopes)
-            guard renewed.scopes.contains("chatgpt.tokens.use.direct") else { throw ChatGPTError.message("ChatGPT 订阅授权已撤销，请重新登录。") }
-            try KeychainStore.write(renewed, account: credentialKey(id))
+            guard renewed.scopes.contains("chatgpt.tokens.use.direct"), renewed.scopes.contains("resource.invoke") else { throw ChatGPTError.message("ChatGPT 订阅授权已撤销，请重新登录。") }
+            try await KeychainStore.writeAsync(renewed, account: credentialKey(id), allowAuthenticationUI: false)
+            guard generation == accountGeneration, !disabledClients().contains(id) else { throw CancellationError() }
+            rememberCredential(renewed)
+            postAccountChange()
             return renewed
         }
         refreshTask = task
-        defer { refreshTask = nil }
-        return try await task.value
+        defer { if refreshTaskIdentity == taskIdentity { refreshTask = nil } }
+        do { return try await task.value }
+        catch {
+            if let error = error as? KeychainAccessError {
+                credentialCache.blockAuthorization(error)
+                requiresKeychainAuthorization = true
+                statusMessage = error.localizedDescription
+            }
+            throw error
+        }
+    }
+
+    private func loadCredential(_ id: String, authorize: Bool = false) async throws -> ChatGPTCredential? {
+        do {
+            let key = credentialKey(id)
+            let loaded = try await credentialCache.load(clientID: id, revision: credentialRevision(id), authorize: authorize) { allowUI in
+                try await KeychainStore.readAsync(ChatGPTCredential.self, account: key, allowAuthenticationUI: allowUI)
+            }
+            guard activeAccountID == id, !disabledClients().contains(id) else { throw CancellationError() }
+            requiresKeychainAuthorization = credentialCache.requiresAuthorization
+            if let loaded, loaded.account.clientID != id { throw ChatGPTError.message("保存的 ChatGPT 连接不匹配，请重新登录。") }
+            return loaded
+        } catch {
+            requiresKeychainAuthorization = credentialCache.requiresAuthorization
+            if error is KeychainAccessError { statusMessage = error.localizedDescription }
+            throw error
+        }
+    }
+
+    private func credentialRevision(_ id: String) -> String? {
+        Self.defaults.string(forKey: "ChatGPT.credentialRevision.\(id)")
+    }
+
+    private func rememberCredential(_ credential: ChatGPTCredential) {
+        let id = credential.account.clientID
+        let revision = UUID().uuidString
+        Self.defaults.set(revision, forKey: "ChatGPT.credentialRevision.\(id)")
+        credentialCache.store(credential, clientID: id, revision: revision)
+        requiresKeychainAuthorization = false
     }
 
     private func exchange(_ fields: [String: String]) async throws -> ChatGPTTokenReply {
@@ -355,6 +465,7 @@ public final class ChatGPTClient: ObservableObject {
     public static func userMessage(_ error: Error) -> String {
         if error is CancellationError { return "操作已取消。" }
         if let error = error as? ChatGPTError { return error.localizedDescription }
+        if let error = error as? KeychainAccessError { return error.localizedDescription }
         return "暂时无法连接 ChatGPT。请检查网络后重试，原文已保留。"
     }
 

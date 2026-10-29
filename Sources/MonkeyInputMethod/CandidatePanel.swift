@@ -18,13 +18,17 @@ final class CandidatePanel: NSPanel {
     private var buttons: [NSButton] = []
     private let previous = NSButton(title: "‹", target: nil, action: nil)
     private let next = NSButton(title: "›", target: nil, action: nil)
+    private let translationToggle = NSButton(title: "中译英  ⌃⇧T", target: nil, action: nil)
+    private let settings = NSButton(title: "", target: nil, action: nil)
     private let english = NSButton(title: "⌃↩ 输入英文", target: nil, action: nil)
-    private let chinese = NSButton(title: "⇧↩ 输入中文", target: nil, action: nil)
+    private let chinese = NSButton(title: "↩ 输入中文", target: nil, action: nil)
     private var choose: ((Int) -> Void)?
     private var forget: ((Int) -> Void)?
     private var page: ((Bool) -> Void)?
     private var confirm: (() -> Void)?
     private var original: (() -> Void)?
+    private var toggleTranslation: (() -> Void)?
+    private var openSettings: (() -> Void)?
 
     init() {
         super.init(contentRect: .init(x: 0, y: 0, width: 420, height: 100), styleMask: [.borderless, .nonactivatingPanel], backing: .buffered, defer: false)
@@ -68,17 +72,29 @@ final class CandidatePanel: NSPanel {
             surface.addSubview(button)
             buttons.append(button)
         }
-        for button in [previous, next, english, chinese] {
+        for button in [previous, next, translationToggle, settings, english, chinese] {
             button.bezelStyle = .inline
             button.target = self
             surface.addSubview(button)
         }
         previous.action = #selector(previousPage)
         next.action = #selector(nextPage)
+        translationToggle.action = #selector(toggleTranslationMode)
+        translationToggle.font = .systemFont(ofSize: 11, weight: .medium)
+        translationToggle.isBordered = true
+        settings.action = #selector(showSettings)
+        settings.image = NSImage(systemSymbolName: "gearshape", accessibilityDescription: "Monkey 设置")
+        settings.imagePosition = .imageOnly
+        settings.isBordered = false
+        settings.contentTintColor = .secondaryLabelColor
+        settings.toolTip = "Monkey 设置 · 账号、钥匙串与翻译偏好"
+        settings.setAccessibilityLabel("打开 Monkey 设置")
         english.action = #selector(confirmTranslation)
         chinese.action = #selector(commitChinese)
         previous.setAccessibilityLabel("上一页候选")
         next.setAccessibilityLabel("下一页候选")
+        english.setAccessibilityLabel("确认完成的英文翻译，Control Return")
+        chinese.setAccessibilityLabel("输入中文草稿，Return")
     }
 
     override var canBecomeKey: Bool { false }
@@ -88,25 +104,45 @@ final class CandidatePanel: NSPanel {
                 pageNumber: Int, isLastPage: Bool, literal: Bool, asciiMode: Bool, translationMode: Bool,
                 draft: TranslationDraft, message: String?, cursor: NSRect,
                 onChoose: @escaping (Int) -> Void, onForget: @escaping (Int) -> Void,
-                onPage: @escaping (Bool) -> Void, onConfirm: @escaping () -> Void, onChinese: @escaping () -> Void) {
+                onPage: @escaping (Bool) -> Void, onConfirm: @escaping () -> Void, onChinese: @escaping () -> Void,
+                onToggleTranslation: (() -> Void)? = nil, onOpenSettings: (() -> Void)? = nil) {
         choose = onChoose; forget = onForget; page = onPage; confirm = onConfirm; original = onChinese
+        toggleTranslation = onToggleTranslation
+        openSettings = onOpenSettings
         let screen = NSScreen.screens.first { $0.frame.contains(cursor.origin) } ?? NSScreen.main
         let visible = screen?.visibleFrame ?? .init(x: 0, y: 0, width: 1440, height: 900)
         let compact = TypingPreferences.horizontalCandidates
-        let width: CGFloat = min(translationMode ? 480 : (compact ? 540 : 360), visible.width - 24)
+        let hasTranslationDraft = translationMode && !draft.source.isEmpty
+        let width: CGFloat = min(hasTranslationDraft ? 480 : (compact ? 540 : 360), visible.width - 24)
         let available = width - 28
         var y: CGFloat = 10
-        header.stringValue = translationMode ? "中 → 英 · \(asciiMode || literal ? "原文" : "拼音") · 联网翻译" : (literal ? "原文 · ASCII" : "中文 · 拼音")
-        header.frame = .init(x: 14, y: y, width: available - 68, height: 16)
-        previous.frame = .init(x: width - 65, y: y - 2, width: 22, height: 22)
-        next.frame = .init(x: width - 39, y: y - 2, width: 22, height: 22)
-        previous.isHidden = literal || (pageNumber == 0 && isLastPage)
+        let inputInTopBar = !hasTranslationDraft && !preedit.isEmpty
+        header.stringValue = inputInTopBar ? preedit : (translationMode ? "中 → 英 · 联网" : (literal ? "原文 · ASCII" : "中文 · 拼音"))
+        header.font = .systemFont(ofSize: inputInTopBar ? 14 : 11, weight: .medium)
+        header.textColor = inputInTopBar ? .labelColor : .secondaryLabelColor
+        let hasPaging = !literal && (pageNumber > 0 || !isLastPage)
+        let pagingWidth: CGFloat = hasPaging ? 60 : 0
+        let settingsWidth: CGFloat = 26
+        let toggleWidth: CGFloat = 124
+        header.frame = .init(x: 14, y: y, width: available - settingsWidth - pagingWidth - toggleWidth - 8, height: inputInTopBar ? 20 : 16)
+        header.lineBreakMode = .byTruncatingTail
+        translationToggle.title = translationMode ? "关闭中译英  ⌃⇧T" : "中译英  ⌃⇧T"
+        translationToggle.frame = .init(x: width - 14 - settingsWidth - pagingWidth - toggleWidth, y: y - 3, width: toggleWidth, height: 22)
+        translationToggle.isEnabled = onToggleTranslation != nil
+        translationToggle.contentTintColor = translationMode ? .secondaryLabelColor : .controlAccentColor
+        translationToggle.toolTip = translationMode ? "关闭联网翻译并输入中文草稿（Control Shift T）" : "开启中译英（Control Shift T）；选词组成的中文草稿会发送至 OpenAI"
+        translationToggle.setAccessibilityLabel(translationMode ? "关闭中译英，Control Shift T" : "开启中译英，Control Shift T")
+        settings.frame = .init(x: width - 36, y: y - 3, width: 22, height: 22)
+        settings.isEnabled = onOpenSettings != nil
+        previous.frame = .init(x: width - settingsWidth - 65, y: y - 2, width: 22, height: 22)
+        next.frame = .init(x: width - settingsWidth - 39, y: y - 2, width: 22, height: 22)
+        previous.isHidden = !hasPaging
         next.isHidden = previous.isHidden
         previous.isEnabled = pageNumber > 0
         next.isEnabled = !isLastPage
-        header.toolTip = "第 \(pageNumber + 1) 页 · PgUp/PgDn 或 -/= 翻页"
-        y += 21
-        place(preeditField, text: preedit, width: available, y: &y, lines: 2)
+        header.toolTip = inputInTopBar ? "\(preedit) · \(translationMode ? "中译英已开启" : "本地输入")" : "第 \(pageNumber + 1) 页 · PgUp/PgDn 或 -/= 翻页"
+        y += inputInTopBar ? 24 : 21
+        place(preeditField, text: inputInTopBar ? "" : preedit, width: available, y: &y, lines: 2)
         var x: CGFloat = 14
         let rowHeight: CGFloat = 28
         var hasButtons = false
@@ -137,16 +173,16 @@ final class CandidatePanel: NSPanel {
             }
         }
         if hasButtons && compact { y += rowHeight }
-        if translationMode {
+        if hasTranslationDraft {
             y += 5
             place(sourceField, text: draft.source, width: available, y: &y, lines: 3)
             place(translatedField, text: draft.translation, width: available, y: &y, lines: 6)
             let status: String
             switch draft.status {
-            case .idle: status = "照常选词，英文将在这里预览"
-            case .waiting: status = "等待本句输入…"
+            case .idle: status = "照常选词后预览英文 · 回车输入中文，⌃↩ 输入英文"
+            case .waiting: status = "等待选词完成后翻译 · 回车可直接输入中文"
             case .translating: status = "正在翻译…"
-            case .ready: status = "译文已就绪"
+            case .ready: status = "译文已就绪 · 回车输入中文，⌃↩ 输入英文"
             case .failed(let error): status = error
             }
             place(statusField, text: message ?? status, width: available, y: &y, lines: 3)
@@ -163,7 +199,11 @@ final class CandidatePanel: NSPanel {
             place(statusField, text: message ?? "", width: available, y: &y, lines: 2)
             footer.isHidden = false
             let wordWithoutSpace = literal && MixedInputPolicy.classify(preedit) == .english && !TypingPreferences.englishSpaceInsertsSpace
-            footer.stringValue = literal ? (wordWithoutSpace ? "空格 选英文 · ↩ 原文 · Esc 取消" : "空格 确认并分隔 · ↩ 原文 · Esc 取消") : "空格 选词 · ↩ 原文 · PgUp/PgDn 翻页"
+            if translationMode {
+                footer.stringValue = "空格 选词后预览英文 · ↩ 中文 · ⌃↩ 英文"
+            } else {
+                footer.stringValue = literal ? (wordWithoutSpace ? "空格 选英文 · ↩ 原文 · Esc 取消" : "空格 确认并分隔 · ↩ 原文 · Esc 取消") : "空格 选词 · ↩ 原文 · PgUp/PgDn 翻页"
+            }
             footer.frame = .init(x: 14, y: y + 2, width: available, height: 16)
             y += 21
         }
@@ -194,6 +234,8 @@ final class CandidatePanel: NSPanel {
     @objc private func forgetCandidate(_ sender: NSMenuItem) { forget?(sender.tag) }
     @objc private func previousPage() { page?(true) }
     @objc private func nextPage() { page?(false) }
+    @objc private func toggleTranslationMode() { toggleTranslation?() }
+    @objc private func showSettings() { openSettings?() }
     @objc private func confirmTranslation() { confirm?() }
     @objc private func commitChinese() { original?() }
 }

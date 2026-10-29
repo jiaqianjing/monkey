@@ -22,10 +22,12 @@ final class MonkeyInputController: IMKInputController {
     private var recoverableDraft = ""
     private let logger = Logger(subsystem: "org.monkey.inputmethod.Monkey", category: "InputSession")
     private var receivedFirstKey = false
+    private var panelSuppressed = false
 
     override func activateServer(_ sender: Any!) {
         if let client = client() { bind(client) }
         active = true
+        panelSuppressed = false
         activation = UUID()
         if session == nil { session = AppRuntime.makeSession().map { CompositionSession(session: $0) } }
         logger.notice("Input session activated; engine ready: \(self.session != nil, privacy: .public)")
@@ -84,13 +86,14 @@ final class MonkeyInputController: IMKInputController {
         session.englishSpaceInsertsSpace = TypingPreferences.englishSpaceInsertsSpace
         message = nil
         let before = session.snapshot()
+        panelSuppressed = false
         let returnKey = event.keyCode == 36 || event.keyCode == 76
-        if translationMode && returnKey && flags.contains(.shift) {
-            commitOriginal()
-            return true
-        }
-        if translationMode && returnKey && flags.contains(.control) {
-            confirmEnglish()
+        if translationMode && returnKey && !flags.contains(.option) {
+            // Return submits the current Chinese composition, never a newline
+            // or a translation. An empty session belongs to the host app.
+            guard !before.preedit.isEmpty || !draft.source.isEmpty else { return false }
+            if flags.contains(.control) { confirmEnglish() }
+            else { commitOriginal() }
             return true
         }
         // Preserve navigation and system shortcuts, but never strand a Chinese draft.
@@ -101,23 +104,18 @@ final class MonkeyInputController: IMKInputController {
         if translationMode {
             if event.keyCode == 53 {
                 guard !before.preedit.isEmpty || !draft.source.isEmpty else { return false }
-                if !before.preedit.isEmpty {
-                    session.clear()
-                    if !draft.source.isEmpty { scheduleTranslation() }
-                }
-                else { invalidateAsyncWork(); draft.cancel(); message = "翻译已取消，中文草稿仍保留" }
+                session.clear()
+                invalidateAsyncWork()
+                draft.cancel()
+                // Keep confirmed Chinese marked in its original input field,
+                // but dismiss the popup until the next editing action.
+                panelSuppressed = true
                 refresh()
                 return true
             }
             if event.keyCode == 51 && before.preedit.isEmpty && !draft.source.isEmpty {
                 draft.removeLastCharacter()
                 scheduleTranslation()
-                refresh()
-                return true
-            }
-            if returnKey && before.preedit.isEmpty && !draft.source.isEmpty {
-                message = "Control + Return 输入英文；Shift + Return 输入中文"
-                if !draft.canConfirm { scheduleTranslation(immediate: true) }
                 refresh()
                 return true
             }
@@ -243,12 +241,25 @@ final class MonkeyInputController: IMKInputController {
     }
 
     private func toggleTranslation() {
-        if !markedText.isEmpty { commitOriginal() }
-        translationMode.toggle()
+        panelSuppressed = false
+        if translationMode {
+            if !markedText.isEmpty { commitOriginal() }
+            translationMode = false
+        } else {
+            // A visible mode button is useful while composing: carry the
+            // selected Chinese into the draft instead of committing it first.
+            translationMode = true
+            if let session, !session.snapshot().preedit.isEmpty {
+                _ = session.commitComposition()
+                if let text = session.takeCommit(), !text.isEmpty { draft.append(text) }
+                session.clear()
+            }
+        }
         message = nil
         if translationMode {
             ChatGPTClient.shared.reloadAccount()
             if ChatGPTClient.shared.accountEmail == nil { message = "请在 Monkey 设置中登录 ChatGPT；中文输入仍可使用" }
+            if !draft.source.isEmpty { scheduleTranslation() }
         }
         refresh()
     }
@@ -286,7 +297,7 @@ final class MonkeyInputController: IMKInputController {
         let sourceRevision = draft.revision
         requestTask = Task { [weak self] in
             do {
-                if !immediate { try await Task.sleep(nanoseconds: 650_000_000) }
+                if !immediate { try await Task.sleep(nanoseconds: 250_000_000) }
                 guard !Task.isCancelled, let self, self.active, self.activation == currentActivation,
                       self.draft.revision == sourceRevision, let request = self.draft.beginRequest() else { return }
                 self.refresh()
@@ -366,7 +377,9 @@ final class MonkeyInputController: IMKInputController {
         let preedit = snapshot?.preedit ?? ""
         mark((translationMode ? draft.source : "") + preedit,
              caret: (translationMode ? draft.source.utf16.count : 0) + (snapshot?.caretUTF16 ?? 0))
-        if !translationMode && preedit.isEmpty && message == nil {
+        // Mode, activation and status messages alone never leave a floating
+        // window on screen. Only an active composition owns a candidate popup.
+        if panelSuppressed || (preedit.isEmpty && (!translationMode || draft.source.isEmpty)) {
             panel.orderOut(nil)
             return
         }
@@ -381,7 +394,9 @@ final class MonkeyInputController: IMKInputController {
                      onForget: { [weak self] in self?.forgetCandidate($0) },
                      onPage: { [weak self] in self?.changePage(backward: $0) },
                      onConfirm: { [weak self] in self?.confirmEnglish() },
-                     onChinese: { [weak self] in self?.commitOriginal(); self?.refresh() })
+                     onChinese: { [weak self] in self?.commitOriginal(); self?.refresh() },
+                     onToggleTranslation: { [weak self] in self?.toggleTranslation() },
+                     onOpenSettings: { [weak self] in self?.showPreferences(nil) })
     }
 
     private func rimeKey(_ event: NSEvent) -> Int32? {

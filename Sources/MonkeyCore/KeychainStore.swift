@@ -1,12 +1,14 @@
 import Foundation
+import LocalAuthentication
 import Security
 
 /// Credentials are scoped to Monkey, never imported from another application.
 enum KeychainStore {
     static let service = "org.monkey.inputmethod"
 
-    static func read<T: Decodable>(_ type: T.Type, account: String) throws -> T? {
+    static func read<T: Decodable>(_ type: T.Type, account: String, allowAuthenticationUI: Bool = true) throws -> T? {
         var query = base(account)
+        if !allowAuthenticationUI { preventAuthenticationUI(in: &query) }
         query[kSecReturnData as String] = true
         query[kSecMatchLimit as String] = kSecMatchLimitOne
         var value: CFTypeRef?
@@ -16,12 +18,15 @@ enum KeychainStore {
         return try JSONDecoder().decode(type, from: data)
     }
 
-    static func write<T: Encodable>(_ value: T, account: String) throws {
+    static func write<T: Encodable>(_ value: T, account: String, allowAuthenticationUI: Bool = true) throws {
         let data = try JSONEncoder().encode(value)
-        let status = SecItemUpdate(base(account) as CFDictionary,
+        var lookup = base(account)
+        if !allowAuthenticationUI { preventAuthenticationUI(in: &lookup) }
+        let status = SecItemUpdate(lookup as CFDictionary,
                                    [kSecValueData as String: data] as CFDictionary)
         if status == errSecItemNotFound {
             var query = base(account)
+            if !allowAuthenticationUI { preventAuthenticationUI(in: &query) }
             query[kSecValueData as String] = data
             query[kSecAttrAccessible as String] = kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
             let added = SecItemAdd(query as CFDictionary, nil)
@@ -34,13 +39,48 @@ enum KeychainStore {
         guard status == errSecSuccess || status == errSecItemNotFound else { throw error(status) }
     }
 
+    // Keychain Services is synchronous and may wait for system authorization.
+    // Never block the input-method's main actor while waiting for it.
+    static func readAsync<T: Decodable & Sendable>(_ type: T.Type, account: String, allowAuthenticationUI: Bool = false) async throws -> T? {
+        try await Task.detached(priority: .userInitiated) {
+            try read(type, account: account, allowAuthenticationUI: allowAuthenticationUI)
+        }.value
+    }
+
+    static func writeAsync<T: Encodable & Sendable>(_ value: T, account: String, allowAuthenticationUI: Bool = true) async throws {
+        try await Task.detached(priority: .userInitiated) {
+            try write(value, account: account, allowAuthenticationUI: allowAuthenticationUI)
+        }.value
+    }
+
+    static func deleteAsync(account: String) async throws {
+        try await Task.detached(priority: .userInitiated) { try delete(account: account) }.value
+    }
+
     private static func base(_ account: String) -> [String: Any] {
         [kSecClass as String: kSecClassGenericPassword,
          kSecAttrService as String: service,
          kSecAttrAccount as String: account]
     }
 
+    private static func preventAuthenticationUI(in query: inout [String: Any]) {
+        let context = LAContext()
+        context.interactionNotAllowed = true
+        query[kSecUseAuthenticationContext as String] = context
+        // Existing connections live in the classic login Keychain. Keep its
+        // explicit no-UI option as well as LAContext until migration to a
+        // provisioned data-protection Keychain is possible. No ACL is widened.
+        query[kSecUseAuthenticationUI as String] = kSecUseAuthenticationUIFail
+    }
+
     private static func error(_ status: OSStatus) -> Error {
-        ChatGPTError.message("无法访问 Monkey 的钥匙串凭据（\(status)）。请在系统提示中允许访问。")
+        KeychainAccessError(status: status)
+    }
+}
+
+struct KeychainAccessError: LocalizedError {
+    let status: OSStatus
+    var errorDescription: String? {
+        "无法读取 Monkey 的钥匙串连接（\(status)）。请打开 Monkey 设置，点击“允许钥匙串访问”；中文原文已保留。"
     }
 }

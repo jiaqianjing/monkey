@@ -14,14 +14,14 @@ public struct ChatGPTModel: Codable, Identifiable, Hashable {
     public init(slug: String, displayName: String) { self.slug = slug; self.displayName = displayName }
 }
 
-public struct ChatGPTAccount: Codable, Identifiable, Hashable {
+public struct ChatGPTAccount: Codable, Identifiable, Hashable, Sendable {
     public let clientID: String
     public let subject: String
     public let email: String
     public var id: String { clientID }
 }
 
-struct ChatGPTCredential: Codable {
+struct ChatGPTCredential: Codable, Sendable {
     var account: ChatGPTAccount
     var accessToken: String
     var refreshToken: String

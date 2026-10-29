@@ -35,9 +35,11 @@ public struct MonkeySettingsView: View {
                     }
                 }
                 Spacer()
-                Label(client.accountEmail == nil ? "普通输入离线可用" : "ChatGPT 已连接", systemImage: client.accountEmail == nil ? "keyboard" : "checkmark.circle.fill")
+                Label(client.accountEmail == nil ? "普通输入离线可用" : (client.requiresKeychainAuthorization ? "ChatGPT 连接待授权" : "ChatGPT 连接已保存"),
+                      systemImage: client.accountEmail == nil ? "keyboard" : (client.requiresKeychainAuthorization ? "key" : "person.crop.circle"))
                     .font(.caption).foregroundStyle(.secondary)
-                Text("0.2.0 · 开源 macOS 输入法").font(.caption2).foregroundStyle(.tertiary)
+                Text("\(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "开发版") · 开源 macOS 输入法")
+                    .font(.caption2).foregroundStyle(.tertiary)
             }
             .padding(22).frame(width: 240).background(.ultraThinMaterial)
             Divider()
@@ -48,7 +50,10 @@ public struct MonkeySettingsView: View {
                         Text(selection.subtitle).font(.callout).foregroundStyle(.secondary)
                     }
                     switch selection {
-                    case .start: StartPane()
+                    case .start:
+                        StartPane(isConnected: client.accountEmail != nil,
+                                  onConnect: { selection = .account },
+                                  onTryTranslation: { selection = .translation })
                     case .typing: TypingPane()
                     case .account: AccountPane(client: client)
                     case .translation: TranslationPane(client: client)
@@ -98,7 +103,27 @@ private struct SettingsCard<Content: View>: View {
 }
 
 private struct StartPane: View {
+    let isConnected: Bool
+    let onConnect: () -> Void
+    let onTryTranslation: () -> Void
+
     var body: some View {
+        SettingsCard("中译英，就在候选窗里") {
+            GuideStep(number: "1", title: isConnected ? "账号连接已保存" : "先连接你的 ChatGPT",
+                      detail: "登录一次，再回到你正在写字的输入框。登录本身不会自动开启翻译。")
+            GuideStep(number: "2", title: "点候选窗里的「中译英」",
+                      detail: "也可按 ⌃⇧T。看到「中 → 英」后，照常用拼音选词，英文会在窗口里预览。候选窗只在输入时出现。")
+            GuideStep(number: "3", title: "回车输入中文，⌃↩ 输入英文",
+                      detail: "Return 直接提交本句中文，不必等译文；Control Return 只提交已经完成的英文。Shift Return 也可提交中文。")
+            HStack {
+                Button(isConnected ? "管理 ChatGPT 连接" : "连接 ChatGPT", systemImage: "person.crop.circle") { onConnect() }
+                    .buttonStyle(.borderedProminent)
+                Button("先在这里试译一句", systemImage: "character.bubble") { onTryTranslation() }
+                    .disabled(!isConnected)
+            }
+            Text("只有主动开启中译英后，当前草稿才会发送至 OpenAI。普通拼音输入始终在本机完成。")
+                .font(.caption).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
+        }
         SettingsCard("1　添加 Monkey 输入源") {
             Text("安装后，在「系统设置 → 键盘 → 文字输入 → 编辑 → ＋ → 简体中文」中添加 Monkey。如果列表里尚未出现，请退出登录 macOS 后重新登录。")
                 .font(.callout).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
@@ -107,16 +132,31 @@ private struct StartPane: View {
             }
         }
         SettingsCard("2　像往常一样打中文") {
-            Text("从菜单栏切换到 Monkey。用全拼或简拼输入，空格或数字选词，PgUp / PgDn 或 - / = 翻页，Return 原样输入当前拼音或英文。按 ⇧ Space 切换中英文；翻译模式下输入的英文原样加入草稿。")
+            Text("从菜单栏切换到 Monkey。用全拼或简拼输入，空格或数字选词，PgUp / PgDn 或 - / = 翻页。普通模式下，Return 原样输入当前拼音或英文。按 ⇧ Space 切换中英文；翻译模式下输入的英文原样加入草稿。")
                 .font(.callout).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
             Text("在「中文输入」中选择候选布局和英文空格习惯。常用候选根据本机选词学习，数字、网址、邮箱与版本号中的 ASCII 符号保留原样。")
                 .font(.caption).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
         }
-        SettingsCard("3　开启中 → 英") {
-            Text("在「ChatGPT 账号」中登录。回到输入框，按 ⌃⇧T 切换翻译模式。中文选词后进入本句草稿，英文在候选窗里预览；确认后才写入当前应用。")
-                .font(.callout).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
-            Text("首版面向 Apple silicon · macOS 13 或更新版本").font(.caption).foregroundStyle(.tertiary)
+    }
+}
+
+private struct GuideStep: View {
+    let number: String
+    let title: String
+    let detail: String
+
+    var body: some View {
+        HStack(alignment: .top, spacing: 12) {
+            Text(number).font(.callout.weight(.semibold))
+                .frame(width: 25, height: 25)
+                .background(Color.accentColor.opacity(0.12), in: Circle())
+            VStack(alignment: .leading, spacing: 4) {
+                Text(title).font(.callout.weight(.semibold))
+                Text(detail).font(.caption).foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
         }
+        .accessibilityElement(children: .combine)
     }
 }
 
@@ -189,7 +229,7 @@ private struct AccountPane: View {
     var body: some View {
         SettingsCard("ChatGPT 连接") {
             if let email = client.accountEmail {
-                Label(email, systemImage: "checkmark.circle.fill").font(.headline).foregroundStyle(.green)
+                Label(email, systemImage: client.requiresKeychainAuthorization ? "key" : "person.crop.circle").font(.headline)
             } else {
                 Label("尚未连接", systemImage: "person.crop.circle.badge.questionmark").foregroundStyle(.secondary)
             }
@@ -202,6 +242,16 @@ private struct AccountPane: View {
                 if client.isSigningIn { Button("取消") { client.cancelSignIn() } }
                 if client.accountEmail != nil {
                     Button("退出登录") { run { try await client.signOut() } }.disabled(isWorking)
+                }
+            }
+            if client.activeAccountID != nil && !client.accounts.isEmpty {
+                HStack(alignment: .top, spacing: 12) {
+                    Button("允许钥匙串访问", systemImage: "key") {
+                        run { try await client.authorizeKeychainAccess() }
+                    }
+                    .disabled(isWorking || client.isSigningIn)
+                    Text(client.requiresKeychainAuthorization ? "需要你允许 Monkey 读取已保存的登录凭据。点击按钮后，请亲自处理 macOS 的授权提示。" : "首次翻译或更新后，macOS 可能要求访问已保存的登录凭据。若先前拒绝，可在这里主动重试。")
+                        .font(.caption).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
                 }
             }
             Text("需要符合条件的 ChatGPT 套餐，并单独允许订阅使用权限。登录不会授权读取你的 ChatGPT 聊天记录。")
@@ -250,11 +300,13 @@ private struct AccountPane: View {
 private struct TranslationPane: View {
     @ObservedObject var client: ChatGPTClient
     @AppStorage("translationTone", store: ChatGPTClient.defaults) private var tone = "natural"
+    @AppStorage("translation.preferSpeed", store: ChatGPTClient.defaults) private var preferSpeed = true
     @State private var draft = "明天下午我有空，我们把会议改到三点吧。"
     @State private var result = ""
     @State private var errorMessage: String?
     @State private var isTranslating = false
     @State private var completed = false
+    @State private var latency: TranslationLatency?
     @State private var translationTask: Task<Void, Never>?
     var body: some View {
         SettingsCard("中文草稿") {
@@ -271,6 +323,18 @@ private struct TranslationPane: View {
                         .buttonStyle(.borderedProminent).disabled(draft.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || client.accountEmail == nil)
                 }
             }
+            Toggle(isOn: $preferSpeed) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("响应优先").font(.callout.weight(.medium))
+                    Text("日常翻译优先更快显示，仍使用你选择的模型；关闭后使用模型默认设置。")
+                        .font(.caption).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
+                }
+            }
+            .toggleStyle(.switch)
+            if TranslationRequestPolicy.reasoningEffort(model: client.selectedModel, preferSpeed: true) == nil {
+                Text("当前模型沿用默认响应设置；响应优先目前支持 GPT-6.1 Terra。")
+                    .font(.caption).foregroundStyle(.secondary)
+            }
             if client.accountEmail == nil { Text("先到「ChatGPT 账号」完成登录。中文草稿会保留在本页。 ").font(.caption).foregroundStyle(.secondary) }
         }
         SettingsCard(completed ? "英文译文" : "英文预览") {
@@ -279,8 +343,15 @@ private struct TranslationPane: View {
                 .frame(maxWidth: .infinity, minHeight: 100, alignment: .topLeading)
             if let errorMessage { Label(errorMessage, systemImage: "exclamationmark.circle").font(.callout).foregroundStyle(.orange) }
             if completed {
-                Button("复制英文", systemImage: "doc.on.doc") {
-                    NSPasteboard.general.clearContents(); NSPasteboard.general.setString(result, forType: .string)
+                HStack {
+                    Button("复制英文", systemImage: "doc.on.doc") {
+                        NSPasteboard.general.clearContents(); NSPasteboard.general.setString(result, forType: .string)
+                    }
+                    Spacer()
+                    if let latency {
+                        Text(latencyDescription(latency)).font(.caption).foregroundStyle(.secondary)
+                            .help("发出翻译请求后的耗时，不包含前面的选词与等待。")
+                    }
                 }
             }
         }
@@ -290,11 +361,12 @@ private struct TranslationPane: View {
     }
     private func translate() {
         let submitted = draft
-        isTranslating = true; completed = false; result = ""; errorMessage = nil
+        isTranslating = true; completed = false; result = ""; errorMessage = nil; latency = nil
         translationTask = Task { @MainActor in
             defer { isTranslating = false }
             do {
                 result = try await client.translate(submitted) { result += $0 }
+                latency = client.lastTranslationLatency
                 completed = true
             } catch {
                 completed = false
@@ -302,6 +374,12 @@ private struct TranslationPane: View {
                 errorMessage = ChatGPTClient.userMessage(error)
             }
         }
+    }
+
+    private func latencyDescription(_ latency: TranslationLatency) -> String {
+        let completed = String(format: "%.1f 秒", latency.completionMilliseconds / 1000)
+        guard let firstToken = latency.firstTokenMilliseconds else { return "完成 \(completed)" }
+        return "首字 \(String(format: "%.1f 秒", firstToken / 1000)) · 完成 \(completed)"
     }
 }
 
@@ -317,10 +395,10 @@ private struct PrivacyPane: View {
             shortcut("切换中文 / 中译英", "⌃⇧T")
             shortcut("切换中文 / 英文输入", "⇧ Space")
             shortcut("拼音选词", "空格 / 数字")
-            shortcut("原样输入当前拼音 / 英文", "Return")
+            shortcut("普通模式：原样输入拼音 / 英文", "Return")
             shortcut("候选翻页", "PgUp / PgDn / - / =")
             shortcut("确认英文并写入输入框", "⌃ Return")
-            shortcut("直接输入中文草稿", "⇧ Return")
+            shortcut("翻译模式：直接输入中文草稿", "Return / ⇧ Return")
             shortcut("清除当前拼音 / 取消预览、保留中文", "Esc")
             Text("正在处理拼音或草稿时，确认键由 Monkey 消费；没有组合内容时，Return 仍由当前应用处理。英文尚未完成时，不会提交过期译文。")
                 .font(.caption).foregroundStyle(.secondary)

@@ -2,7 +2,7 @@
 
 ## 二进制开发包
 
-1. 从 [GitHub Releases](https://github.com/jiaqianjing/monkey/releases/tag/v0.2.0) 下载并解压 `Monkey-0.2.0-macos-arm64.zip`。当前提供 Apple Silicon 安装包，最低系统要求为 macOS 13.0。
+1. 从 [GitHub Releases](https://github.com/jiaqianjing/monkey/releases/tag/v0.2.1) 下载并解压 `Monkey-0.2.1-macos-arm64.zip`。当前提供 Apple Silicon 安装包，最低系统要求为 macOS 13.0。
 2. 阅读 `READ-ME.txt`，确认架构及最低 macOS 版本匹配。
 3. 运行 `Install.command`。它只写入 `~/Library/Input Methods/Monkey.app`，不需要管理员密码，也不会修改其他输入法。
 4. 从菜单栏输入法菜单选择 Monkey 拼音。安装不会自动切换输入源。

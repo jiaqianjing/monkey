@@ -1,4 +1,5 @@
 import Foundation
+import MonkeyCore
 import MonkeyPinyin
 import XCTest
 
@@ -54,6 +55,43 @@ final class CompositionSessionTests: XCTestCase {
                 session.clear()
                 session.englishSpaceInsertsSpace = false
                 XCTAssertEqual(type("chatgpt ", into: session), "ChatGPT")
+            }
+        }
+    }
+
+    func testChineseDraftCommitUsesChineseCandidateIncludingUnselectedTail() async throws {
+        try await MainActor.run {
+            try withSession { session in
+                // Translation-mode Return must finalize the Chinese candidate,
+                // unlike the ordinary-mode raw-spelling Return key.
+                XCTAssertEqual(type("nihao", into: session), "")
+                XCTAssertTrue(session.commitComposition())
+                XCTAssertEqual(session.takeCommit(), "你好")
+                XCTAssertTrue(session.snapshot().preedit.isEmpty)
+
+                _ = type("nihao", into: session)
+                _ = session.process(key: 0xff54)
+                let selected = session.snapshot()
+                let highlighted = selected.candidates[selected.highlightedIndex]
+                XCTAssertTrue(session.commitComposition())
+                XCTAssertEqual(session.takeCommit(), highlighted)
+
+                var draft = TranslationDraft()
+                draft.append("你好")
+                _ = type("mingtianjian", into: session)
+                let expectedTail = try XCTUnwrap(session.snapshot().candidates.first)
+                XCTAssertTrue(session.commitComposition())
+                let chinese = draft.source + (session.takeCommit() ?? "")
+                draft.reset()
+                XCTAssertEqual(chinese, "你好" + expectedTail)
+                XCTAssertFalse(chinese.contains("\n"))
+                XCTAssertFalse(chinese.contains("mingtian"))
+                XCTAssertFalse(draft.canConfirm)
+                XCTAssertTrue(session.snapshot().preedit.isEmpty)
+
+                _ = type("nihao", into: session)
+                _ = session.process(key: 0xff0d)
+                XCTAssertEqual(session.takeCommit(), "nihao", "Ordinary-mode raw Return stays unchanged")
             }
         }
     }
