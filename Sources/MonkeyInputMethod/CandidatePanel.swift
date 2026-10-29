@@ -5,6 +5,79 @@ private final class CandidateSurface: NSVisualEffectView {
     override var isFlipped: Bool { true }
 }
 
+/// Input-method panels intentionally never become key. Native inline button cells
+/// otherwise draw their titles as inactive even when the actions are enabled.
+private final class CandidateButton: NSButton {
+    enum Emphasis { case plain, accent, tinted, outlined }
+    var emphasis: Emphasis = .plain { didSet { needsDisplay = true } }
+
+    override var isEnabled: Bool { didSet { needsDisplay = true } }
+
+    override func draw(_ dirtyRect: NSRect) {
+        let accent = NSColor.controlAccentColor
+        let background = bounds.insetBy(dx: 1, dy: 2)
+        let shape = NSBezierPath(roundedRect: background, xRadius: 5, yRadius: 5)
+        let foreground: NSColor
+        if !isEnabled {
+            foreground = .disabledControlTextColor
+            if emphasis != .plain {
+                NSColor.quaternaryLabelColor.withAlphaComponent(0.10).setFill()
+                shape.fill()
+            }
+        } else {
+            switch emphasis {
+            case .accent:
+                accent.withAlphaComponent(isHighlighted ? 0.82 : 1).setFill()
+                shape.fill()
+                foreground = contrastText(on: accent)
+            case .tinted:
+                accent.withAlphaComponent(isHighlighted ? 0.22 : 0.12).setFill()
+                shape.fill()
+                foreground = .labelColor
+            case .outlined:
+                if isHighlighted {
+                    NSColor.quaternaryLabelColor.setFill()
+                    shape.fill()
+                }
+                NSColor.separatorColor.setStroke()
+                shape.lineWidth = 1
+                shape.stroke()
+                foreground = .labelColor
+            case .plain:
+                if isHighlighted {
+                    NSColor.quaternaryLabelColor.setFill()
+                    shape.fill()
+                }
+                foreground = .labelColor
+            }
+        }
+        if imagePosition == .imageOnly, let image {
+            let symbol = image.withSymbolConfiguration(.init(paletteColors: [foreground])) ?? image
+            let side: CGFloat = min(14, min(bounds.width, bounds.height) - 4)
+            symbol.draw(in: .init(x: bounds.midX - side / 2, y: bounds.midY - side / 2, width: side, height: side),
+                        from: .zero, operation: .sourceOver, fraction: 1, respectFlipped: true, hints: nil)
+        } else {
+            let font = font ?? .systemFont(ofSize: 13)
+            let paragraph = NSMutableParagraphStyle()
+            paragraph.alignment = .center
+            paragraph.lineBreakMode = .byTruncatingTail
+            let attributes: [NSAttributedString.Key: Any] = [.font: font, .foregroundColor: foreground, .paragraphStyle: paragraph]
+            let height = ceil((title as NSString).size(withAttributes: attributes).height)
+            (title as NSString).draw(in: .init(x: 7, y: bounds.midY - height / 2, width: max(0, bounds.width - 14), height: height),
+                                    withAttributes: attributes)
+        }
+    }
+
+    private func contrastText(on background: NSColor) -> NSColor {
+        guard let rgb = background.usingColorSpace(.sRGB) else { return .white }
+        func linear(_ component: CGFloat) -> CGFloat {
+            component <= 0.04045 ? component / 12.92 : pow((component + 0.055) / 1.055, 2.4)
+        }
+        let luminance = 0.2126 * linear(rgb.redComponent) + 0.7152 * linear(rgb.greenComponent) + 0.0722 * linear(rgb.blueComponent)
+        return 1.05 / (luminance + 0.05) >= (luminance + 0.05) / 0.05 ? .white : .black
+    }
+}
+
 /// Reuses native controls while typing; only text and frames change per update.
 @MainActor
 final class CandidatePanel: NSPanel {
@@ -15,13 +88,13 @@ final class CandidatePanel: NSPanel {
     private let translatedField = NSTextField(wrappingLabelWithString: "")
     private let statusField = NSTextField(wrappingLabelWithString: "")
     private let footer = NSTextField(labelWithString: "")
-    private var buttons: [NSButton] = []
-    private let previous = NSButton(title: "‹", target: nil, action: nil)
-    private let next = NSButton(title: "›", target: nil, action: nil)
-    private let translationToggle = NSButton(title: "中译英  ⌃⇧T", target: nil, action: nil)
-    private let settings = NSButton(title: "", target: nil, action: nil)
-    private let english = NSButton(title: "⌃↩ 输入英文", target: nil, action: nil)
-    private let chinese = NSButton(title: "↩ 输入中文", target: nil, action: nil)
+    private var buttons: [CandidateButton] = []
+    private let previous = CandidateButton(title: "‹", target: nil, action: nil)
+    private let next = CandidateButton(title: "›", target: nil, action: nil)
+    private let translationToggle = CandidateButton(title: "中译英  ⌃⇧T", target: nil, action: nil)
+    private let settings = CandidateButton(title: "", target: nil, action: nil)
+    private let english = CandidateButton(title: "⌃↩ 输入英文", target: nil, action: nil)
+    private let chinese = CandidateButton(title: "↩ 输入中文", target: nil, action: nil)
     private var choose: ((Int) -> Void)?
     private var forget: ((Int) -> Void)?
     private var page: ((Bool) -> Void)?
@@ -65,7 +138,7 @@ final class CandidatePanel: NSPanel {
         footer.font = .systemFont(ofSize: 10)
         footer.textColor = .tertiaryLabelColor
         for index in 0..<7 {
-            let button = NSButton(title: "", target: self, action: #selector(selectCandidate(_:)))
+            let button = CandidateButton(title: "", target: self, action: #selector(selectCandidate(_:)))
             button.tag = index
             button.bezelStyle = .inline
             button.cell?.lineBreakMode = .byTruncatingTail
@@ -81,7 +154,9 @@ final class CandidatePanel: NSPanel {
         next.action = #selector(nextPage)
         translationToggle.action = #selector(toggleTranslationMode)
         translationToggle.font = .systemFont(ofSize: 11, weight: .medium)
-        translationToggle.isBordered = true
+        translationToggle.emphasis = .tinted
+        english.emphasis = .accent
+        chinese.emphasis = .outlined
         settings.action = #selector(showSettings)
         settings.image = NSImage(systemSymbolName: "gearshape", accessibilityDescription: "Monkey 设置")
         settings.imagePosition = .imageOnly
@@ -154,8 +229,7 @@ final class CandidatePanel: NSPanel {
             let hint = comments.indices.contains(index) ? comments[index] : ""
             button.title = literal ? "\(hint.isEmpty ? "原文" : hint)  \(candidate)" : "\(index + 1)  \(candidate)"
             button.font = .systemFont(ofSize: 17, weight: index == highlighted ? .semibold : .regular)
-            button.isBordered = index == highlighted
-            button.contentTintColor = index == highlighted ? .controlAccentColor : .labelColor
+            button.emphasis = index == highlighted ? .accent : .plain
             button.toolTip = hint.isEmpty ? candidate : "\(candidate) · \(hint)"
             button.setAccessibilityLabel(literal ? "\(hint)：\(candidate)" : "候选 \(index + 1)：\(candidate)")
             let measured = ceil((button.title as NSString).size(withAttributes: [.font: button.font!]).width) + 24

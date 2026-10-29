@@ -350,7 +350,7 @@ private struct TranslationPane: View {
                     Spacer()
                     if let latency {
                         Text(latencyDescription(latency)).font(.caption).foregroundStyle(.secondary)
-                            .help("发出翻译请求后的耗时，不包含前面的选词与等待。")
+                            .help("发出服务请求后的耗时，不包含选词、本地等待和首次授权准备。")
                     }
                 }
             }
@@ -378,8 +378,8 @@ private struct TranslationPane: View {
 
     private func latencyDescription(_ latency: TranslationLatency) -> String {
         let completed = String(format: "%.1f 秒", latency.completionMilliseconds / 1000)
-        guard let firstToken = latency.firstTokenMilliseconds else { return "完成 \(completed)" }
-        return "首字 \(String(format: "%.1f 秒", firstToken / 1000)) · 完成 \(completed)"
+        guard let firstToken = latency.firstTokenMilliseconds else { return "本次服务请求：完成 \(completed)" }
+        return "本次服务请求：首段 \(String(format: "%.1f 秒", firstToken / 1000)) · 完成 \(completed)"
     }
 }
 
