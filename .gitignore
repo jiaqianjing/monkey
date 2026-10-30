@@ -13,5 +13,8 @@ xcuserdata/
 .env
 *.pem
 *.p12
+*.p8
+*.key
+*.pfx
 *.mobileprovision
 coverage/
