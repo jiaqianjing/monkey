@@ -1,3 +1,5 @@
+> **0.2.2 输入兼容修复正在验证。** 已收到选中 Monkey 后只有英文、没有中文候选的反馈，建议暂缓升级。已遇到问题可临时使用系统拼音，无需清空个人词库。
+
 <p align="center">
   <img src="Resources/AppIcon.png" alt="Monkey 盲 key：青柠色键帽与输入光标" width="104" height="104">
 </p>
