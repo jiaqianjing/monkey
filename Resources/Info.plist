@@ -10,14 +10,14 @@
     <key>CFBundleDisplayName</key><string>Monkey 拼音</string>
     <key>CFBundleIconFile</key><string>AppIcon</string>
     <key>CFBundlePackageType</key><string>APPL</string>
-    <key>CFBundleShortVersionString</key><string>0.2.2</string>
-    <key>CFBundleVersion</key><string>4</string>
+    <key>CFBundleShortVersionString</key><string>0.2.3</string>
+    <key>CFBundleVersion</key><string>5</string>
     <key>LSMinimumSystemVersion</key><string>13.0</string>
     <key>LSUIElement</key><true/>
     <key>LSBackgroundOnly</key><false/>
     <key>NSPrincipalClass</key><string>NSApplication</string>
     <key>NSHighResolutionCapable</key><true/>
-    <key>InputMethodConnectionName</key><string>Monkey_Connection</string>
+    <key>InputMethodConnectionName</key><string>org.monkey.inputmethod.Monkey_Connection</string>
     <key>InputMethodServerControllerClass</key><string>MonkeyInputController</string>
     <key>InputMethodServerDelegateClass</key><string>MonkeyInputController</string>
     <key>IMKInputControllerClass</key><string>MonkeyInputController</string>

@@ -5,6 +5,17 @@ import MonkeyCore
 import MonkeyPinyin
 import MonkeySettings
 import SwiftUI
+import os
+
+private enum InputServiceIdentity {
+    static let bundleURL = Bundle.main.bundleURL.resolvingSymlinksInPath().standardizedFileURL
+    static let settingsNotification = Notification.Name("org.monkey.inputmethod.showSettings")
+    static let settingsNotificationObject = bundleURL.path
+
+    static func isCurrentBundle(_ application: NSRunningApplication) -> Bool {
+        application.bundleURL?.resolvingSymlinksInPath().standardizedFileURL == bundleURL
+    }
+}
 
 @main
 struct MonkeyMain {
@@ -16,9 +27,16 @@ struct MonkeyMain {
         if Bundle.main.bundleIdentifier == InputSourceManager.bundleID,
            !arguments.contains("--demo"),
            NSRunningApplication.runningApplications(withBundleIdentifier: InputSourceManager.bundleID)
-            .contains(where: { $0.processIdentifier != ProcessInfo.processInfo.processIdentifier && !$0.isTerminated }) {
+            .contains(where: {
+                $0.processIdentifier != ProcessInfo.processInfo.processIdentifier && !$0.isTerminated &&
+                InputServiceIdentity.isCurrentBundle($0)
+            }) {
             if arguments.contains("--settings") {
-                DistributedNotificationCenter.default().postNotificationName(.init("org.monkey.inputmethod.showSettings"), object: nil, userInfo: nil, deliverImmediately: true)
+                DistributedNotificationCenter.default().postNotificationName(
+                    InputServiceIdentity.settingsNotification,
+                    object: InputServiceIdentity.settingsNotificationObject,
+                    userInfo: nil, deliverImmediately: true
+                )
             }
             return
         }
@@ -35,6 +53,7 @@ struct MonkeyMain {
 
 @MainActor
 final class MonkeyApplicationDelegate: NSObject, NSApplicationDelegate {
+    private let logger = Logger(subsystem: "org.monkey.inputmethod.Monkey", category: "InputService")
     private var server: IMKServer?
     private var settingsWindow: NSWindow?
     private var demoWindow: NSWindow?
@@ -43,7 +62,18 @@ final class MonkeyApplicationDelegate: NSObject, NSApplicationDelegate {
 
     func prepareServer() {
         // Publish the input service before entering the application event loop.
-        server = IMKServer(name: "Monkey_Connection", bundleIdentifier: Bundle.main.bundleIdentifier ?? InputSourceManager.bundleID)
+        guard let connectionName = Bundle.main.object(forInfoDictionaryKey: "InputMethodConnectionName") as? String,
+              !connectionName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            logger.fault("Input service initialization failed: InputMethodConnectionName is missing or empty in Info.plist")
+            return
+        }
+        let bundleID = Bundle.main.bundleIdentifier ?? InputSourceManager.bundleID
+        guard let publishedServer = IMKServer(name: connectionName, bundleIdentifier: bundleID) else {
+            logger.fault("Input service initialization failed; bundle: \(bundleID, privacy: .public); connection: \(connectionName, privacy: .public)")
+            return
+        }
+        server = publishedServer
+        logger.notice("Input service initialized; bundle: \(bundleID, privacy: .public); connection: \(connectionName, privacy: .public)")
     }
 
     func applicationDidFinishLaunching(_ notification: Notification) {
@@ -51,7 +81,8 @@ final class MonkeyApplicationDelegate: NSObject, NSApplicationDelegate {
             forName: .init("org.monkey.inputmethod.terminate"), object: nil, queue: .main
         ) { _ in NSApp.terminate(nil) }
         settingsObserver = DistributedNotificationCenter.default().addObserver(
-            forName: .init("org.monkey.inputmethod.showSettings"), object: nil, queue: .main
+            forName: InputServiceIdentity.settingsNotification,
+            object: InputServiceIdentity.settingsNotificationObject, queue: .main
         ) { [weak self] _ in Task { @MainActor in self?.showSettings() } }
         if CommandLine.arguments.contains("--settings") { showSettings() }
         if CommandLine.arguments.contains("--demo") { showDemo() }

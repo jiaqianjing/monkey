@@ -21,16 +21,21 @@ final class MonkeyInputController: IMKInputController {
     private var activation = UUID()
     private var recoverableDraft = ""
     private let logger = Logger(subsystem: "org.monkey.inputmethod.Monkey", category: "InputSession")
-    private var receivedFirstKey = false
+    private var receivedFirstEvent = false
+    private var reportedMissingClient = false
     private var panelSuppressed = false
 
     override func activateServer(_ sender: Any!) {
-        if let client = client() { bind(client) }
+        let argumentClient = sender as? IMKTextInput
+        let controllerClient = client()
+        if let client = argumentClient ?? controllerClient { bind(client) }
         active = true
         panelSuppressed = false
         activation = UUID()
+        receivedFirstEvent = false
+        reportedMissingClient = false
         if session == nil { session = AppRuntime.makeSession().map { CompositionSession(session: $0) } }
-        logger.notice("Input session activated; engine ready: \(self.session != nil, privacy: .public)")
+        logger.notice("Input session activated; engine ready: \(self.session != nil, privacy: .public); activation: \(self.activation.uuidString, privacy: .public); argument client: \(argumentClient != nil, privacy: .public); controller client: \(controllerClient != nil, privacy: .public)")
         if translationMode { ChatGPTClient.shared.reloadAccount() }
         message = AppRuntime.engineError
         refresh()
@@ -55,10 +60,21 @@ final class MonkeyInputController: IMKInputController {
     }
 
     override func handle(_ event: NSEvent!, client sender: Any!) -> Bool {
-        guard let event, event.type == .keyDown, let client = client() else { return false }
-        if !receivedFirstKey {
-            logger.notice("First keyboard event received by input session")
-            receivedFirstKey = true
+        let argumentClient = sender as? IMKTextInput
+        let controllerClient = client()
+        if !receivedFirstEvent {
+            // Only routing metadata is diagnostic: never log characters, key
+            // codes, client descriptions, or text from the host application.
+            logger.notice("First input event received; activation: \(self.activation.uuidString, privacy: .public); event present: \(event != nil, privacy: .public); event type: \(event.map { Int($0.type.rawValue) } ?? -1, privacy: .public); argument client: \(argumentClient != nil, privacy: .public); controller client: \(controllerClient != nil, privacy: .public)")
+            receivedFirstEvent = true
+        }
+        guard let event, event.type == .keyDown else { return false }
+        guard let client = argumentClient ?? controllerClient else {
+            if !reportedMissingClient {
+                logger.error("Input event passed through without a client; activation: \(self.activation.uuidString, privacy: .public)")
+                reportedMissingClient = true
+            }
+            return false
         }
         bind(client)
         active = true
