@@ -95,7 +95,7 @@ fi
 SIGN_FLAGS=(--force)
 if [[ -n "$IDENTITY" && "$IDENTITY" != '-' ]]; then
     SIGN_FLAGS+=(--sign "$IDENTITY" --options runtime --timestamp)
-    SIGNING_STATUS="Developer identity: $IDENTITY; NOT NOTARIZED"
+    SIGNING_STATUS="Developer identity: $IDENTITY"
 else
     IDENTITY='-'
     SIGN_FLAGS+=(--sign - --timestamp=none)
@@ -106,6 +106,7 @@ APP_VERSION="$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$
 {
     printf 'Monkey %s\nArchitecture: %s\nMinimum macOS: %s\n' "$APP_VERSION" "$(uname -m)" "$MINIMUM"
     printf 'Built: %s\nSigning: %s\n' "$(date -u '+%Y-%m-%dT%H:%M:%SZ')" "$SIGNING_STATUS"
+    printf 'Notarization is a separate post-build step; verify the stapled ticket for current status.\n'
     printf 'Commit: %s\n' "$(git rev-parse HEAD 2>/dev/null || printf 'uncommitted source')"
 } > "$CONTENTS/Resources/BUILD-INFO.txt"
 for library in "$CONTENTS/Frameworks/"*.dylib; do
