@@ -55,17 +55,19 @@
 
 ## 下载与安装
 
-支持 **Apple Silicon · macOS 13+**。安装器与输入法均已完成 Developer ID 签名和 Apple 公证，macOS 可能显示正常的首次下载打开确认。
+适用于 **M 系列芯片的 Mac · macOS 13+**，安装包已通过 Apple 公证。
 
-1. [下载安装包](https://github.com/jiaqianjing/monkey/releases/download/v0.2.3/Monkey-0.2.3-macos-arm64-notarized.zip) 并解压，打开 **Monkey Installer.app**，点击 **安装**。
-2. 从菜单栏输入法菜单选择 **Monkey 拼音**。若未出现，在 **系统设置 → 键盘 → 文字输入 → 编辑** 中添加。
-3. 如需翻译，点击安装器里的 **打开 Monkey 设置**，再点击 **Continue with ChatGPT** 完成登录与授权。
+1. [下载安装包](https://github.com/jiaqianjing/monkey/releases/download/v0.2.3/Monkey-0.2.3-macos-arm64-notarized.zip) 并解压。
+2. 双击 **Monkey Installer.app**，点击 **安装**。
+3. 从菜单栏输入法菜单选择 **Monkey 拼音**，开始打字。
 
-更新会保留用户词库、偏好与账号连接。安装排查、下载校验和卸载方法见[安装指南](docs/install.md)。
+更新会保留词库、设置和账号连接。遇到问题可查看[安装帮助](docs/install.md)。
 
 <a id="translation"></a>
 
 ## 用中文写，确认英文上屏
+
+首次使用翻译，点击安装器里的 **打开 Monkey 设置 → Continue with ChatGPT** 完成连接。
 
 1. 点击候选条里的 **中译英**，或按 `Control + Shift + T` 开启。
 2. 正常用拼音选词，组成中文草稿，等待英文预览完成。
@@ -123,6 +125,6 @@ Monkey 免费开源，由作者持续维护。如果它让你的中文输入或�
 
 ## 开发与致谢
 
-[从源码构建](docs/install.md#从源码安装) · [架构说明](docs/architecture.md) · [验收记录](docs/validation.md) · [第三方声明](THIRD_PARTY_NOTICES.md)
+[从源码构建](docs/install-advanced.md#从源码安装) · [架构说明](docs/architecture.md) · [验收记录](docs/validation.md) · [第三方声明](THIRD_PARTY_NOTICES.md)
 
 Monkey 原创代码使用 [MIT](LICENSE)。librime、雾凇词库及其他依赖保留各自许可证，其中词库包含 GPL-3.0 数据。
