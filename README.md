@@ -1,5 +1,3 @@
-> **0.2.2 输入兼容修复正在验证。** 已收到选中 Monkey 后只有英文、没有中文候选的反馈，建议暂缓升级。已遇到问题可临时使用系统拼音，无需清空个人词库。
-
 <p align="center">
   <img src="Resources/AppIcon.png" alt="Monkey 盲 key：青柠色键帽与输入光标" width="104" height="104">
 </p>
@@ -12,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/jiaqianjing/monkey/releases/tag/v0.2.2"><img src="https://img.shields.io/badge/release-v0.2.2-D7F879?style=flat-square&amp;labelColor=171B2E&amp;color=D7F879" alt="v0.2.2"></a>
+  <a href="https://github.com/jiaqianjing/monkey/releases/tag/v0.2.3"><img src="https://img.shields.io/badge/release-v0.2.3-D7F879?style=flat-square&amp;labelColor=171B2E&amp;color=D7F879" alt="v0.2.3"></a>
   <img src="https://img.shields.io/badge/Apple-notarized-171B2E?style=flat-square" alt="Developer ID 签名、Apple 公证并附带公证票据">
   <img src="https://img.shields.io/badge/macOS-13%2B-171B2E?style=flat-square" alt="最低系统要求 macOS 13">
   <img src="https://img.shields.io/badge/Apple_Silicon-arm64-171B2E?style=flat-square" alt="Apple Silicon arm64">
@@ -21,9 +19,9 @@
 </p>
 
 <p align="center">
-  <strong><a href="https://github.com/jiaqianjing/monkey/releases/download/v0.2.2/Monkey-0.2.2-macos-arm64-notarized.zip">下载 macOS 版 ↗</a></strong>
+  <strong><a href="https://github.com/jiaqianjing/monkey/releases/download/v0.2.3/Monkey-0.2.3-macos-arm64-notarized.zip">下载 macOS 版 ↗</a></strong>
   &nbsp; · &nbsp; <a href="docs/install.md">安装指南</a>
-  &nbsp; · &nbsp; <a href="https://github.com/jiaqianjing/monkey/releases/tag/v0.2.2">更新记录</a>
+  &nbsp; · &nbsp; <a href="https://github.com/jiaqianjing/monkey/releases/tag/v0.2.3">更新记录</a>
   &nbsp; · &nbsp; <a href="https://github.com/jiaqianjing/monkey/issues/new">反馈问题</a>
   &nbsp; · &nbsp; <a href="#support">请我喝杯咖啡 ☕</a>
 </p>
@@ -92,11 +90,11 @@
 
 ## 下载与安装
 
-**当前版本：[0.2.2](https://github.com/jiaqianjing/monkey/releases/tag/v0.2.2)** · Apple Silicon（arm64）· 最低要求 macOS 13.0
+**当前版本：[0.2.3](https://github.com/jiaqianjing/monkey/releases/tag/v0.2.3)** · Apple Silicon（arm64）· 最低要求 macOS 13.0
 
 安装器与输入法均使用 Developer ID 签名，通过 Apple 公证并附带公证票据（stapled）。新版通过原生安装器安装，无需在系统安全设置中手动添加打开例外；macOS 仍可能显示正常的首次下载确认。
 
-1. [下载 ZIP](https://github.com/jiaqianjing/monkey/releases/download/v0.2.2/Monkey-0.2.2-macos-arm64-notarized.zip) 并解压，双击 **`Monkey Installer.app`**。
+1. [下载 ZIP](https://github.com/jiaqianjing/monkey/releases/download/v0.2.3/Monkey-0.2.3-macos-arm64-notarized.zip) 并解压，双击 **`Monkey Installer.app`**。
 2. 在安装器中点击 **安装**。完成后，从 macOS 菜单栏输入法菜单手动选择 **Monkey 拼音**。
 3. 若没有出现，在 **系统设置 → 键盘 → 文字输入 → 编辑** 中添加；首次安装或更新后仍无法使用时，注销当前 macOS 用户再登录。
 4. 如需翻译，点击安装器里的 **打开 Monkey 设置**，选择 **Continue with ChatGPT**，在浏览器完成登录与授权。
@@ -105,7 +103,7 @@
 
 暂不提供 Intel 安装包。输入体验仍在持续打磨；签名、公证和当前 Mac 上的检查不代表所有支持系统、另一台 Mac 或全部宿主应用均已验收。若需回退，可下载 [0.2.1 开发预览](https://github.com/jiaqianjing/monkey/releases/tag/v0.2.1)；它未经过公证，详见[旧版安装与回退说明](docs/install.md#legacy-preview)。
 
-[详细安装与卸载说明](docs/install.md) · [SHA-256 校验文件](https://github.com/jiaqianjing/monkey/releases/download/v0.2.2/Monkey-0.2.2-macos-arm64-notarized.sha256)
+[详细安装与卸载说明](docs/install.md) · [SHA-256 校验文件](https://github.com/jiaqianjing/monkey/releases/download/v0.2.3/Monkey-0.2.3-macos-arm64-notarized.sha256)
 
 <details>
 <summary>打开设置 / 校验下载文件</summary>
@@ -119,7 +117,7 @@ open -a "$HOME/Library/Input Methods/Monkey.app" --args --settings
 将 ZIP 与 `.sha256` 文件下载到同一目录后，在该目录运行：
 
 ```sh
-shasum -a 256 -c Monkey-0.2.2-macos-arm64-notarized.sha256
+shasum -a 256 -c Monkey-0.2.3-macos-arm64-notarized.sha256
 ```
 
 </details>
@@ -140,14 +138,25 @@ shasum -a 256 -c Monkey-0.2.2-macos-arm64-notarized.sha256
 
 右键中文候选可尝试清除该候选的个人学习记录，内置词库仍保留。候选条顶部可直接开启中译英或点击齿轮进入设置。悬浮窗只在拼音输入或未确认草稿存在时显示，提交、取消或切走后收起。在设置的「中文输入」中，可调整英文自动识别、候选布局，以及选中英文词后是否附带空格。
 
-## 0.2.2：原生安装与 Apple 公证
+## 0.2.3：输入服务连接与设置入口
+
+针对 0.2.2 收到的“选中 Monkey 后仍只有英文、没有中文候选，设置窗口也未显示”的反馈，本版调整了输入服务连接与客户端路由：
+
+- 服务连接名统一从应用配置读取，并使用带 bundle ID 前缀的名称。
+- 输入回调优先使用系统传入的客户端，避免控制器的 `client()` 暂时为空时直接放过按键。
+- 设置窗口请求按实际应用路径转发，减少已安装版本与预览副本互相干扰。
+- 增加服务初始化与会话路由诊断，不记录输入字符、按键码或文档内容。
+
+这些调整对应代码中发现的风险；具体输入表现以本机实体键盘和宿主应用的复验结果为准，不能仅凭自动测试判定所有输入兼容问题已解决。[0.2.3 改动与验证记录](docs/releases/0.2.3.md)
+
+### 0.2.2：原生安装与 Apple 公证
 
 - 双击 `Monkey Installer.app` 安装，发行包不再以裸 `.command` 脚本作为入口。
 - 输入法先完成签名、公证和票据附加，再封装进同一开发者团队签名、公证的安装器。
 - 安装器核对资源哈希、应用身份和开发者团队；替换前等待指定安装路径的旧版退出，失败时恢复旧版或保留备份并说明恢复路径。
 - 个人词库、设置与账号连接保留，安装不会自动切换当前输入源。
 
-公证验证软件的发行身份与安全检查状态，不代替中文输入和跨应用兼容性验收。[安装与验证说明](docs/install.md)
+0.2.2 的签名、公证和公开下载安装检查已有记录；发布后又收到上述中文输入兼容反馈。旧记录保留用于对照，当前推荐使用 0.2.3。公证验证软件的发行身份与安全检查状态，不代替中文输入和跨应用兼容性验收。[0.2.2 交付记录](docs/releases/0.2.2.md) · [安装与验证说明](docs/install.md)
 
 ### 0.2.1：入口、等待与日常操作
 

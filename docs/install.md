@@ -1,15 +1,18 @@
 # 安装与打包
 
-## 0.2.2 原生安装包
+## 0.2.3 原生安装包
 
 当前提供 Apple Silicon（arm64）安装包，最低系统要求为 macOS 13.0。安装器和输入法均使用 Developer ID 签名，通过 Apple 公证并附带公证票据（stapled）；不需要在系统安全设置中为新版手动添加打开例外。macOS 仍可能显示正常的首次下载确认。
 
-1. 从 [GitHub Releases](https://github.com/jiaqianjing/monkey/releases/tag/v0.2.2) 下载并解压 `Monkey-0.2.2-macos-arm64-notarized.zip`。
+1. 从 [GitHub Releases](https://github.com/jiaqianjing/monkey/releases/tag/v0.2.3) 下载并解压 `Monkey-0.2.3-macos-arm64-notarized.zip`。
 2. 阅读包内 `README.txt`，双击 **`Monkey Installer.app`**，在窗口中点击 **安装**。新版不使用 `Install.command` 作为入口。
 3. 安装位置为 `~/Library/Input Methods/Monkey.app`，不需要 `sudo`。安装器会验证资源、应用身份和开发者团队，再注册并启用输入法，不会自动切换当前输入源。
 4. 从菜单栏输入法菜单手动选择 **Monkey 拼音**。若没有出现，在 **系统设置 → 键盘 → 文字输入 → 编辑** 中添加。
 5. 如果安装器提示当前登录会话尚未完成注册，或首次安装、更新后仍无法输入，请注销当前 macOS 用户再登录，再添加 Monkey。
-6. 如需翻译，点击安装器的 **打开 Monkey 设置**，由你本人完成 ChatGPT 登录及授权。普通拼音输入无需连接账号。
+6. 在「文本编辑」等普通文本框中，用实体键盘输入 `nihao`，检查是否出现中文候选，再按空格检查是否输入“你好”。输入源注册成功或设置窗口打开，都不能代替这一步。
+7. 如需翻译，点击安装器的 **打开 Monkey 设置**，由你本人完成 ChatGPT 登录及授权。普通拼音输入无需连接账号。
+
+0.2.3 针对 0.2.2 的中文候选缺失和设置入口反馈调整了服务连接配置、输入客户端路由及窗口请求转发。若选中后仍只输入英文，请临时切回系统拼音，反馈应用、macOS 版本与实际按键过程，无需清空个人词库。[本版改动与验证记录](releases/0.2.3.md)
 
 安装器不会删除用户词库、偏好或账号连接。从旧版临时签名迁移后，macOS 仍可能要求重新确认钥匙串访问；这是凭据授权，与“仍要打开”的 Gatekeeper 例外不同。
 
@@ -17,13 +20,13 @@
 
 ### 核对下载文件
 
-解压前，将 ZIP 与 [SHA-256 文件](https://github.com/jiaqianjing/monkey/releases/download/v0.2.2/Monkey-0.2.2-macos-arm64-notarized.sha256) 下载到同一目录，在该目录打开终端运行：
+解压前，将 ZIP 与 [SHA-256 文件](https://github.com/jiaqianjing/monkey/releases/download/v0.2.3/Monkey-0.2.3-macos-arm64-notarized.sha256) 下载到同一目录，在该目录打开终端运行：
 
 ```sh
-shasum -a 256 -c Monkey-0.2.2-macos-arm64-notarized.sha256
+shasum -a 256 -c Monkey-0.2.3-macos-arm64-notarized.sha256
 ```
 
-应显示 `Monkey-0.2.2-macos-arm64-notarized.zip: OK`。校验值用于核对下载与发布附件一致；代码签名、Apple 公证和实际安装验收仍是各自独立的检查。
+应显示 `Monkey-0.2.3-macos-arm64-notarized.zip: OK`。校验值用于核对下载与发布附件一致；代码签名、Apple 公证和实际安装验收仍是各自独立的检查。
 
 ### 验证范围
 
@@ -33,9 +36,11 @@ shasum -a 256 -c Monkey-0.2.2-macos-arm64-notarized.sha256
 
 ## 旧版预览包与回退
 
+[0.2.2](https://github.com/jiaqianjing/monkey/releases/tag/v0.2.2) 已完成签名、公证和公开下载安装检查，但发布后收到选中 Monkey 仍只输入英文、没有中文候选及设置窗口未显示的反馈。它的[交付记录](releases/0.2.2.md)保留用于问题对照，当前不推荐回退至 0.2.2。
+
 [0.2.1 开发预览](https://github.com/jiaqianjing/monkey/releases/tag/v0.2.1) 保留供回退和问题对照。它是 ad-hoc 签名、未经过 Apple 公证的旧包，使用 `Monkey-0.2.1-macos-arm64.zip` 和 `Install.command`；以下 Gatekeeper 步骤仅针对这类旧包。
 
-如需从 0.2.2 回退，先结束当前输入并退出 Monkey 设置，再解压 0.2.1 包并运行其 `Install.command`。旧安装脚本会替换程序，保留用户词库、偏好和账号连接；回退后可能需要注销再登录，并重新确认钥匙串访问。新版原生安装器会拒绝用较低版本或同版本较低 build 覆盖现有程序。
+如需从 0.2.3 回退至 0.2.1，先结束当前输入并退出 Monkey 设置，再解压 0.2.1 包并运行其 `Install.command`。旧安装脚本会替换程序，保留用户词库、偏好和账号连接；回退后可能需要注销再登录，并重新确认钥匙串访问。新版原生安装器会拒绝用较低版本或同版本较低 build 覆盖现有程序。
 
 <a id="gatekeeper"></a>
 

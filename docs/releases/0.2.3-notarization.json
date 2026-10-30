@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "version": "0.2.3",
+  "build": "5",
+  "sourceCommit": "884212aa3efb7b8aeaee1d9da3fbf7fffb2c138d",
+  "verifiedAtUTC": "2026-10-30T07:36:26.663435+00:00",
+  "appleSubmissions": {
+    "inputMethod": {
+      "jobID": "b4be6c95-6065-4404-8eed-9f7ded709426",
+      "status": "Accepted",
+      "uploadDate": "2026-10-30T07:21:08.902Z",
+      "submittedZIPsha256": "3ed445bf13b6293c86fc1511229441671645e32e530797b98b36916f1fb54fa4",
+      "submittedZIPsha256Source": "Apple notarization log",
+      "warningCount": 0
+    },
+    "installer": {
+      "jobID": "770b46d2-186a-48cb-9bba-d9e05e65882a",
+      "status": "Accepted",
+      "uploadDate": "2026-10-30T07:25:41.586Z",
+      "submittedZIPsha256": "e6786dd3b8db93c059506cfabd6262f224cebc15874ecd817a613e6505f42fa8",
+      "submittedZIPsha256Source": "Apple notarization log",
+      "warningCount": 0
+    }
+  },
+  "applications": {
+    "inputMethod": {
+      "bundleIdentifier": "org.monkey.inputmethod.Monkey",
+      "version": "0.2.3",
+      "build": "5",
+      "cdhash": "595e333d8b45d8bddbf5e5d694eb7f3f2d2330e1",
+      "teamID": "UBS9FUBNFR",
+      "signatureType": "Developer ID Application",
+      "hardenedRuntime": true,
+      "secureTimestamp": true,
+      "strictDeepSignatureValid": true,
+      "allMachOSignaturesValid": true,
+      "machOImageCount": 2,
+      "machOArchitectures": [
+        "arm64",
+        "x86_64"
+      ],
+      "stapleValid": true,
+      "gatekeeperSource": "Notarized Developer ID",
+      "syspolicyDistributionValid": true,
+      "codeResourcesSHA256": "840dacc6403a1d0aa60bc180c0cc76937e00216a0ec3f28dc19e589f5c8576dd",
+      "bundleTreeSHA256": "a10ad6b808b1639d1bc112a161af6e9213d1aaa5437ada014f8a61d56d3066f1"
+    },
+    "installer": {
+      "bundleIdentifier": "org.monkey.inputmethod.Installer",
+      "version": "0.2.3",
+      "build": "5",
+      "cdhash": "e852864bdcadf7a5ebd0a7677f5595d4f6de06f9",
+      "teamID": "UBS9FUBNFR",
+      "signatureType": "Developer ID Application",
+      "hardenedRuntime": true,
+      "secureTimestamp": true,
+      "strictDeepSignatureValid": true,
+      "allMachOSignaturesValid": true,
+      "machOImageCount": 1,
+      "machOArchitectures": [
+        "arm64"
+      ],
+      "stapleValid": true,
+      "gatekeeperSource": "Notarized Developer ID",
+      "syspolicyDistributionValid": true,
+      "codeResourcesSHA256": "9045b467a4415d84ad17ca43812fad28d0053d5193536152d93f26ed6708b385",
+      "bundleTreeSHA256": "f02be2e400d465d17ed6019d1b072b375ccc1ca0c755e4623359fa47ecd9cc8b"
+    }
+  },
+  "embeddedPayloadZIPsha256": "9ba261fd6a05cfaac17ba555b5301bb8fdb1791ff9df9c44d4bc0ae69a2d9b84",
+  "distribution": {
+    "filename": "Monkey-0.2.3-macos-arm64-notarized.zip",
+    "sha256": "c13ae4fb6dc073cf33a2232397384ec67c404a9bd8089fc54978d67f5fd2e696",
+    "sizeBytes": 32251634
+  },
+  "checks": {
+    "gatekeeperEnabled": true,
+    "twoAppleSubmissionsAccepted": true,
+    "notaryTicketCDHashesMatchFinalApps": true,
+    "bothAppsStapled": true,
+    "allMachODeveloperIDTeamRuntimeTimestampValid": true,
+    "embeddedPayloadChecksumAndCDHashMatch": true,
+    "installerReadOnlySelfCheck": true,
+    "zipRoundTripSignaturesTicketsGatekeeperAndResourceSealsValid": true,
+    "noCommandFileEntryPoints": true,
+    "cleanVirtualMachineTested": false,
+    "freshBrowserDownloadTested": false,
+    "physicalKeyboardAcceptanceIncluded": true,
+    "installationPerformedByThisVerifier": false
+  },
+  "physicalKeyboardAcceptance": {
+    "source": "User confirmation conveyed by the coordinating agent",
+    "scope": "User confirmed physical nihao then Space shows candidates and commits 你好 in TextEdit and again in the originally affected input field.",
+    "textEditConfirmed": true,
+    "originalReportedInputFieldRevalidated": true,
+    "translationFlowRevalidated": false,
+    "originalHostApplicationName": "Not recorded"
+  },
+  "currentMacChecks": {
+    "source": "Coordinating agent observations and user confirmation",
+    "installedVersion": "0.2.3",
+    "installedBuild": "5",
+    "settingsOpened": true,
+    "textEditPhysicalInputConfirmed": true,
+    "originalReportedInputFieldRevalidated": true,
+    "translationFlowRevalidated": false,
+    "cleanVirtualMachineTested": false
+  },
+  "environment": {
+    "macOSVersion": "27.0.1",
+    "macOSBuild": "26A434",
+    "architecture": "arm64",
+    "xcode": "Xcode 27.1\nBuild version 27A9275"
+  }
+}
