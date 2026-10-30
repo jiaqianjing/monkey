@@ -1,0 +1,19 @@
+{
+  "filename": "Monkey-0.2.2-macos-arm64-notarized.zip",
+  "sha256": "d32c351ed920e92507ae4d955125f324f86d4a0fc01b902dee63993b0b3d22f3",
+  "sizeBytes": 32246063,
+  "quarantinePresent": true,
+  "verifiedAtUTC": "2026-10-30T06:35:51.893687+00:00",
+  "sourceURL": "https://github.com/jiaqianjing/monkey/releases/download/v0.2.2/Monkey-0.2.2-macos-arm64-notarized.zip",
+  "githubLoginRequired": false,
+  "systemArchiveUtilityUsed": true,
+  "extractedInstallerQuarantinePresent": true,
+  "normalFirstOpenConfirmation": true,
+  "appleMessage": "Apple checked it for malicious software and none was detected.",
+  "installerWindowOpened": true,
+  "payloadResourceCheckPassed": true,
+  "securitySettingsExceptionUsed": false,
+  "quarantineRemoved": false,
+  "cleanMacOrVirtualMachine": false,
+  "scope": "Browser download and first open observed on the same Mac used for development and a preceding local install; not a clean-machine acceptance test."
+}
