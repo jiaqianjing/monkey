@@ -2,13 +2,40 @@
 
 ## 二进制开发包
 
+**0.2.1 是未经过 Apple 公证的开发预览包。首次运行下载的 `Install.command` 时，macOS 可能显示“Apple 无法验证是否包含恶意软件”。请先阅读下方的[首次打开被 macOS 拦截](#gatekeeper)说明。**
+
 1. 从 [GitHub Releases](https://github.com/jiaqianjing/monkey/releases/tag/v0.2.1) 下载并解压 `Monkey-0.2.1-macos-arm64.zip`。当前提供 Apple Silicon 安装包，最低系统要求为 macOS 13.0。
 2. 阅读 `READ-ME.txt`，确认架构及最低 macOS 版本匹配。
-3. 运行 `Install.command`。它只写入 `~/Library/Input Methods/Monkey.app`，不需要管理员密码，也不会修改其他输入法。
+3. 运行 `Install.command`，若被拦截，按下方说明处理。它将 Monkey 安装到 `~/Library/Input Methods/Monkey.app`，不需要 `sudo`，也不会修改其他输入法；系统的安全确认可能另外要求密码或 Touch ID。
 4. 从菜单栏输入法菜单选择 Monkey 拼音。安装不会自动切换输入源。
 5. 若未出现，注销 macOS 用户再登录，在系统设置 → 键盘 → 文字输入 → 编辑中添加 Monkey。
 
-当前预览包使用 ad-hoc 签名，未经过 Apple 公证。若 Gatekeeper 拦截下载的开发包，可自行从源码构建，或在确认来源后使用 macOS 提供的打开/隐私与安全性流程；不需要关闭系统安全功能。脚本不会清除 quarantine 属性或绕过 Gatekeeper。
+<a id="gatekeeper"></a>
+
+### 首次打开被 macOS 拦截
+
+如果弹窗只有「完成」和「移到废纸篓」，并提示 **“Apple 无法验证 ‘Install.command’ 是否包含可能危害 Mac 安全或泄漏隐私的恶意软件”**，表示系统无法完成该下载文件的安全验证。当前预览应用使用 ad-hoc 签名，未经过 Apple 公证。
+
+仅在确认下载来自本仓库的 Releases、且文件未被改动后，按 [Apple 官方打开流程](https://support.apple.com/zh-cn/102445) 操作：
+
+1. 在当前弹窗中点 **「完成」**。
+2. 打开 **系统设置 → 隐私与安全性**，向下滚动到 **「安全性」**。
+3. 找到针对 **`Install.command`** 的拦截记录，点 **「仍要打开」**。
+4. 亲自完成系统要求的身份验证，并在再次弹出的提示中点 **「打开」**。安装脚本随后会在终端运行。
+
+若没有看到「仍要打开」，先重新双击一次 `Install.command` 触发拦截，再查看该设置页面。受组织管理的 Mac 可能不允许添加例外，需要由管理员处理。
+
+**如果随后又拦截 `Monkey.app`：** 它与安装脚本是分别检查的文件，仍可能需要单独确认。对提示中对应的 Monkey 使用同样的「隐私与安全性 → 仍要打开」流程，再重新运行同一目录里的 `Install.command`，让注册和启用命令完成。若仅出现 `Installed:`，但同时显示 `macOS did not finish registering/enabling...`，说明应用已经复制，输入法注册仍未完成。
+
+上述操作为指定文件添加打开例外，不需要关闭系统门禁。安装脚本不会移除 quarantine 属性。也可以选择[从源码构建](#从源码安装)。
+
+如需先核对下载文件，在解压前将 ZIP 和对应 `.sha256` 文件下载到同一目录，在该目录打开终端并运行：
+
+```sh
+shasum -a 256 -c Monkey-0.2.1-macos-arm64.sha256
+```
+
+应显示 `Monkey-0.2.1-macos-arm64.zip: OK`。校验用于核对文件与发布包一致，不能代替 Apple 公证。
 
 DMG 是文件分发容器，不是系统安装器。若直接在只读 DMG 中运行安装脚本被系统策略拦截，先将完整目录复制到本机，再运行。
 
@@ -66,6 +93,7 @@ Developer ID 签名不会自动使应用获得公证。向普通用户正式分�
 
 ## 参考
 
+- [Apple：在 Mac 上安全地打开 App](https://support.apple.com/zh-cn/102445)
 - [Apple InputMethodKit](https://developer.apple.com/documentation/inputmethodkit)
 - [IMKServer 的 Info.plist 配置](https://developer.apple.com/documentation/inputmethodkit/imkserver/init(name:bundleidentifier:))
 - [Squirrel 官方安装说明](https://github.com/rime/squirrel#安裝輸入法)

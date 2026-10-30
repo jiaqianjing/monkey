@@ -92,6 +92,8 @@ Monkey 0.2.1 的原生设置与翻译试写窗口，点击图片可放大。截�
 **当前版本：[0.2.1 开发预览](https://github.com/jiaqianjing/monkey/releases/tag/v0.2.1)** · Apple Silicon（arm64）· 最低要求 macOS 13.0 · ZIP 约 29 MB
 
 > 预览包使用 ad-hoc 签名，尚未经过 Apple 公证。暂不提供 Intel 安装包；较旧系统和更多应用的兼容性仍待验证。
+>
+> 首次双击 `Install.command` 若提示“Apple 无法验证”，点「完成」，到 **系统设置 → 隐私与安全性 → 安全性 → 仍要打开**，再按系统提示确认。仅对确认来源可信的发布包这样操作；[完整步骤与后续 Monkey.app 拦截说明](docs/install.md#gatekeeper)。
 
 1. [下载 ZIP](https://github.com/jiaqianjing/monkey/releases/download/v0.2.1/Monkey-0.2.1-macos-arm64.zip)，解压后运行目录中的 **`Install.command`**。
 2. 从 macOS 菜单栏的输入法菜单选择 **Monkey 拼音**。安装器会注册并启用它，仍需你手动选中。

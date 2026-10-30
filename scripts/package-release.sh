@@ -39,8 +39,10 @@ chmod +x "$FOLDER/Install.command" "$FOLDER/Uninstall.command" "$FOLDER/scripts/
     printf 'If Monkey is absent from the input menu or typing does not work, log out and back in.\n'
     printf 'Settings: open -a "$HOME/Library/Input Methods/Monkey.app" --args --settings\n\n'
     printf 'This development release has NOT been notarized by Apple.\n'
+    printf 'If macOS blocks Install.command, click Done, then System Settings > Privacy & Security > Open Anyway for this file, only if you trust the download.\n'
+    printf 'Monkey.app may require its own confirmation. If registration was blocked, run Install.command again after allowing the app.\n'
     printf 'See Monkey.app/Contents/Resources/BUILD-INFO.txt for its signature and runtime requirements.\n'
-    printf 'Read docs/install.md in the source repository for Gatekeeper and source-build options.\n\n'
+    printf 'Full installation and Gatekeeper steps: https://github.com/jiaqianjing/monkey/blob/main/docs/install.md#gatekeeper\n\n'
     cat "$APP/Contents/Resources/BUILD-INFO.txt"
 } > "$FOLDER/READ-ME.txt"
 ditto -c -k --sequesterRsrc --keepParent "$FOLDER" "$ROOT/dist/$NAME.zip"
