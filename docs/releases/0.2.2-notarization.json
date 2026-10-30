@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "version": "0.2.2",
+  "build": "4",
+  "sourceCommit": "523cad79053f46c64b3622a1219029313d164a43",
+  "verifiedAtUTC": "2026-10-30T06:24:08.968569+00:00",
+  "appleSubmissions": {
+    "inputMethod": {
+      "jobID": "ae3398f5-2fd8-4d5b-8437-d6168c07ec55",
+      "status": "Accepted",
+      "uploadDate": "2026-10-30T06:17:19.438Z",
+      "submittedZIPsha256": "18a04ec202e4ed40ba0e78871f6d036ad0e3c6e4292ca56054facfdf12bb775d",
+      "submittedZIPsha256Source": "Apple notarization log",
+      "warningCount": 0
+    },
+    "installer": {
+      "jobID": "9a92b3fc-e725-44a2-a279-894b86aaa732",
+      "status": "Accepted",
+      "uploadDate": "2026-10-30T06:20:33.004Z",
+      "submittedZIPsha256": "7e62512098646a40394cef01d8dcb94c27bad9b49dc8be90d30ef3e4c4efc3e7",
+      "submittedZIPsha256Source": "Apple notarization log",
+      "warningCount": 0
+    }
+  },
+  "applications": {
+    "inputMethod": {
+      "bundleIdentifier": "org.monkey.inputmethod.Monkey",
+      "version": "0.2.2",
+      "build": "4",
+      "cdhash": "bbace3a8119b8c25eda3500e6df735f088a416cb",
+      "teamID": "UBS9FUBNFR",
+      "signatureType": "Developer ID Application",
+      "hardenedRuntime": true,
+      "secureTimestamp": true,
+      "strictDeepSignatureValid": true,
+      "allMachOSignaturesValid": true,
+      "machOImageCount": 2,
+      "machOArchitectures": [
+        "arm64",
+        "x86_64"
+      ],
+      "stapleValid": true,
+      "gatekeeperSource": "Notarized Developer ID",
+      "syspolicyDistributionValid": true,
+      "codeResourcesSHA256": "08986e4a2bb8686b50ecf78daf0c9f7959b7c3ce243700f6b96d6ba0948c0dc6",
+      "bundleTreeSHA256": "106ea13fb0f093e825953b9f69b872ad5ebfad90222d9809da86962bd38f75ec"
+    },
+    "installer": {
+      "bundleIdentifier": "org.monkey.inputmethod.Installer",
+      "version": "0.2.2",
+      "build": "4",
+      "cdhash": "629b509cc9e2e409a11eae73958aeb79680792ff",
+      "teamID": "UBS9FUBNFR",
+      "signatureType": "Developer ID Application",
+      "hardenedRuntime": true,
+      "secureTimestamp": true,
+      "strictDeepSignatureValid": true,
+      "allMachOSignaturesValid": true,
+      "machOImageCount": 1,
+      "machOArchitectures": [
+        "arm64"
+      ],
+      "stapleValid": true,
+      "gatekeeperSource": "Notarized Developer ID",
+      "syspolicyDistributionValid": true,
+      "codeResourcesSHA256": "d02302d95e8f38ebd7f8bec2e08855492ef688b8c332e6f03500abdc1e9fc2f6",
+      "bundleTreeSHA256": "0f45de2dc1599b83afb09065729c560a272003c005fc021452faa66e10756e40"
+    }
+  },
+  "embeddedPayloadZIPsha256": "6bc011236a686b00b5b190fe198421bd1127aa2bdb649f4ec64f7299ef60d137",
+  "distribution": {
+    "filename": "Monkey-0.2.2-macos-arm64-notarized.zip",
+    "sha256": "d32c351ed920e92507ae4d955125f324f86d4a0fc01b902dee63993b0b3d22f3",
+    "sizeBytes": 32246063
+  },
+  "checks": {
+    "gatekeeperEnabled": true,
+    "twoAppleSubmissionsAccepted": true,
+    "notaryTicketCDHashesMatchFinalApps": true,
+    "bothAppsStapled": true,
+    "allMachODeveloperIDTeamRuntimeTimestampValid": true,
+    "embeddedPayloadChecksumAndCDHashMatch": true,
+    "installerReadOnlySelfCheck": true,
+    "zipRoundTripSignaturesTicketsGatekeeperAndResourceSealsValid": true,
+    "noCommandFileEntryPoints": true,
+    "cleanVirtualMachineTested": false,
+    "freshBrowserDownloadTested": false,
+    "physicalKeyboardAcceptanceIncluded": false,
+    "currentMacUpgrade": true,
+    "registrationFinished": true,
+    "settingsOpened": true,
+    "savedConnectionMetadataRetained": true,
+    "installedSignatureAndStapleRechecked": true,
+    "translationAuthorizationRevalidatedAfterUpgrade": false
+  },
+  "environment": {
+    "macOSVersion": "27.0.1",
+    "macOSBuild": "26A434",
+    "architecture": "arm64",
+    "xcode": "Xcode 27.1\nBuild version 27A9275"
+  },
+  "currentMacUpgrade": {
+    "fromVersion": "0.2.1",
+    "fromBuild": "3",
+    "toVersion": "0.2.2",
+    "toBuild": "4",
+    "installationAndRegistration": "completed",
+    "settingsVersionConfirmed": true,
+    "installedSourceCommitConfirmed": "523cad79053f46c64b3622a1219029313d164a43",
+    "installedGatekeeperSource": "Notarized Developer ID",
+    "savedConnectionMetadataRetained": true,
+    "scope": "Observed on the current Mac; no clean-machine or fresh-browser-download claim; saved metadata does not revalidate translation authorization."
+  },
+  "buildSourceCommits": {
+    "inputMethod": "523cad79053f46c64b3622a1219029313d164a43",
+    "installerPackaging": "e4a41dce1b02e8d3d5f6467b256f531e3a913dcf"
+  }
+}
