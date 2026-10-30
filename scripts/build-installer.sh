@@ -40,7 +40,7 @@ if [[ "$DEVELOPMENT" == 0 ]]; then
         printf 'A Developer ID Application identity is required. Use --development only for a non-installing local preview.\n' >&2; exit 1;
     }
     [[ "$TEAM" =~ ^[A-Z0-9]{10}$ ]] || { printf 'Payload has no valid signing Team ID.\n' >&2; exit 1; }
-    codesign --verify --deep --strict --test-requirement "$APP_REQUIREMENT" "$PAYLOAD"
+    codesign --verify --deep --strict --test-requirement "=$APP_REQUIREMENT" "$PAYLOAD"
     # This is the first notarization boundary. Only the publisher runs stapler;
     # the installer will not need Xcode, credentials or a network connection.
     xcrun stapler validate "$PAYLOAD"
@@ -68,7 +68,7 @@ ditto "$PAYLOAD" "$STAGE/Payload/Monkey.app"
 codesign --verify --deep --strict "$STAGE/Payload/Monkey.app"
 if [[ "$DEVELOPMENT" == 0 ]]; then
     COPIED_REQUIREMENT="$APP_REQUIREMENT and certificate leaf[subject.OU] = \"$TEAM\""
-    codesign --verify --deep --strict --test-requirement "$COPIED_REQUIREMENT" "$STAGE/Payload/Monkey.app"
+    codesign --verify --deep --strict --test-requirement "=$COPIED_REQUIREMENT" "$STAGE/Payload/Monkey.app"
     xcrun stapler validate "$STAGE/Payload/Monkey.app"
 fi
 ditto -c -k --sequesterRsrc --keepParent "$STAGE/Payload/Monkey.app" "$CONTENTS/Resources/MonkeyPayload.zip"
@@ -117,7 +117,7 @@ if [[ "$DEVELOPMENT" == 1 ]]; then
 else
     codesign --force --sign "$IDENTITY" --options runtime --timestamp "$APP"
     INSTALLER_REQUIREMENT="anchor apple generic and certificate leaf[field.1.2.840.113635.100.6.1.13] exists and identifier \"org.monkey.inputmethod.Installer\" and certificate leaf[subject.OU] = \"$TEAM\""
-    codesign --verify --deep --strict --test-requirement "$INSTALLER_REQUIREMENT" "$APP"
+    codesign --verify --deep --strict --test-requirement "=$INSTALLER_REQUIREMENT" "$APP"
 fi
 codesign --verify --deep --strict "$APP"
 plutil -lint "$CONTENTS/Info.plist"
