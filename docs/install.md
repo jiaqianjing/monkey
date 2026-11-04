@@ -4,7 +4,7 @@
 
 ## 三步开始打字
 
-1. **下载并解压**：[下载 macOS 安装包](https://github.com/jiaqianjing/monkey/releases/download/v0.2.3/Monkey-0.2.3-macos-arm64-notarized.zip)。
+1. **下载并解压**：[下载 macOS 安装包](https://github.com/jiaqianjing/monkey/releases/download/v0.2.5/Monkey-0.2.5-macos-arm64-notarized.zip)。
 2. **点击安装**：双击解压后的 **Monkey Installer.app**，点击 **安装**。
 3. **切换输入法**：在菜单栏输入法菜单中选择 **Monkey 拼音**。
 

@@ -16,7 +16,7 @@
 </p>
 
 <p align="center">
-  <strong><a href="https://github.com/jiaqianjing/monkey/releases/download/v0.2.3/Monkey-0.2.3-macos-arm64-notarized.zip">下载 macOS 版 ↗</a></strong>
+  <strong><a href="https://github.com/jiaqianjing/monkey/releases/download/v0.2.5/Monkey-0.2.5-macos-arm64-notarized.zip">下载 macOS 版 ↗</a></strong>
   &nbsp; · &nbsp; <a href="docs/install.md">安装指南</a>
   &nbsp; · &nbsp; <a href="https://github.com/jiaqianjing/monkey/releases">更新记录</a>
   &nbsp; · &nbsp; <a href="https://github.com/jiaqianjing/monkey/issues/new">反馈问题</a>
@@ -57,7 +57,7 @@
 
 适用于 **M 系列芯片的 Mac · macOS 13+**，安装包已通过 Apple 公证。
 
-1. [下载安装包](https://github.com/jiaqianjing/monkey/releases/download/v0.2.3/Monkey-0.2.3-macos-arm64-notarized.zip) 并解压。
+1. [下载安装包](https://github.com/jiaqianjing/monkey/releases/download/v0.2.5/Monkey-0.2.5-macos-arm64-notarized.zip) 并解压。
 2. 双击 **Monkey Installer.app**，点击 **安装**。
 3. 从菜单栏输入法菜单选择 **Monkey 拼音**，开始打字。
 
