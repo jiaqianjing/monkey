@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "status": "verified",
+  "createdAt": "2026-11-04T16:17:20.021026+00:00",
+  "name": "Monkey-0.2.7-macos-arm64",
+  "version": "0.2.7",
+  "architecture": "arm64",
+  "identity": "Developer ID Application: Qianjing Jia (UBS9FUBNFR)",
+  "teamID": "UBS9FUBNFR",
+  "installerSourceSHA256": "ba940763db64307686e19178c4051e2a02aa086c22b56c1224ab9a86d3425049",
+  "createDMG": false,
+  "localAssessmentOnly": true,
+  "cleanBrowserDownloadTested": false,
+  "authenticationMethod": "explicit-api-key",
+  "updatedAt": "2026-11-04T16:19:14.195204+00:00",
+  "minimumMacOS": "13.0",
+  "stages": {
+    "payload": {
+      "signature": {
+        "teamID": "UBS9FUBNFR",
+        "identity": "Developer ID Application: Qianjing Jia (UBS9FUBNFR)",
+        "cdhash": "47e90ad6c92e4e69232c54d069707f9614d86a22",
+        "hardenedRuntime": true,
+        "secureTimestamp": true,
+        "validatedMachOCount": 2
+      },
+      "submissionSHA256": "48e34c7a51393706b835774abedc5028f9e6a90bf2d0a8cb8bfa0720342e7863",
+      "submissionStarted": "2026-11-04T16:17:37.743727+00:00",
+      "submissionID": "bc0ab6b8-768e-4f7f-baed-3857ab6a390e",
+      "submitExitCode": 0,
+      "status": "Accepted",
+      "notaryWarningCount": 0,
+      "stapled": true,
+      "stapleValidated": true,
+      "gatekeeperAccepted": true,
+      "syspolicyCheck": true,
+      "verifiedAt": "2026-11-04T16:18:22.761676+00:00"
+    },
+    "installer": {
+      "signature": {
+        "teamID": "UBS9FUBNFR",
+        "identity": "Developer ID Application: Qianjing Jia (UBS9FUBNFR)",
+        "cdhash": "99eb961ef1f6bdebf9b3460b0ac25f45f07156b1",
+        "hardenedRuntime": true,
+        "secureTimestamp": true,
+        "validatedMachOCount": 1
+      },
+      "submissionSHA256": "e690031906897b059ec6aee0df78582e690a1c15cbd2810105ea0147e4d5c34d",
+      "submissionStarted": "2026-11-04T16:18:29.466305+00:00",
+      "submissionID": "99a27054-3147-4565-b142-cbd5a4ee06d1",
+      "submitExitCode": 0,
+      "status": "Accepted",
+      "notaryWarningCount": 0,
+      "stapled": true,
+      "stapleValidated": true,
+      "gatekeeperAccepted": true,
+      "syspolicyCheck": true,
+      "verifiedAt": "2026-11-04T16:19:10.102101+00:00"
+    }
+  },
+  "artifacts": [
+    {
+      "name": "Monkey-0.2.7-macos-arm64-notarized.zip",
+      "size": 32278554,
+      "sha256": "6b6a805f8af45caafa8950f3de74596ba8aa7753ad1b67fd38ad0d0bbfd36da5"
+    }
+  ],
+  "zipRoundTripVerified": true,
+  "embeddedPayloadVerified": true,
+  "completedAt": "2026-11-04T16:19:14.194983+00:00"
+}
