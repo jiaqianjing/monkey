@@ -142,13 +142,8 @@ final class MonkeyInputController: IMKInputController {
             }
         }
         if asciiMode {
-            if translationMode, let text = event.characters, !text.isEmpty,
-               text.unicodeScalars.allSatisfy({ !CharacterSet.controlCharacters.contains($0) }) {
-                draft.append(text)
-                scheduleTranslation()
-                refresh()
-                return true
-            }
+            // English direct input always belongs to the host. Translation
+            // stays enabled so it resumes if the user switches back to Chinese.
             message = nil
             refresh()
             return false
@@ -244,14 +239,18 @@ final class MonkeyInputController: IMKInputController {
     }
 
     private func toggleASCII() {
-        if translationMode, let session {
-            if !session.snapshot().preedit.isEmpty {
-                _ = session.commitComposition()
-                if let text = session.takeCommit() { draft.append(text) }
+        if !asciiMode, let session {
+            // The switch key commits the spelling that was typed, not the
+            // currently highlighted Chinese candidate or a normalized word.
+            let hasComposition = session.commitRawComposition()
+            if hasComposition || (translationMode && !draft.source.isEmpty) {
+                let text = (translationMode ? draft.source : "") + (session.takeCommit() ?? "")
+                invalidateAsyncWork()
                 session.clear()
-                scheduleTranslation()
+                draft.reset()
+                if !text.isEmpty { insert(text) }
             }
-        } else if !markedText.isEmpty { commitOriginal() }
+        }
         asciiMode.toggle()
         message = asciiMode ? "英文直输 · Shift + Space 返回拼音" : "中文拼音"
         refresh()

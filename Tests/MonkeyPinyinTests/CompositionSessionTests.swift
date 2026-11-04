@@ -96,6 +96,42 @@ final class CompositionSessionTests: XCTestCase {
         }
     }
 
+    func testSwitchToEnglishCommitsTypedSpellingAndClearsComposition() async throws {
+        try await MainActor.run {
+            try withSession { session in
+                XCTAssertFalse(session.commitRawComposition())
+                for original in ["nihao", "hello", "ChatGPT", "v0.2.0"] {
+                    session.clear()
+                    XCTAssertEqual(type(original, into: session), "", original)
+                    _ = session.process(key: 0xff54) // Changing the candidate must not change the output.
+                    XCTAssertTrue(session.commitRawComposition(), original)
+                    XCTAssertEqual(session.takeCommit(), original, original)
+                    XCTAssertTrue(session.snapshot().preedit.isEmpty, original)
+                    XCTAssertNil(session.takeCommit(), original)
+                }
+
+                // A candidate selected within an unfinished composition is
+                // still marked text; switch the entire original spelling.
+                _ = type("nihaoshijie", into: session)
+                _ = session.process(key: 0xff50)
+                _ = session.process(key: 0xff53)
+                _ = session.process(key: 0xff53)
+                _ = session.process(key: 32)
+                XCTAssertTrue(session.snapshot().preedit.hasPrefix("你好"))
+                XCTAssertTrue(session.commitRawComposition())
+                XCTAssertEqual(session.takeCommit(), "nihaoshijie")
+
+                _ = type("nihao", into: session)
+                _ = session.process(key: 0xff51)
+                _ = session.process(key: 0xff08)
+                let edited = session.snapshot().rawInput
+                XCTAssertTrue(session.commitRawComposition())
+                XCTAssertEqual(session.takeCommit(), edited)
+                XCTAssertTrue(session.snapshot().preedit.isEmpty)
+            }
+        }
+    }
+
     func testPinyinDigitsStillSelectCandidatesAndEnglishDigitsStayLiteral() async throws {
         try await MainActor.run {
             try withSession { session in

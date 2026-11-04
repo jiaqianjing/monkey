@@ -118,6 +118,23 @@ public final class CompositionSession {
         return handled
     }
 
+    /// Finish the current composition using the characters that were typed,
+    /// rather than the highlighted Chinese or normalized English candidate.
+    @discardableResult
+    public func commitRawComposition() -> Bool {
+        let current = snapshot()
+        guard !current.preedit.isEmpty || !current.rawInput.isEmpty else { return false }
+        drainPinyinCommit()
+        let text = current.rawInput.isEmpty ? current.preedit : current.rawInput
+        cachedSnapshot = nil
+        pinyin.clear()
+        literal = nil
+        literalCaret = 0
+        possibleAddress = false
+        pendingCommit += text
+        return true
+    }
+
     @discardableResult
     public func selectCandidate(_ index: Int) -> Bool {
         if literal != nil {

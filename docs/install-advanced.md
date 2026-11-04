@@ -12,13 +12,13 @@
 
 ### 核对下载文件
 
-解压前，将 ZIP 与 [SHA-256 文件](https://github.com/jiaqianjing/monkey/releases/download/v0.2.3/Monkey-0.2.3-macos-arm64-notarized.sha256) 下载到同一目录，在该目录打开终端运行：
+解压前，将 ZIP 与 [SHA-256 文件](https://github.com/jiaqianjing/monkey/releases/download/v0.2.5/Monkey-0.2.5-macos-arm64-notarized.sha256) 下载到同一目录，在该目录打开终端运行：
 
 ```sh
-shasum -a 256 -c Monkey-0.2.3-macos-arm64-notarized.sha256
+shasum -a 256 -c Monkey-0.2.5-macos-arm64-notarized.sha256
 ```
 
-应显示 `Monkey-0.2.3-macos-arm64-notarized.zip: OK`。校验值用于核对下载与发布附件一致；代码签名、Apple 公证和实际安装验收仍是各自独立的检查。
+应显示 `Monkey-0.2.5-macos-arm64-notarized.zip: OK`。校验值用于核对下载与发布附件一致；代码签名、Apple 公证和实际安装验收仍是各自独立的检查。
 
 ### 验证范围
 
