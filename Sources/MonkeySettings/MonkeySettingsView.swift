@@ -486,6 +486,8 @@ private struct AccountPane: View {
     @ObservedObject var client: ChatGPTClient
     @State private var actionMessage: String?
     @State private var isWorking = false
+    @State private var accountPendingRemoval: ChatGPTAccount?
+    @State private var isShowingRemovalConfirmation = false
 
     var body: some View {
         SettingsCard("ChatGPT 连接") {
@@ -511,11 +513,22 @@ private struct AccountPane: View {
                 }
                 if client.accountEmail != nil {
                     Button("退出登录") { run { try await client.signOut() } }
-                        .buttonStyle(.plain).font(.system(size: 12)).foregroundStyle(SettingsPalette.muted).disabled(isWorking)
+                        .buttonStyle(.plain).font(.system(size: 12)).foregroundStyle(SettingsPalette.muted)
+                        .disabled(isWorking || client.isSigningIn)
                 }
                 if isWorking { ProgressView().controlSize(.small) }
             }
             NoteLine(text: "需要账号符合订阅使用条件；登录不会授权读取 ChatGPT 聊天记录。", symbol: "lock")
+        }
+        .alert("删除此 Mac 的连接？", isPresented: $isShowingRemovalConfirmation, presenting: accountPendingRemoval) { account in
+            Button("删除连接", role: .destructive) {
+                accountPendingRemoval = nil
+                run { try await client.removeAccount(account.clientID) }
+            }
+            .disabled(isWorking || client.isSigningIn)
+            Button("取消", role: .cancel) { accountPendingRemoval = nil }
+        } message: { account in
+            Text("\(account.email)\n连接 \(String(account.clientID.suffix(8)))\n\n将删除此 Mac 上该连接的记录和凭据。删除当前连接后需要重新登录；新注册会提交本机设备名，未完成的授权可能被继续使用。\n\nChatGPT 中的旧关联仍需前往 ChatGPT 设置中断开。")
         }
         if client.activeAccountID != nil && !client.accounts.isEmpty {
             SettingsCard("钥匙串授权") {
@@ -544,7 +557,7 @@ private struct AccountPane: View {
             }
             HStack {
                 Button("刷新可用模型", systemImage: "arrow.clockwise") { run { try await client.refreshModels() } }
-                    .buttonStyle(SecondaryActionStyle()).disabled(client.accountEmail == nil || isWorking)
+                    .buttonStyle(SecondaryActionStyle()).disabled(client.accountEmail == nil || isWorking || client.isSigningIn)
                 Spacer()
                 Link("管理用量与授权 ↗", destination: URL(string: "https://chatgpt.com/settings/usage")!)
                     .font(.system(size: 11))
@@ -562,12 +575,19 @@ private struct AccountPane: View {
                         if client.activeAccountID == account.clientID {
                             StatusPill(text: "当前连接", symbol: "link")
                         } else {
-                            Button("选择") { client.selectAccount(account.clientID) }.buttonStyle(SecondaryActionStyle()).disabled(isWorking)
+                            Button("选择") { client.selectAccount(account.clientID) }
+                                .buttonStyle(SecondaryActionStyle()).disabled(isWorking || client.isSigningIn)
                         }
+                        Button("删除", role: .destructive) {
+                            accountPendingRemoval = account
+                            isShowingRemovalConfirmation = true
+                        }
+                        .buttonStyle(SecondaryActionStyle()).disabled(isWorking || client.isSigningIn)
+                        .accessibilityLabel("删除连接 \(String(account.clientID.suffix(8)))")
                     }
                 }
                 Button("添加其他账号或工作区", systemImage: "plus") { run { try await client.signIn(asNewAccount: true) } }
-                    .buttonStyle(SecondaryActionStyle()).disabled(isWorking)
+                    .buttonStyle(SecondaryActionStyle()).disabled(isWorking || client.isSigningIn)
             }
         }
     }
