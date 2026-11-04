@@ -4,6 +4,7 @@ import CryptoKit
 import Darwin
 import Foundation
 import OSLog
+import SystemConfiguration
 
 @MainActor
 public final class ChatGPTClient: ObservableObject {
@@ -20,8 +21,23 @@ public final class ChatGPTClient: ObservableObject {
     @Published public private(set) var activeAccountID: String?
     @Published public private(set) var requiresKeychainAuthorization = false
     @Published public private(set) var lastTranslationLatency: TranslationLatency?
+    private var isLoadingSelectedModel = false
     @Published public var selectedModel: String {
-        didSet { Self.defaults.set(selectedModel, forKey: "ChatGPT.selectedModel") }
+        didSet {
+            guard !isLoadingSelectedModel, let expectedID = activeAccountID else { return }
+            do {
+                try ChatGPTAccountMetadata.withLock(defaults: Self.defaults) {
+                    guard Self.defaults.string(forKey: "ChatGPT.activeClientID") == expectedID else { return }
+                    Self.defaults.set(selectedModel, forKey: "ChatGPT.selectedModel")
+                }
+            } catch { statusMessage = Self.userMessage(error) }
+        }
+    }
+    private func loadSelectedModel(_ model: String) {
+        guard selectedModel != model else { return }
+        isLoadingSelectedModel = true
+        selectedModel = model
+        isLoadingSelectedModel = false
     }
 
     private let session: URLSession
@@ -31,6 +47,7 @@ public final class ChatGPTClient: ObservableObject {
     private var loopback: ChatGPTLoopbackServer?
     private var accountObserver: NSObjectProtocol?
     private let credentialCache = ChatGPTCredentialCache()
+    private var isRemovingAccount = false
 
     public init() {
         selectedModel = Self.defaults.string(forKey: "ChatGPT.selectedModel") ?? ""
@@ -44,35 +61,55 @@ public final class ChatGPTClient: ObservableObject {
         ) { [weak self] _ in Task { @MainActor in self?.reloadAccount() } }
     }
 
-    public func reloadAccount() {
-        let savedModel = Self.defaults.string(forKey: "ChatGPT.selectedModel") ?? ""
-        if selectedModel != savedModel { selectedModel = savedModel }
-        accounts = (Self.defaults.data(forKey: "ChatGPT.accounts")).flatMap { try? JSONDecoder().decode([ChatGPTAccount].self, from: $0) } ?? []
-        let savedID = Self.defaults.string(forKey: "ChatGPT.activeClientID")
+    @discardableResult
+    public func reloadAccount() -> Bool {
+        let metadata: (String, [ChatGPTAccount], String?, [String])
+        do {
+            metadata = try ChatGPTAccountMetadata.withLock(defaults: Self.defaults) {
+                (Self.defaults.string(forKey: "ChatGPT.selectedModel") ?? "",
+                 try ChatGPTAccountMetadata.accounts(Self.defaults),
+                 Self.defaults.string(forKey: "ChatGPT.activeClientID"),
+                 Self.defaults.stringArray(forKey: "ChatGPT.disabledClients") ?? [])
+            }
+        } catch {
+            accountGeneration = UUID()
+            refreshTask?.cancel(); refreshTask = nil
+            credentialCache.invalidate()
+            activeAccountID = nil
+            accountEmail = nil
+            accounts = []
+            models = []
+            statusMessage = Self.userMessage(error)
+            return false
+        }
+        let (savedModel, savedAccounts, savedID, disabledIDs) = metadata
+        loadSelectedModel(savedModel)
+        accounts = savedAccounts
         if activeAccountID != savedID {
             accountGeneration = UUID()
             refreshTask?.cancel(); refreshTask = nil
             models = []
         }
         activeAccountID = savedID
-        let disabled = savedID.map { disabledClients().contains($0) } ?? true
+        let disabled = savedID.map { disabledIDs.contains($0) } ?? true
         credentialCache.synchronize(clientID: disabled ? nil : savedID,
                                     revision: savedID.flatMap { credentialRevision($0) })
         requiresKeychainAuthorization = credentialCache.requiresAuthorization
         guard let savedID, let account = accounts.first(where: { $0.clientID == savedID }) else {
             accountEmail = nil
-            return
+            return true
         }
         if disabled {
             if accountEmail != nil { accountGeneration = UUID() }
             accountEmail = nil
-            return
+            return true
         }
         // Account labels are nonsecret metadata. Merely focusing an input field
         // or opening settings must never read Keychain data or show authorization UI.
         accountEmail = account.email
         if credentialCache.hasCredential { statusMessage = "ChatGPT 已连接。翻译会使用此账号授权的订阅额度。" }
         else if !requiresKeychainAuthorization { statusMessage = "ChatGPT 连接已保存，首次翻译时验证授权。" }
+        return true
     }
 
     /// The explicit settings button is the only retry that may show a Keychain
@@ -89,7 +126,7 @@ public final class ChatGPTClient: ObservableObject {
             guard activeAccountID == id, !disabledClients().contains(id) else { throw CancellationError() }
             // Notify an already-running input-method process to retry its failed
             // noninteractive read after the user has granted this binary access.
-            rememberCredential(credential)
+            try rememberCredential(credential)
             requiresKeychainAuthorization = false
             statusMessage = "钥匙串访问已允许，可返回输入框继续翻译。"
             postAccountChange()
@@ -101,15 +138,24 @@ public final class ChatGPTClient: ObservableObject {
     }
 
     public func selectAccount(_ clientID: String) {
-        guard accounts.contains(where: { $0.clientID == clientID }) else { return }
+        guard !isRemovingAccount else { return }
+        do {
+            let selected = try ChatGPTAccountMetadata.withLock(defaults: Self.defaults) {
+                guard try ChatGPTAccountMetadata.accounts(Self.defaults).contains(where: { $0.clientID == clientID }) else { return false }
+                Self.defaults.set(clientID, forKey: "ChatGPT.activeClientID")
+                Self.defaults.set("", forKey: "ChatGPT.selectedModel")
+                return true
+            }
+            guard selected else { reloadAccount(); return }
+        } catch { statusMessage = Self.userMessage(error); return }
         refreshTask?.cancel(); refreshTask = nil
-        Self.defaults.set(clientID, forKey: "ChatGPT.activeClientID")
-        selectedModel = ""
+        loadSelectedModel("")
         reloadAccount()
         postAccountChange()
     }
 
     public func signIn(asNewAccount: Bool = false) async throws {
+        guard !isRemovingAccount else { throw ChatGPTError.message("正在删除连接，请稍后重新登录。") }
         guard !isSigningIn else { return }
         isSigningIn = true
         statusMessage = "请在浏览器中登录 ChatGPT，并允许 Monkey 使用订阅额度。"
@@ -117,7 +163,7 @@ public final class ChatGPTClient: ObservableObject {
         loopback = server
         defer { isSigningIn = false; server.stop(); loopback = nil }
         do {
-            reloadAccount()
+            guard reloadAccount() else { throw ChatGPTError.message(statusMessage) }
             let previous = asNewAccount ? nil : accounts.first(where: { $0.clientID == activeAccountID })
             let pendingID = asNewAccount ? nil : Self.defaults.string(forKey: "ChatGPT.pendingClientID")
             let registeredClientID = previous?.clientID ?? pendingID
@@ -133,7 +179,7 @@ public final class ChatGPTClient: ObservableObject {
             let callbackURI = try await server.start()
             var query: [String: String] = [
                 "client_id": registeredClientID ?? "dynamic_agent_client",
-                "ext_agent_host_id": hostID(),
+                "ext_agent_host_id": try hostID(),
                 "response_type": "code", "redirect_uri": callbackURI.absoluteString,
                 "scope": ChatGPTOAuth.scope, "resource": ChatGPTOAuth.resource,
                 "state": state, "nonce": nonce,
@@ -142,7 +188,7 @@ public final class ChatGPTClient: ObservableObject {
             if let previous {
                 query["login_hint"] = previous.email
                 if let previousCredential { query["id_token_hint"] = previousCredential.idToken }
-            } else if registeredClientID == nil { query["agent_name_hint"] = "Monkey" }
+            } else if registeredClientID == nil { query["agent_name_hint"] = registrationName() }
             var authorization = URLComponents(string: "https://auth.openai.com/api/accounts/authorize")!
             authorization.queryItems = query.map { URLQueryItem(name: $0.key, value: $0.value) }
             guard let authorizationURL = authorization.url, NSWorkspace.shared.open(authorizationURL) else {
@@ -152,7 +198,9 @@ public final class ChatGPTClient: ObservableObject {
             let result = try ChatGPTOAuth.callback(callback, state: state, existingClientID: registeredClientID)
             // Preserve an issued registration even if exchanging this one-use code fails.
             // It does not become an account until the ID token is cryptographically validated.
-            if previous == nil { Self.defaults.set(result.clientID, forKey: "ChatGPT.pendingClientID") }
+            if previous == nil {
+                try ChatGPTAccountMetadata.withLock(defaults: Self.defaults) { Self.defaults.set(result.clientID, forKey: "ChatGPT.pendingClientID") }
+            }
             let token = try await exchange([
                 "grant_type": "authorization_code", "client_id": result.clientID,
                 "code": result.code, "code_verifier": verifier,
@@ -174,15 +222,27 @@ public final class ChatGPTClient: ObservableObject {
             let signInLock = try ChatGPTRefreshLock(clientID: account.clientID)
             try await signInLock.acquire()
             defer { signInLock.release() }
+            if let previous {
+                let saved = try ChatGPTAccountMetadata.withLock(defaults: Self.defaults) { try ChatGPTAccountMetadata.accounts(Self.defaults) }
+                guard saved.contains(where: { $0.clientID == previous.clientID && $0.subject == previous.subject }) else {
+                    throw ChatGPTError.message("此连接已被删除，请重新登录以建立新连接。")
+                }
+            }
             try await KeychainStore.writeAsync(credential, account: credentialKey(account.clientID))
-            setDisabled(account.clientID, disabled: false)
-            accounts.removeAll { $0.clientID == account.clientID }
-            accounts.append(account)
-            try saveAccounts()
-            Self.defaults.set(account.clientID, forKey: "ChatGPT.activeClientID")
-            Self.defaults.removeObject(forKey: "ChatGPT.pendingClientID")
+            // Merge and activate in one cross-process metadata transaction.
+            try ChatGPTAccountMetadata.withLock(defaults: Self.defaults) {
+                var saved = try ChatGPTAccountMetadata.accounts(Self.defaults)
+                saved.removeAll { $0.clientID == account.clientID }
+                saved.append(account)
+                Self.defaults.set(try JSONEncoder().encode(saved), forKey: "ChatGPT.accounts")
+                ChatGPTAccountMetadata.setDisabled(account.clientID, disabled: false, defaults: Self.defaults)
+                Self.defaults.set(account.clientID, forKey: "ChatGPT.activeClientID")
+                if Self.defaults.string(forKey: "ChatGPT.pendingClientID") == account.clientID {
+                    Self.defaults.removeObject(forKey: "ChatGPT.pendingClientID")
+                }
+            }
             accountGeneration = UUID()
-            rememberCredential(credential)
+            try rememberCredential(credential)
             reloadAccount()
             postAccountChange()
             do { try await refreshModels() }
@@ -196,10 +256,11 @@ public final class ChatGPTClient: ObservableObject {
     public func cancelSignIn() { loopback?.stop() }
 
     public func signOut() async throws {
+        guard !isRemovingAccount else { throw ChatGPTError.message("正在删除连接，请稍后重试。") }
         refreshTask?.cancel(); refreshTask = nil
         accountGeneration = UUID()
         guard let id = activeAccountID else { return }
-        setDisabled(id, disabled: true)
+        try setDisabled(id, disabled: true)
         credentialCache.invalidate()
         requiresKeychainAuthorization = false
         accountEmail = nil
@@ -207,22 +268,13 @@ public final class ChatGPTClient: ObservableObject {
         let signOutLock = try ChatGPTRefreshLock(clientID: id)
         try await signOutLock.acquire()
         defer { signOutLock.release() }
+        // A concurrent sign-in may have re-enabled the account while we waited.
+        try setDisabled(id, disabled: true)
+        postAccountChange()
         let credential = try await KeychainStore.readAsync(ChatGPTCredential.self, account: credentialKey(id), allowAuthenticationUI: true)
         var revocationConfirmed = credential == nil
         if let credential {
-            // Attempt remote revocation before deleting the only local copy of the refresh token.
-            for attempt in 0..<2 {
-                do {
-                    var request = URLRequest(url: URL(string: "https://auth.openai.com/api/accounts/oauth/revoke")!)
-                    request.httpMethod = "POST"
-                    request.timeoutInterval = 12
-                    request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-                    request.httpBody = ChatGPTOAuth.form(["token": credential.refreshToken, "token_type_hint": "refresh_token", "client_id": id])
-                    let (_, response) = try await session.data(for: request)
-                    if (response as? HTTPURLResponse)?.statusCode == 200 { revocationConfirmed = true; break }
-                } catch { /* The local account is still signed out below. */ }
-                if attempt == 0 { try? await Task.sleep(nanoseconds: 700_000_000) }
-            }
+            revocationConfirmed = await revokeSession(credential, clientID: id)
         }
         try await KeychainStore.deleteAsync(account: credentialKey(id))
         credentialCache.invalidate()
@@ -231,6 +283,79 @@ public final class ChatGPTClient: ObservableObject {
         models = []
         statusMessage = revocationConfirmed ? "已退出 ChatGPT。普通拼音输入仍然可用。" : "已在本机退出；未确认远程撤销。可到 ChatGPT 设置中断开 Monkey。"
         postAccountChange()
+    }
+
+    public func removeAccount(_ clientID: String) async throws {
+        guard !isSigningIn, !isRemovingAccount else {
+            throw ChatGPTError.message("请先完成或取消当前连接操作，再删除连接。")
+        }
+        guard reloadAccount() else { throw ChatGPTError.message(statusMessage) }
+        guard accounts.contains(where: { $0.clientID == clientID }) else { return }
+        isRemovingAccount = true
+        defer { isRemovingAccount = false }
+        // Stop every process from reusing this connection while its rotating
+        // credentials are being revoked and removed under the refresh lock.
+        try setDisabled(clientID, disabled: true)
+        if activeAccountID == clientID {
+            accountGeneration = UUID()
+            refreshTask?.cancel(); refreshTask = nil
+            credentialCache.invalidate()
+            requiresKeychainAuthorization = false
+            accountEmail = nil
+        }
+        postAccountChange()
+        do {
+            let lock = try ChatGPTRefreshLock(clientID: clientID)
+            try await lock.acquire()
+            defer { lock.release() }
+            // Reassert after acquiring the per-client lock: an in-flight sign-in
+            // may have re-enabled this account while removal was waiting.
+            try setDisabled(clientID, disabled: true)
+            postAccountChange()
+            // A denied read must not prevent explicitly deleting a saved item.
+            // Deletion itself can still request the normal macOS authorization.
+            let credential = try? await KeychainStore.readAsync(ChatGPTCredential.self, account: credentialKey(clientID))
+            var revocationConfirmed = false
+            if let credential { revocationConfirmed = await revokeSession(credential, clientID: clientID) }
+            try await ChatGPTConnectionRemoval.remove(clientID, from: Self.defaults) {
+                try await KeychainStore.deleteAsync(account: self.credentialKey(clientID))
+            }
+            reloadAccount()
+            if activeAccountID == nil {
+                models = []
+                loadSelectedModel("")
+                lastTranslationLatency = nil
+                requiresKeychainAuthorization = false
+            }
+            statusMessage = "已删除此 Mac 保存的连接。重新登录可能继续使用之前未完成的授权；新注册会提交设备名。"
+            statusMessage += revocationConfirmed
+                ? " ChatGPT 中的旧关联仍需到 ChatGPT 设置中断开。"
+                : " 未确认远程会话撤销，请到 ChatGPT 设置中断开旧关联。"
+            postAccountChange()
+        } catch {
+            reloadAccount()
+            statusMessage = "连接尚未删除，可重试删除或重新登录。\(Self.userMessage(error))"
+            postAccountChange()
+            throw error
+        }
+    }
+
+    private func revokeSession(_ credential: ChatGPTCredential, clientID: String) async -> Bool {
+        // Revoking the renewable session does not remove the registered client
+        // from ChatGPT. Keep the UI's local deletion claim separate from that.
+        for attempt in 0..<2 {
+            do {
+                var request = URLRequest(url: URL(string: "https://auth.openai.com/api/accounts/oauth/revoke")!)
+                request.httpMethod = "POST"
+                request.timeoutInterval = 12
+                request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+                request.httpBody = ChatGPTOAuth.form(["token": credential.refreshToken, "token_type_hint": "refresh_token", "client_id": clientID])
+                let (_, response) = try await session.data(for: request)
+                if (response as? HTTPURLResponse)?.statusCode == 200 { return true }
+            } catch { /* Local cleanup can continue without confirmed revocation. */ }
+            if attempt == 0 { try? await Task.sleep(nanoseconds: 700_000_000) }
+        }
+        return false
     }
 
     public func refreshModels() async throws {
@@ -368,7 +493,7 @@ public final class ChatGPTClient: ObservableObject {
             guard renewed.scopes.contains("chatgpt.tokens.use.direct"), renewed.scopes.contains("resource.invoke") else { throw ChatGPTError.message("ChatGPT 订阅授权已撤销，请重新登录。") }
             try await KeychainStore.writeAsync(renewed, account: credentialKey(id), allowAuthenticationUI: false)
             guard generation == accountGeneration, !disabledClients().contains(id) else { throw CancellationError() }
-            rememberCredential(renewed)
+            try rememberCredential(renewed)
             postAccountChange()
             return renewed
         }
@@ -406,10 +531,15 @@ public final class ChatGPTClient: ObservableObject {
         Self.defaults.string(forKey: "ChatGPT.credentialRevision.\(id)")
     }
 
-    private func rememberCredential(_ credential: ChatGPTCredential) {
+    private func rememberCredential(_ credential: ChatGPTCredential) throws {
         let id = credential.account.clientID
         let revision = UUID().uuidString
-        Self.defaults.set(revision, forKey: "ChatGPT.credentialRevision.\(id)")
+        try ChatGPTAccountMetadata.withLock(defaults: Self.defaults) {
+            guard Self.defaults.string(forKey: "ChatGPT.activeClientID") == id,
+                  !(Self.defaults.stringArray(forKey: "ChatGPT.disabledClients") ?? []).contains(id),
+                  try ChatGPTAccountMetadata.accounts(Self.defaults).contains(where: { $0.clientID == id }) else { throw CancellationError() }
+            Self.defaults.set(revision, forKey: "ChatGPT.credentialRevision.\(id)")
+        }
         credentialCache.store(credential, clientID: id, revision: revision)
         requiresKeychainAuthorization = false
     }
@@ -436,17 +566,28 @@ public final class ChatGPTClient: ObservableObject {
 
     private func credentialKey(_ clientID: String) -> String { "chatgpt.credentials.\(clientID)" }
     private func disabledClients() -> [String] { Self.defaults.stringArray(forKey: "ChatGPT.disabledClients") ?? [] }
-    private func setDisabled(_ id: String, disabled: Bool) {
-        var values = disabledClients().filter { $0 != id }
-        if disabled { values.append(id) }
-        Self.defaults.set(values, forKey: "ChatGPT.disabledClients")
+    private func setDisabled(_ id: String, disabled: Bool) throws {
+        try ChatGPTAccountMetadata.withLock(defaults: Self.defaults) {
+            ChatGPTAccountMetadata.setDisabled(id, disabled: disabled, defaults: Self.defaults)
+        }
     }
-    private func saveAccounts() throws { Self.defaults.set(try JSONEncoder().encode(accounts), forKey: "ChatGPT.accounts") }
-    private func hostID() -> String {
-        if let saved = Self.defaults.string(forKey: "ChatGPT.hostID") { return saved }
-        let generated = "urn:uuid:\(UUID().uuidString.lowercased())"
-        Self.defaults.set(generated, forKey: "ChatGPT.hostID")
-        return generated
+    private func registrationName() -> String {
+        let names = [SCDynamicStoreCopyComputerName(nil, nil) as String?,
+                     SCDynamicStoreCopyLocalHostName(nil) as String?]
+        for name in names.compactMap({ $0 }) {
+            let deviceName = name.components(separatedBy: .whitespacesAndNewlines)
+                .filter { !$0.isEmpty }.joined(separator: " ")
+            if !deviceName.isEmpty { return "Monkey · \(deviceName)" }
+        }
+        return "Monkey"
+    }
+    private func hostID() throws -> String {
+        try ChatGPTAccountMetadata.withLock(defaults: Self.defaults) {
+            if let saved = Self.defaults.string(forKey: "ChatGPT.hostID") { return saved }
+            let generated = "urn:uuid:\(UUID().uuidString.lowercased())"
+            Self.defaults.set(generated, forKey: "ChatGPT.hostID")
+            return generated
+        }
     }
     private func postAccountChange() {
         DistributedNotificationCenter.default().postNotificationName(Self.accountChangedNotification, object: nil, userInfo: nil, deliverImmediately: true)
