@@ -132,6 +132,25 @@ final class CompositionSessionTests: XCTestCase {
         }
     }
 
+    func testSystemSwitchPreservesConfirmedTranslationDraftAndCommitsRawTailOnlyOnce() async throws {
+        try await MainActor.run {
+            try withSession { session in
+                var draft = TranslationDraft()
+                draft.append("你好")
+                XCTAssertEqual(type("shijie", into: session), "")
+                XCTAssertTrue(session.commitRawComposition())
+                let committed = draft.source + (session.takeCommit() ?? "")
+                session.clear()
+                draft.reset()
+                XCTAssertEqual(committed, "你好shijie")
+                // A subsequent IMK deactivate after commit must have nothing left.
+                XCTAssertFalse(session.commitRawComposition())
+                XCTAssertNil(session.takeCommit())
+                XCTAssertTrue(draft.source.isEmpty)
+            }
+        }
+    }
+
     func testPinyinDigitsStillSelectCandidatesAndEnglishDigitsStayLiteral() async throws {
         try await MainActor.run {
             try withSession { session in

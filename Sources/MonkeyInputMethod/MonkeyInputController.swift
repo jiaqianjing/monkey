@@ -1,4 +1,5 @@
 import AppKit
+import Carbon
 import InputMethodKit
 import MonkeyCore
 import MonkeyPinyin
@@ -13,6 +14,8 @@ final class MonkeyInputController: IMKInputController {
     private var translationMode = false
     private var asciiMode = false
     private var active = false
+    private var activationProcessID: pid_t?
+    private var observedMonkeySource = false
     private var inputClient: IMKTextInput?
     private var requestTask: Task<Void, Never>?
     private var message: String?
@@ -30,6 +33,8 @@ final class MonkeyInputController: IMKInputController {
         let controllerClient = client()
         if let client = argumentClient ?? controllerClient { bind(client) }
         active = true
+        activationProcessID = NSWorkspace.shared.frontmostApplication?.processIdentifier
+        observedMonkeySource = Self.currentInputSourceIsMonkey()
         panelSuppressed = false
         activation = UUID()
         receivedFirstEvent = false
@@ -44,7 +49,7 @@ final class MonkeyInputController: IMKInputController {
     override func deactivateServer(_ sender: Any!) {
         // The original client still owns its marked text at this point.
         // Commit only the source; an asynchronous English result is never committed here.
-        if !markedText.isEmpty { commitOriginal() }
+        if !markedText.isEmpty { commitForSystemTransition() }
         invalidateAsyncWork()
         session?.clear()
         draft.reset()
@@ -53,6 +58,8 @@ final class MonkeyInputController: IMKInputController {
         markedText = ""
         markedCaret = 0
         active = false
+        activationProcessID = nil
+        observedMonkeySource = false
     }
 
     override func recognizedEvents(_ sender: Any!) -> Int {
@@ -78,6 +85,9 @@ final class MonkeyInputController: IMKInputController {
         }
         bind(client)
         active = true
+        // Activation can precede the system's selected-source update. Verify
+        // the source again when the session actually receives a key event.
+        if !observedMonkeySource { observedMonkeySource = Self.currentInputSourceIsMonkey() }
         let flags = event.modifierFlags.intersection(.deviceIndependentFlagsMask)
         let plain = event.charactersIgnoringModifiers?.lowercased() ?? ""
 
@@ -175,7 +185,7 @@ final class MonkeyInputController: IMKInputController {
 
     override func commitComposition(_ sender: Any!) {
         if let client = client() { bind(client) }
-        commitOriginal()
+        commitForSystemTransition()
     }
 
     override func menu() -> NSMenu! {
@@ -232,6 +242,8 @@ final class MonkeyInputController: IMKInputController {
             draft.reset()
             markedText = ""
             markedCaret = 0
+            observedMonkeySource = false
+            activationProcessID = NSWorkspace.shared.frontmostApplication?.processIdentifier
             activation = UUID()
             panel.orderOut(nil)
         }
@@ -349,6 +361,48 @@ final class MonkeyInputController: IMKInputController {
         insert(english)
         message = nil
         refresh()
+    }
+
+    private static func currentInputSourceIsMonkey() -> Bool {
+        let source = TISCopyCurrentKeyboardInputSource().takeRetainedValue()
+        guard let pointer = TISGetInputSourceProperty(source, kTISPropertyInputSourceID) else { return false }
+        let identifier = Unmanaged<CFString>.fromOpaque(pointer).takeUnretainedValue() as String
+        return identifier == InputSourceManager.bundleID || identifier == InputSourceManager.modeID
+    }
+
+    private func commitForSystemTransition() {
+        let source = TISCopyCurrentKeyboardInputSource().takeRetainedValue()
+        var isASCIICapableKeyboardLayout = false
+        if let kind = TISGetInputSourceProperty(source, kTISPropertyInputSourceType),
+           let capability = TISGetInputSourceProperty(source, kTISPropertyInputSourceIsASCIICapable) {
+            let type = Unmanaged<CFString>.fromOpaque(kind).takeUnretainedValue()
+            let ascii = Unmanaged<CFBoolean>.fromOpaque(capability).takeUnretainedValue()
+            isASCIICapableKeyboardLayout = CFEqual(type, kTISTypeKeyboardLayout) && CFBooleanGetValue(ascii)
+        }
+        if SystemInputSwitchPolicy.shouldCommitRaw(
+            active: active,
+            observedMonkeySource: observedMonkeySource,
+            isASCIICapableKeyboardLayout: isASCIICapableKeyboardLayout,
+            activationProcessID: activationProcessID,
+            currentProcessID: NSWorkspace.shared.frontmostApplication?.processIdentifier
+        ) {
+            commitRawOriginal()
+        } else {
+            commitOriginal()
+        }
+    }
+
+    private func commitRawOriginal() {
+        guard let session else { return }
+        var text = translationMode ? draft.source : ""
+        if session.commitRawComposition() { text += session.takeCommit() ?? "" }
+        invalidateAsyncWork()
+        session.clear()
+        draft.reset()
+        if !text.isEmpty { insert(text) }
+        else if !markedText.isEmpty { mark("") }
+        panel.orderOut(nil)
+        message = nil
     }
 
     private func commitOriginal() {
