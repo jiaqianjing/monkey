@@ -12,7 +12,7 @@
 在维护者自己的终端交互配置公证凭据，按 `xcrun notarytool store-credentials --help` 操作。例如，提供 Apple Account 和 Team ID、**省略 `--password`**，由工具安全提示输入应用专用密码：
 
 ```sh
-xcrun notarytool store-credentials MonkeyNotary \
+xcrun notarytool store-credentials AppleNotary-UBS9FUBNFR \
   --apple-id YOUR_APPLE_ACCOUNT --team-id YOUR_TEAM_ID
 ```
 
@@ -20,7 +20,7 @@ xcrun notarytool store-credentials MonkeyNotary \
 
 ```sh
 MONKEY_SIGNING_IDENTITY='Developer ID Application: Your Name (TEAMID)' \
-MONKEY_NOTARY_PROFILE=MonkeyNotary \
+MONKEY_NOTARY_PROFILE=AppleNotary-UBS9FUBNFR \
 ./scripts/notarize-release.sh
 ```
 
